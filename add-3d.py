@@ -71,11 +71,7 @@ def generate_new_seed(rfam_acc, new_lines, pdb_id):
     return data
 
 
-def main():
-
-    rfam_acc = 'RF00050'
-    pdb_ids = ['3F2Q_X', '3F2T_X', '3F2W_X', '3F2X_X', '3F2Y_X', '3F30_X']
-
+def process_family(rfam_acc, pdb_ids):
     new_lines = []
 
     for pdb_id in pdb_ids:
@@ -92,5 +88,17 @@ def main():
     for line in lines:
         print(line)
 
+
+
+def main():
+
+    # rfam_acc = 'RF00050'
+    # pdb_ids = ['3F2Q_X', '3F2T_X', '3F2W_X', '3F2X_X', '3F2Y_X', '3F30_X']
+
+    rfam_acc = 'RF00162'
+    pdb_ids = ['2GIS_A', '3GX3_A', '5FJC_A']
+
+
+    process_family(rfam_acc, pdb_ids)
 
 main()
