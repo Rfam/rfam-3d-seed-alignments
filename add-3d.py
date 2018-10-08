@@ -2,6 +2,31 @@
 import os
 import re
 
+import collections
+
+# import MySQLdb
+# db = MySQLdb.connect(db="Rfam", user='rfamro', host='mysql-rfam-public.ebi.ac.uk', port=4497)
+#  cursor = db.cursor(MySQLdb.cursors.DictCursor)
+
+
+def download_rfam_files(rfam_acc):
+    if not os.path.exists('{}.cm'.format(rfam_acc)):
+        cmd = 'wget -O {0}.cm  http://rfam.org/family/{0}/cm'.format(rfam_acc)
+        os.system(cmd)
+    if not os.path.exists('{}.seed'.format(rfam_acc)):
+        cmd = 'wget -O {0}.seed.gz http://rfam.org/family/{0}/alignment/stockholm?gzip=1&download=1 && gunzip {0}.seed.gz'.format(rfam_acc)
+        os.system(cmd)
+
+
+def get_rfam_3d_mapping():
+    data = collections.defaultdict(list)
+    with open('pdb_full_region.txt', 'r') as f:
+        for line in f.readlines():
+            parts = re.split('\s+', line)
+            pdb_id = '{}_{}'.format(parts[1].upper(), parts[2])
+            data[parts[0]].append(pdb_id)
+    return data
+
 
 def get_secondary_structure(pdb_id):
     with open('{}.fasta'.format(pdb_id), 'r') as f:
@@ -85,20 +110,22 @@ def process_family(rfam_acc, pdb_ids):
         })
 
     lines = generate_new_seed(rfam_acc, new_lines, pdb_ids[-1])
-    for line in lines:
-        print(line)
 
+    with open('output/{}.sto'.format(rfam_acc), 'w') as f:
+        for line in lines:
+            f.write(line + '\n')
 
 
 def main():
 
-    # rfam_acc = 'RF00050'
-    # pdb_ids = ['3F2Q_X', '3F2T_X', '3F2W_X', '3F2X_X', '3F2Y_X', '3F30_X']
+    pdb_data = get_rfam_3d_mapping()
+    for rfam_acc in pdb_data.keys():
+        print(rfam_acc)
+        download_rfam_files(rfam_acc)
+        try:
+            process_family(rfam_acc, pdb_data[rfam_acc])
+        except:
+            continue
 
-    rfam_acc = 'RF00162'
-    pdb_ids = ['2GIS_A', '3GX3_A', '5FJC_A']
-
-
-    process_family(rfam_acc, pdb_ids)
 
 main()
