@@ -100,7 +100,7 @@ def add_structure_to_alignment(pdb_id, pdb_sto, structure):
 def generate_new_seed(rfam_acc, new_lines, pdb_id):
     data = []
     block_id = 0
-    with open('temp/{}-with-3d.sto'.format(rfam_acc), 'r') as f: # 5FKH_A
+    with open('temp/{}-with-3d.sto'.format(rfam_acc), 'r') as f:
         for line in f.readlines():
             if line.startswith('#=GC SS_cons'):
                 for lines in new_lines:
