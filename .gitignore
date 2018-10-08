@@ -1,0 +1,7 @@
+*.pyc
+cm/*
+fasta/*
+seed/*
+output/*
+temp/*
+rscape-test/*
