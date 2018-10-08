@@ -10,15 +10,18 @@ import collections
 
 
 def download_rfam_files(rfam_acc):
-    if not os.path.exists('{}.cm'.format(rfam_acc)):
-        cmd = 'wget -O {0}.cm  http://rfam.org/family/{0}/cm'.format(rfam_acc)
+    if not os.path.exists('cm/{}.cm'.format(rfam_acc)):
+        cmd = 'wget -O cm/{0}.cm  http://rfam.org/family/{0}/cm'.format(rfam_acc)
         os.system(cmd)
-    if not os.path.exists('{}.seed'.format(rfam_acc)):
-        cmd = 'wget -O {0}.seed.gz http://rfam.org/family/{0}/alignment/stockholm?gzip=1&download=1 && gunzip {0}.seed.gz'.format(rfam_acc)
+    if not os.path.exists('seed/{}.seed'.format(rfam_acc)):
+        cmd = 'wget -O seed/{0}.seed.gz http://rfam.org/family/{0}/alignment/stockholm?gzip=1&download=1 && gunzip seed/{0}.seed.gz'.format(rfam_acc)
         os.system(cmd)
 
 
 def get_rfam_3d_mapping():
+    if not os.path.exists('pdb_full_region.txt'):
+        cmd = 'wget ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/database_files/pdb_full_region.txt.gz && gunzip pdb_full_region.txt.gz'
+        os.system(cmd)
     data = collections.defaultdict(list)
     with open('pdb_full_region.txt', 'r') as f:
         for line in f.readlines():
@@ -29,7 +32,7 @@ def get_rfam_3d_mapping():
 
 
 def get_secondary_structure(pdb_id):
-    with open('{}.fasta'.format(pdb_id), 'r') as f:
+    with open('fasta/{}.fasta'.format(pdb_id), 'r') as f:
         data = f.readlines()
     return list(data[2].strip())
 
@@ -51,18 +54,18 @@ def get_ss_line(structure, line):
 
 
 def get_fasta_file(pdb_id):
-    pdb_fasta = '{}.fasta'.format(pdb_id)
+    pdb_fasta = 'fasta/{}.fasta'.format(pdb_id)
     cmd = 'python /Users/apetrov/Dropbox/EBI/grants/Rfam-BBR-2018/mifam/json2dtbracket/json2dotbracket.py {} > {}'.format(pdb_id, pdb_fasta)
     os.system(cmd)
     return pdb_fasta
 
 
 def align_to_seed(rfam_acc, pdb_fasta):
-    pdb_sto = '{}-with-3d.sto'.format(rfam_acc)
+    pdb_sto = 'temp/{}-with-3d.sto'.format(rfam_acc)
     temp_fasta = pdb_fasta.replace('.fasta', '_no_ss.fasta')
     cmd = 'head -2 {} > {}'.format(pdb_fasta, temp_fasta)
     os.system(cmd)
-    cmd = "/Users/apetrov/Dropbox/apps/infernal/cmalign --mapali {0}.seed {0}.cm {1} > {2}".format(rfam_acc, temp_fasta, pdb_sto)
+    cmd = "/Users/apetrov/Dropbox/apps/infernal/cmalign --mapali seed/{0}.seed cm/{0}.cm {1} > {2}".format(rfam_acc, temp_fasta, pdb_sto)
     os.system(cmd)
     return pdb_sto
 
@@ -82,7 +85,7 @@ def add_structure_to_alignment(pdb_id, pdb_sto, structure):
 def generate_new_seed(rfam_acc, new_lines, pdb_id):
     data = []
     block_id = 0
-    with open('{}-with-3d.sto'.format(rfam_acc), 'r') as f:
+    with open('temp/{}-with-3d.sto'.format(rfam_acc), 'r') as f:
         for line in f.readlines():
             if line.startswith('#=GC SS_cons'):
                 for lines in new_lines:
@@ -120,6 +123,8 @@ def main():
 
     pdb_data = get_rfam_3d_mapping()
     for rfam_acc in pdb_data.keys():
+        if rfam_acc not in ['RF00162', 'RF00168']:
+            continue
         print(rfam_acc)
         download_rfam_files(rfam_acc)
         try:
