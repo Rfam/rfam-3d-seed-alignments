@@ -53,7 +53,7 @@ def get_ss_line(structure, line):
     match = re.match(r'^(\w+)(\s+)(\S+)', line)
     for character in match.group(3):
         if character in ['-', '.']:
-            new_line.append(character)
+            new_line.append('.')
         else:
             if structure:
                 new_character = structure.pop(0)
@@ -65,6 +65,8 @@ def get_ss_line(structure, line):
 
 
 def get_fasta_file(pdb_id):
+    if not os.path.exists('/Users/apetrov/Desktop/basepairs/{}.json'.format(pdb_id)):
+        return None
     pdb_fasta = 'fasta/{}.fasta'.format(pdb_id)
     cmd = 'python json2dotbracket.py {} > {}'.format(pdb_id, pdb_fasta)
     os.system(cmd)
@@ -73,10 +75,12 @@ def get_fasta_file(pdb_id):
 
 def align_to_seed(rfam_acc, pdb_fasta):
     pdb_sto = 'temp/{}-with-3d.sto'.format(rfam_acc)
+    pdb_sto_new = 'temp/{}-with-3d-new.sto'.format(rfam_acc)
     temp_fasta = pdb_fasta.replace('.fasta', '_no_ss.fasta')
     cmd = 'head -2 {} > {}'.format(pdb_fasta, temp_fasta)
     os.system(cmd)
-    cmd = 'cmalign --mapali seed/{0}.seed cm/{0}.cm {1} > {2}'.format(rfam_acc, temp_fasta, pdb_sto)
+    cmd = 'cmalign --mapali {0} temp/{1}.cm {2} > {3} && cp {3} {0}'.format(pdb_sto, rfam_acc, temp_fasta, pdb_sto_new)
+    print(cmd)
     os.system(cmd)
     return pdb_sto
 
@@ -96,52 +100,68 @@ def add_structure_to_alignment(pdb_id, pdb_sto, structure):
 def generate_new_seed(rfam_acc, new_lines, pdb_id):
     data = []
     block_id = 0
-    with open('temp/{}-with-3d.sto'.format(rfam_acc), 'r') as f:
+    with open('temp/{}-with-3d.sto'.format(rfam_acc), 'r') as f: # 5FKH_A
         for line in f.readlines():
             if line.startswith('#=GC SS_cons'):
                 for lines in new_lines:
-                    data.append(lines['1d'][block_id])
-                for lines in new_lines:
                     data.append(lines['2d'][block_id])
                 block_id += 1
-            elif line.startswith(pdb_id) or line.startswith('#=GR ' + pdb_id):
+            elif line.startswith('#=GR ' + pdb_id):
                 continue
             data.append(line.rstrip())
     return data
 
 
+def generate_new_cm(rfam_acc, pdb_sto):
+    new_cm = 'temp/{}.cm'.format(rfam_acc)
+    cmd = 'cmbuild -F {0} {1}'.format(new_cm, pdb_sto)
+    os.system(cmd)
+
+
 def process_family(rfam_acc, pdb_ids):
-    new_lines = []
+    for i, pdb_id in enumerate(pdb_ids):
+        if i == 0:
+            cmd = 'cp cm/{0}.cm temp/{0}.cm'.format(rfam_acc)
+            os.system(cmd)
+            cmd = 'cp seed/{0}.seed temp/{0}-with-3d.sto'.format(rfam_acc)
+            os.system(cmd)
+        pdb_fasta = get_fasta_file(pdb_id)
+        if not pdb_fasta:
+            continue
+        pdb_sto = align_to_seed(rfam_acc, pdb_fasta)
+        generate_new_cm(rfam_acc, pdb_sto)
 
     for pdb_id in pdb_ids:
         pdb_fasta = get_fasta_file(pdb_id)
-        pdb_sto = align_to_seed(rfam_acc, pdb_fasta)
+        if not pdb_fasta:
+            continue
+        new_lines = []
         structure = get_secondary_structure(pdb_id)
         structure_lines, sequence_lines = add_structure_to_alignment(pdb_id, pdb_sto, structure)
         new_lines.append({
             '2d': structure_lines,
             '1d': sequence_lines
         })
+        lines = generate_new_seed(rfam_acc, new_lines, pdb_ids[-1])
 
-    lines = generate_new_seed(rfam_acc, new_lines, pdb_ids[-1])
+        with open('temp/{}-with-3d.sto'.format(rfam_acc), 'w') as f:
+            for line in lines:
+                f.write(line + '\n')
 
-    with open('output/{}.sto'.format(rfam_acc), 'w') as f:
-        for line in lines:
-            f.write(line + '\n')
+    cmd = 'cp temp/{0}-with-3d.sto output/{0}.sto'.format(rfam_acc)
+    os.system(cmd)
 
 
 def main():
-
     pdb_data = get_rfam_3d_mapping()
     for rfam_acc in pdb_data.keys():
-        if rfam_acc not in ['RF00162', 'RF00168']:
+        if rfam_acc not in ['RF00050', 'RF00162']:
             continue
+        # if len(pdb_data[rfam_acc]) < 100:
+        #     continue
         print(rfam_acc)
         download_rfam_files(rfam_acc)
-        try:
-            process_family(rfam_acc, pdb_data[rfam_acc])
-        except:
-            continue
+        process_family(rfam_acc, pdb_data[rfam_acc])
 
 
 main()
