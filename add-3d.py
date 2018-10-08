@@ -1,3 +1,14 @@
+"""
+
+Add secondary structure based on 3D annotations to Rfam seed alignments.
+
+Infernal binaries should be available in PATH.
+
+Usage:
+python add-3d.py
+
+"""
+
 
 import os
 import re
@@ -55,7 +66,7 @@ def get_ss_line(structure, line):
 
 def get_fasta_file(pdb_id):
     pdb_fasta = 'fasta/{}.fasta'.format(pdb_id)
-    cmd = 'python /Users/apetrov/Dropbox/EBI/grants/Rfam-BBR-2018/mifam/json2dtbracket/json2dotbracket.py {} > {}'.format(pdb_id, pdb_fasta)
+    cmd = 'python json2dotbracket.py {} > {}'.format(pdb_id, pdb_fasta)
     os.system(cmd)
     return pdb_fasta
 
@@ -65,7 +76,7 @@ def align_to_seed(rfam_acc, pdb_fasta):
     temp_fasta = pdb_fasta.replace('.fasta', '_no_ss.fasta')
     cmd = 'head -2 {} > {}'.format(pdb_fasta, temp_fasta)
     os.system(cmd)
-    cmd = "/Users/apetrov/Dropbox/apps/infernal/cmalign --mapali seed/{0}.seed cm/{0}.cm {1} > {2}".format(rfam_acc, temp_fasta, pdb_sto)
+    cmd = 'cmalign --mapali seed/{0}.seed cm/{0}.cm {1} > {2}'.format(rfam_acc, temp_fasta, pdb_sto)
     os.system(cmd)
     return pdb_sto
 
