@@ -4,8 +4,8 @@ import json
 import os
 
 
-json_database_all = '/Users/apetrov/Desktop/basepairs'
-json_database_nested = '/Users/apetrov/Desktop/basepairs-no-crossing'
+json_database_all = 'basepairs/all'
+json_database_nested = 'basepairs/nested'
 
 def parse_json(filename):
     if not os.path.exists(filename):
