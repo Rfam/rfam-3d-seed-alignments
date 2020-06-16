@@ -36,6 +36,8 @@ def get_rfam_3d_mapping():
     data = collections.defaultdict(list)
     with open('pdb_full_region.txt', 'r') as f:
         for line in f.readlines():
+            if line.startswith('rfam_acc'):
+                continue  # skip header
             parts = re.split('\s+', line)
             pdb_id = '{}_{}'.format(parts[1].upper(), parts[2])
             data[parts[0]].append(pdb_id)
