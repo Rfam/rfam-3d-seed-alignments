@@ -15,10 +15,6 @@ import re
 
 import collections
 
-# import MySQLdb
-# db = MySQLdb.connect(db="Rfam", user='rfamro', host='mysql-rfam-public.ebi.ac.uk', port=4497)
-#  cursor = db.cursor(MySQLdb.cursors.DictCursor)
-
 
 def download_rfam_files(rfam_acc):
     if not os.path.exists('cm/{}.cm'.format(rfam_acc)):
