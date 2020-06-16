@@ -41,6 +41,9 @@ def get_rfam_3d_mapping():
             parts = re.split('\s+', line)
             pdb_id = '{}_{}'.format(parts[1].upper(), parts[2])
             data[parts[0]].append(pdb_id)
+    # remove duplicates (e.g. palindromic miRNAs matching in 2 directions)
+    for rfam_acc, pdbs in data.iteritems():
+        data[rfam_acc] = list(dict.fromkeys(pdbs))
     return data
 
 
