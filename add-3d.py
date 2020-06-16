@@ -153,7 +153,7 @@ def process_family(rfam_acc, pdb_ids):
             for line in lines:
                 f.write(line + '\n')
 
-    cmd = 'cp temp/{0}-with-3d.sto output/{0}.sto'.format(rfam_acc)
+    cmd = 'esl-reformat pfam temp/{0}-with-3d.sto > temp/{0}-final.sto'.format(rfam_acc)
     os.system(cmd)
 
 
