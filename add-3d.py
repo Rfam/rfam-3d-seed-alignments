@@ -115,7 +115,7 @@ def generate_new_seed(rfam_acc, new_lines, pdb_id):
 
 def generate_new_cm(rfam_acc, pdb_sto):
     new_cm = 'temp/{}.cm'.format(rfam_acc)
-    cmd = 'cmbuild -F {0} {1}'.format(new_cm, pdb_sto)
+    cmd = 'cmbuild -o temp/cmbuild -F {0} {1}'.format(new_cm, pdb_sto)
     os.system(cmd)
 
 
