@@ -1,10 +1,3 @@
 *.pyc
-cm/*
-fasta/*
-seed/*
-output/*
+data/output/*
 temp/*
-test/*
-basepairs/*
-env/*
-rna3dhub.py
