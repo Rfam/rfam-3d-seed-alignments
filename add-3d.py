@@ -20,7 +20,7 @@ import collections
 from fr3d_2d import fr3d_2d
 
 
-SKIP_LARGE_ALIGNMENT = 20
+SKIP_LARGE_ALIGNMENT = 30
 
 PDB_BLACKLIST = [
     '7AS5',  # DNA
@@ -40,6 +40,8 @@ def download_rfam_files(rfam_acc):
     """
     Download and uncompress Rfam CM and SEED files for a given family.
     """
+    if not os.path.exists('temp'):
+        os.system('mkdir temp')
     if not os.path.exists('data/cm/{}.cm'.format(rfam_acc)):
         cmd = 'wget -q -O data/cm/{0}.cm  https://rfam.org/family/{0}/cm'.format(rfam_acc)
         subprocess.check_output(cmd, shell=True)

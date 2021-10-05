@@ -23,6 +23,10 @@ def get_rna3dhub_annotations(pdb_id):
     """
     Get FR3D annotations in JSON format.
     """
+    if not os.path.exists(BASEPAIRS_ALL):
+        os.system('mkdir -p {}'.format(BASEPAIRS_ALL))
+    if not os.path.exists(BASEPAIRS_NESTED):
+        os.system('mkdir -p {}'.format(BASEPAIRS_NESTED))
     bps_all = os.path.join(BASEPAIRS_ALL, '{}.json'.format(pdb_id))
     bps_nested = os.path.join(BASEPAIRS_NESTED, '{}.json'.format(pdb_id))
     pdb_code, chain = pdb_id.split('_')
