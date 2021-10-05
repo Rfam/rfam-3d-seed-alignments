@@ -46,6 +46,8 @@ def parse_json(filename):
     with open(filename, 'r') as f:
         data = json.load(f)
 
+    if data['sequence'] == 'No sequence was found for the given id':
+        return None
     sequence = data['sequence']
     structure = list('.' * len(sequence))
 
