@@ -2,7 +2,7 @@
 
 The goal of this project is to automate the incorporation of the 3D structural information into the [Rfam](https://rfam.org) seed alignments using the following workflow:
 
-- The Rfam-PDB mapping file is used to find out which PDB files need to be added to which seed alignments.
+- The Rfam-PDB [mapping file](./pdb_full_region.txt) is used to find out which PDB files need to be added to which seed alignments.
 
 - The 3D structural annotations are downloaded from the [RNA 3D Hub](http://rna.bgsu.edu/rna3dhub) database which regularly annotates all RNA 3D structures using [FR3D](http://rna.bgsu.edu/FR3D).
 
@@ -17,12 +17,14 @@ The goal of this project is to automate the incorporation of the 3D structural i
 - Start an interactive session using Docker:
 
     ```
-    docker run rfam
+    docker-compose run rfam
     ```
+
+Alternatively, follow instructions in the [Dockerfile](./Dockerfile) to install locally.
 
 ## Usage
 
-To update a specific Rfam family:
+1. To update a specific Rfam family:
 
 ```
 add-3d.py RF00162
@@ -30,7 +32,7 @@ add-3d.py RF00162
 
 Alternatively, run `add-3d.py` to update all families.
 
-To get FR3D secondary structure for a PDB id:
+2. To get FR3D secondary structure for a PDB id:
 
 ```
 fr3d_2d.py 2QUS_B
