@@ -65,8 +65,8 @@ def get_rfam_3d_mapping():
         cmd = 'wget ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/database_files/pdb_full_region.txt.gz && gunzip pdb_full_region.txt.gz'
         subprocess.check_output(cmd, shell=True)
     data = collections.defaultdict(list)
-    with open('pdb_full_region.txt', 'r') as f:
-        for line in f.readlines():
+    with open('pdb_full_region.txt', 'r') as f_pdb:
+        for line in f_pdb:
             if line.startswith('rfam_acc'):
                 continue  # skip header
             parts = re.split(r'\s+', line)
@@ -78,6 +78,38 @@ def get_rfam_3d_mapping():
     for rfam_acc, pdbs in data.items():
         data[rfam_acc] = list(dict.fromkeys(pdbs))
     return data
+
+
+def get_curated_3d_mapping():
+    """
+    Some PDBs are not found automatically so they can be manually recorded
+    in a file to be included in processing.
+    """
+    data = collections.defaultdict(list)
+    with open('pdb_full_region_curated.txt', 'r') as f_pdb:
+        for line in f_pdb:
+            parts = re.split(r'\s+', line)
+            rfam_acc = parts[0]
+            pdb_id = '{}_{}'.format(parts[1].upper(), parts[2])
+            data[rfam_acc].append(pdb_id)
+    return data
+
+
+def merge_3d_mappings(pdb_data, pdb_curated_data):
+    """
+    Merge PDB data from automatic Rfam mapping and a curated list.
+    If a pdb_id is found in the curated list, but not found in the automatic
+    mapping, it is added to a merged list.
+    """
+    for rfam_acc in pdb_curated_data.keys():
+        curated_data = pdb_curated_data[rfam_acc]
+        if rfam_acc in pdb_data:
+            for pdb_id in curated_data:
+                if pdb_id not in pdb_data[rfam_acc]:
+                    pdb_data[rfam_acc].append(pdb_id)
+        else:
+            pdb_data[rfam_acc] = curated_data
+    return pdb_data
 
 
 def get_secondary_structure(pdb_id):
@@ -266,6 +298,8 @@ def main():
     args = parser.parse_args()
     rfam_accs = args.rfam_acc
     nocache = args.nocache
+
+    pdb_data = merge_3d_mappings(get_rfam_3d_mapping(), get_curated_3d_mapping())
 
     if not rfam_accs:
         rfam_accs = pdb_data.keys()
