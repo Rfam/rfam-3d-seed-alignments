@@ -24,22 +24,25 @@ Alternatively, follow instructions in the [Dockerfile](./Dockerfile) to install 
 
 ## Usage
 
-1. To update a specific Rfam family:
+- To update one or more Rfam families:
 
-```
-add-3d.py RF00162
-```
+    ```
+    add-3d.py RF00162
+    add-3d.py RF00162 RF00507
+    ```
 
-Alternatively, run `add-3d.py` to update all families.
+    Use `--nocache` to force recomputing the output.
 
-2. To get FR3D secondary structure for a PDB id:
+    Alternatively, run `add-3d.py` to update all families.
 
-```
-fr3d_2d.py 2QUS_B
->2QUS_B
-GGGAGCCCUGUCACCGGAUGUGCUUUCCGGUCUGAUGAGUCCGUGAGGACAAAACAGGGCUCCCGAAUU
-.((((((((((.((((((.....{.))))))(....).((((...}))))...))))))))))......
-```
+- To get FR3D secondary structure for a PDB id:
+
+    ```
+    fr3d_2d.py 2QUS_B
+    >2QUS_B
+    GGGAGCCCUGUCACCGGAUGUGCUUUCCGGUCUGAUGAGUCCGUGAGGACAAAACAGGGCUCCCGAAUU
+    .((((((((((.((((((.....{.))))))(....).((((...}))))...))))))))))......
+    ```
 
 The updated seed alignments with the added 3D structures will be in the `output` folder (see [precomputed results](./data/output)).
 
@@ -49,9 +52,11 @@ The updated seed alignments with the added 3D structures will be in the `output`
 
 - Delete `pdb.tsv` to download the latest RNAcentral-PDB mapping from the RNAcentral FTP archive.
 
+- Manually add mapping between Rfam accessions and PDB ids to [pdb_full_region_curated.txt](./pdb_full_region_curated.txt). This step is needed in order to analyse PDB sequences that do not match Rfam covariance models automatically.
+
 ## Feedback
 
-Please feel free to raise an issue to report any problems with the code or the data.
+Please feel free to [raise an issue](https://github.com/Rfam/rfam-3d-seed-alignments/issues) to report any problems with the code or the data.
 
 ## Acknowledgements
 
