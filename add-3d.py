@@ -10,6 +10,7 @@ python add-3d.py RF00008
 """
 
 
+import argparse
 import os
 import re
 import subprocess
@@ -259,8 +260,10 @@ def map_pdb_id_to_rnacentral(pdb_id):
 
 
 def main():
-    rfam_accs = sys.argv[1:]
-    pdb_data = get_rfam_3d_mapping()
+    parser = argparse.ArgumentParser()
+    parser.add_argument('rfam_acc', nargs="+", help='Rfam accession', action='store')
+    args = parser.parse_args()
+    rfam_accs = args.rfam_acc
     if not rfam_accs:
         rfam_accs = pdb_data.keys()
 
