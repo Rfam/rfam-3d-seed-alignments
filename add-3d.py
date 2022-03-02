@@ -262,8 +262,11 @@ def map_pdb_id_to_rnacentral(pdb_id):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('rfam_acc', nargs="+", help='Rfam accession', action='store')
+    parser.add_argument("--nocache", help="Recompute output", action="store_true", default=False)
     args = parser.parse_args()
     rfam_accs = args.rfam_acc
+    nocache = args.nocache
+
     if not rfam_accs:
         rfam_accs = pdb_data.keys()
 
@@ -275,7 +278,7 @@ def main():
             print('Invalid Rfam accession: {}'.format(rfam_acc))
             continue
         print(rfam_acc)
-        if os.path.exists('data/output/{}.sto'.format(rfam_acc)):
+        if os.path.exists('data/output/{}.sto'.format(rfam_acc)) and not nocache:
             print('Output already exists')
             continue
         if len(pdb_data[rfam_acc]) > SKIP_LARGE_ALIGNMENT:
