@@ -14,7 +14,6 @@ import argparse
 import os
 import re
 import subprocess
-import sys
 
 import collections
 
@@ -37,19 +36,19 @@ FAMILY_BLACKLIST = [
 ]
 
 
-def download_rfam_files(rfam_acc):
+def download_rfam_files(rfam_acc, nocache):
     """
     Download and uncompress Rfam CM and SEED files for a given family.
     """
     if not os.path.exists('temp'):
         os.system('mkdir temp')
-    if not os.path.exists('data/cm/{}.cm'.format(rfam_acc)):
-        cmd = 'wget -q -O data/cm/{0}.cm  https://rfam.org/family/{0}/cm'.format(rfam_acc)
+    if not os.path.exists('data/cm/{}.cm'.format(rfam_acc)) or nocache:
+        print('Downloading the latest {} CM from SVN'.format(rfam_acc))
+        cmd = 'wget -q -O data/cm/{0}.cm  https://xfamsvn.ebi.ac.uk/svn/data_repos/trunk/Families/{0}/CM'.format(rfam_acc)
         subprocess.check_output(cmd, shell=True)
-    if not os.path.exists('data/seed/{}.seed'.format(rfam_acc)):
-        cmd = 'wget -q -a temp/wget.log -O data/seed/{0}.seed.gz https://rfam.org/family/{0}/alignment/stockholm?gzip=1&download=1'.format(rfam_acc)
-        subprocess.check_output(cmd, shell=True)
-        cmd = 'gunzip data/seed/{}.seed.gz'.format(rfam_acc)
+    if not os.path.exists('data/seed/{}.seed'.format(rfam_acc)) or nocache:
+        print('Downloading the latest {} SEED from SVN'.format(rfam_acc))
+        cmd = 'wget -q -a temp/wget.log -O data/seed/{0}.seed https://xfamsvn.ebi.ac.uk/svn/data_repos/trunk/Families/{0}/SEED'.format(rfam_acc)
         subprocess.check_output(cmd, shell=True)
 
 
@@ -294,7 +293,7 @@ def map_pdb_id_to_rnacentral(pdb_id):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('rfam_acc', nargs="+", help='Rfam accession', action='store')
-    parser.add_argument("--nocache", help="Recompute output", action="store_true", default=False)
+    parser.add_argument("--nocache", help="Recompute output and redownload CM/SEED", action="store_true", default=False)
     args = parser.parse_args()
     rfam_accs = args.rfam_acc
     nocache = args.nocache
@@ -322,7 +321,7 @@ def main():
         if not valid_pdb_ids:
             print('No valid PDB ids found for {}'.format(rfam_acc))
             continue
-        download_rfam_files(rfam_acc)
+        download_rfam_files(rfam_acc, nocache)
         process_family(rfam_acc, valid_pdb_ids)
 
 
