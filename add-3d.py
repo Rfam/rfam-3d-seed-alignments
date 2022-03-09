@@ -209,6 +209,54 @@ def validate_pdb_ids(pdb_ids):
     return valid
 
 
+def parse_desc(rfam_acc):
+    """
+    Fetch and parse DESC file to get basic family metadata using the latest
+    committed version of the family.
+
+    AC   RF00008
+    ID   Hammerhead_3
+    PI   Hammerhead
+    DE   Hammerhead ribozyme (type III)
+    """
+    data = {}
+    cmd = 'wget -q -O temp/{0}.desc https://xfamsvn.ebi.ac.uk/svn/data_repos/trunk/Families/{0}/DESC'.format(rfam_acc)
+    os.system(cmd)
+    desc_file = 'temp/{0}.desc'.format(rfam_acc)
+    with open(desc_file, 'r') as f_desc:
+        for line in f_desc:
+            parts = re.split(r'\s+', line)
+            if parts[0] in ['ID', 'DE']:
+                data[parts[0]] = parts[1]
+    return data
+
+
+def add_metadata_lines(rfam_acc, output_file):
+    """
+    Include ID and DE lines in the output file to make it easier to find alignments.
+
+    # STOCKHOLM 1.0
+    #=GF ID Hammerhead_3
+    #=GF DE Hammerhead ribozyme (type III)
+    """
+    desc_data = parse_desc(rfam_acc)
+    with open(output_file, 'r') as f_out:
+        lines = f_out.readlines()
+    unique = []
+    with open(output_file, 'w') as f_out:
+        for line_num, line in enumerate(lines):
+            if line not in unique:
+                f_out.write(line)
+                unique.append(line)
+            else:
+                continue
+            if line_num == 0:
+                gf_line = '#=GF {} {}\n'.format('ID', desc_data['ID'])
+                f_out.write(gf_line)
+                gf_line = '#=GF {} {}\n'.format('DE', desc_data['DE'])
+                f_out.write(gf_line)
+
+
 def process_family(rfam_acc, pdb_ids):
     pdb_ids.sort()
     print('{} PDB structures: '.format(len(pdb_ids)) + ', '.join(pdb_ids))
@@ -245,13 +293,16 @@ def process_family(rfam_acc, pdb_ids):
 
     cmd = 'esl-reformat pfam temp/{0}-with-3d.sto > temp/{0}-final.sto'.format(rfam_acc)
     os.system(cmd)
-    rename_accessions(rfam_acc, pdb_ids)
-    print('Done: output/{}.sto'.format(rfam_acc))
+    output_file = rename_accessions(rfam_acc, pdb_ids)
+    add_metadata_lines(rfam_acc, output_file)
+    os.system('esl-alistat {}'.format(output_file))
+    print('Created {}'.format(output_file))
 
 
 def rename_accessions(rfam_acc, pdb_ids):
+    output_file = os.path.join('data', 'output', '{}.sto'.format(rfam_acc))
     with open('temp/{}-final.sto'.format(rfam_acc), 'r') as f_in:
-        with open('data/output/{}.sto'.format(rfam_acc), 'w') as f_out:
+        with open(output_file, 'w') as f_out:
             for line in f_in:
                 for pdb_id in pdb_ids:
                     if line.startswith(pdb_id):
@@ -268,8 +319,8 @@ def rename_accessions(rfam_acc, pdb_ids):
                             continue
                         line = line.replace('#=GR ' + pdb_id.ljust(len(rnacentral_id)), '#=GR ' + rnacentral_id)
                         break
-
                 f_out.write(line)
+    return output_file
 
 
 def map_pdb_id_to_rnacentral(pdb_id):
