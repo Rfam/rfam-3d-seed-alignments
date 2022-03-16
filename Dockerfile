@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.10
 
 ENV RNA /usr/src/rfam
 ENV INFERNAL /usr/src/infernal
