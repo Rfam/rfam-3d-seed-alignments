@@ -27,13 +27,13 @@ Alternatively, follow instructions in the [Dockerfile](./Dockerfile) to install 
 - To update one or more Rfam families:
 
     ```
-    add-3d.py RF00162
-    add-3d.py RF00162 RF00507
+    add_3d.py RF00162
+    add_3d.py RF00162 RF00507
     ```
 
     Use `--nocache` to force recomputing the output.
 
-    Alternatively, run `add-3d.py` to update all families.
+    Alternatively, run `add_3d.py all` to update all families.
 
 - To get FR3D secondary structure for a PDB id:
 
