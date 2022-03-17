@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID HIV_FE 
+#=GF DE HIV Ribosomal frameshift signal 
 #=GF AU Infernal 1.1.2
 
 AF067154.1/1449-1500                UUUUUUAGGGAAAAUUUGGCCUUCCCACAAG......................................................................GGGAGGCCAGGGAAUUUCCUU
@@ -147,9 +149,8 @@ AB078707.1/1299-1350                UUUUUUAGGGAGGCUCUGGCCUUCCCACAAG.............
 AF484483.1/1292-1343                AUUUUUAGGGAGAUUUUGGCCUUCCCACAAG......................................................................GGAAGGCCAGGGAAUUUCCUU
 AY140164.1/1155-1204                UUUUUUAGGGAAAAUUUGGCCUUCCAGCAAG......................................................................GGGAGGCCAGGAA--UUCCUC
 URS000080E22A_11676/1-45            -------GGGAAGAUCUGGCCUUCCCACAAG......................................................................GGAAGGCCAGGGAAUCUUCCC
-#=GR URS000080E22A_11676  1Z2J_A_SS .......(((((((((((((((((((....)......................................................................))))))))))...))))))))
-URS000080E22A_11676/1-45            -------GGGAAGAUCUGGCCUUCCCACAAG......................................................................GGAAGGCCAGGGAAUCUUCCC
-#=GR URS000080E22A_11676  2L94_A_SS .......(((((((((((((((((((....)......................................................................))))))))))...))))))))
+#=GR URS000080E22A_11676/1-45 1Z2J_A_SS .......(((((((((((((((((((....)......................................................................))))))))))...))))))))
+#=GR URS000080E22A_11676/1-45 2L94_A_SS .......(((((((((((((((((((....)......................................................................))))))))))...))))))))
 6VWL_4                              -----------------GGUUUUUCU-----ucugaagauaaagcaacaacaacaaggcaaggagguaaaaauguucgagaagaucuggccuucccacaagGGAAGGCCAGGGAA-------
 #=GR 6VWL_4               6VWL_4_SS ....................................................................................((((((((((((....))))))))))))..........
 6VWM_4                              -----------------GGUUUUUCU-----ucugaagauaaagcaacaacaacaaggcaaggagguaaaaauguucgagaagaucuggccuucccacaagGGAAGGCCAGGGAA-------

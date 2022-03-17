@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID U12 
+#=GF DE U12 minor spliceosomal RNA 
 #=GF AU Infernal 1.1.2
 
 AANN01056468.1/521-372                        AUGCCUUAAACU.UAUGAGUAAGGAAAA.UAACGAU.UCGGGGUGA.CGCCCGAAUC......CUCACUGCUAAU..............................-----GUGAG......ACGAAUUUUUG........................................AGCGGGU.AA..AGGUC..GC.C.CCU..AAGGUG...ACCCGCCUACUUU.GCGGG...A..UGCCUG..GGAGUU...GCG.AUCU....GCCCG
@@ -64,7 +66,7 @@ AAQR03135034.1/15819-15671                    AUACCUUAAAUU.UAUGAGUAGGGAAAA.UAACA
 AAGU03077213.1/2720-2571                      AUGCCUUAAACU.UAUGAGUAAGGAAAA.UAACGAU.CCGGGGUGA.CGCCCGGAUC......CUCACUGCUAAU..............................-----GUGAG......ACGAAUUUUUG........................................AGCGGGU.AA..AGGUU..GC.C.CCU..AAGGUG...ACCCGCCUACUUU.GCGGG...A..UGCCUG..GGAGUU...GCG.AUCU....GCCCG
 CAAB02002948.1/53519-53671                    AUGCCUUAAACU.GAUGAGUAAGGAAAA.UAACGAU.GCGGGGUGA.CGCCCGUGUC......CUCGUUGCACUU..............................-----ACGAG......AUCAAUUUUUG........................................AAAGGGC.AC..AGGUC..UGcU.UGC..UGGGUG...ACUCGCCUACUUU.GCGAG...A..UGCCUU..GCGGGGc.uAGG.ACCU....GCCCC
 URS00006ECA78_9606/1-150                      AUGCCUUAAACU.UAUGAGUAAGGAAAA.UAACGAU.UCGGGGUGA.CGCCCGAAUC......CUCACUGCUAAU..............................-----GUGAG......ACGAAUUUUUG........................................AGCGGGU.AA..AGGUC..GC.C.CUC..AAGGUG...ACCCGCCUACUUU.GCGGG...A..UGCCUG..GGAGUU...GCG.AUCU....GCCCG
-#=GR URS00006ECA78_9606             7DVQ_H_SS ...................................(.(((((.......))))))......................................................................................................................................................................................................................
+#=GR URS00006ECA78_9606/1-150 7DVQ_H_SS       ...................................(.(((((.......))))))......................................................................................................................................................................................................................
 #=GC SS_cons                                  :::<<<<<____.______>>>>>,,,,.,,,,<<<.<<<<<____.__>>>>>>>>......<<<<<_______.............................._____>>>>>......-----------........................................--<<<<<.--..<<<<<..<<.-.-<<..-<<<<<...-<<<<<_______.>>>>>...-..>>>>>-..>>----...>>>.>>>>....>>>>>
 #=GC RF                                       gUGCCUuAAACU.AAUGAGUaAGGAAAA.uAAcgcg.cccgGuUaA.CGCcgggcgc......cccgcuuuuuau..............................uccuugcggg......auaAAUUUUUG........................................aaggGgc.Aa..gGgcc..gc.c.ccc..agggcc...acccGcCUACUUU.gCggg...a..ggcccu..gguguu...gcg.gcCc....gcCcc
 //

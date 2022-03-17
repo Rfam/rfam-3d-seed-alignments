@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID Gammaretro_CES 
+#=GF DE Gammaretrovirus core encapsidation signal 
 #=GF AU Infernal 1.1.2
 
 X14576.1/670-769                  GUCUGUACUAGUUAGCUAACUAGAUCUGUAUCUGGCGGUUCCGUGGAAGAACUGACGAGUUCGG-AUUCCCGACCGCAGCC.CUGAGAGACGUCUCAG.GGGC
@@ -24,13 +26,12 @@ M26526.1/655-755                  GCCUGUACUAGUUGGCUGACUAGACCUGUAUCUGGCGGUUCCGUGG
 U94692.1/274-374                  GUCUGAACUAGUUGGCCGACUAGCUCUGUAUCUGGCGGACCCGUGGUGGAACUGACGAGUUCGAGACACCCGGCCGCAACC.CUGGGAGACGUCCCAG.GGAC
 V01185.1/721-821                  GUCUGUACUAGUUAGCUAACAUGCUCUGUAUCUGGCGGACCCGUGGUGGAACUGACGAGUUCUGAACACCCGGCCGCAACC.CUGGGAGACGUCCCAG.GGAC
 URS000080E0D7_11801/1-101         GGCGGUACUAGUUGAGAAACUAGCUCUGUAUCUGGCGGACCCGUGGUGGAACUGUGAAGUUCGGAACACCCGGCCGCAACC.CUGGGAGAGGUCCCAG.GGUU
-#=GR URS000080E0D7_118011S9S_A_SS (((((.(((((((....))))))).)))))....((.(..(((.(((((((((....)))))....)))))))).))((((.((((((....)))))).))))
-URS000080E0D7_11801/1-101         GGCGGUACUAGUUGAGAAACUAGCUCUGUAUCUGGCGGACCCGUGGUGGAACUGUGAAGUUCGGAACACCCGGCCGCAACC.CUGGGAGAGGUCCCAG.GGUU
-#=GR URS000080E0D7_118011U6P_B_SS ((((((.((((((....)))))).))))))....((....(((.(((((((((....)))))....)))))))..))((((.((((((....)))))).))))
+#=GR URS000080E0D7_11801/1-101 1S9S_A_SS (((((.(((((((....))))))).)))))....((.(..(((.(((((((((....)))))....)))))))).))((((.((((((....)))))).))))
+#=GR URS000080E0D7_11801/1-101 1U6P_B_SS ((((((.((((((....)))))).))))))....((....(((.(((((((((....)))))....)))))))..))((((.((((((....)))))).))))
 URS000080DD56_11801/1-65          ---------------------------------GGCGGACCCGUGGUGGAACAGACGUGUUCGGAACACCCGGCCGCAACC.CUGGGAGACGUCCCAG.G---
-#=GR URS000080DD56_118012L1F_A_SS ..................................((((..(((.(((((((((....)))))....)))))))))))...(.((((((....)))))).)...
+#=GR URS000080DD56_11801/1-65 2L1F_A_SS ..................................((((..(((.(((((((((....)))))....)))))))))))...(.((((((....)))))).)...
 URS000080DE60_11801/1-66          ---------------------------------GGCGGACCCGUGGUGGAACAGACGUGUUCGGAACACCCGGCCGCAACC.CUGGGAGACGUCCCAG.GG--
-#=GR URS000080DE60_118012L1F_B_SS ..................................((((..(((.(((((((((....)))))....)))))))))))..((.((((((....)))))).))..
+#=GR URS000080DE60_11801/1-66 2L1F_B_SS ..................................((((..(((.(((((((((....)))))....)))))))))))..((.((((((....)))))).))..
 #=GC SS_cons                      ::<-<--<<<<<<____>>>>>>-->->,,,,,,<<<<--<<<-<<<<<<<<<____>>>>>---->>>>>>>>>>>,,<<.<<<<<<____>>>>>>.>>::
 #=GC RF                           guCuGUACuaGuuaGcuaaCuaGaUCuGUAUCUGGCGGaucCGUGGugGaaCuGAcGaGuuCggaAcaCCCGgCCGCAaCC.CuGGGaGAcGuCCCaG.GGac
 //

@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID Flavivirus_SLIV 
+#=GF DE Flavivirus 3'UTR stem loop IV 
 #=GF AU Infernal 1.1.2
 
 L24512.1/259-333                      CCAAUGUCAGACCACGCCAUGGCGUGCCACUCUGC.GGAC.AGUGCAGUCUGCGACAGUGCCCCAGGAGGACUGGGU
@@ -22,7 +24,7 @@ AF196535.1/535-609                    CCAAUGUCAGACCACACUUUGGUGUGCCACUCUGC.GGAG.A
 AY898809.1/10594-10661                CCCGUGUCAGGUCACA-----UUGUGCCACCUUGCcAGAA.GGUGCAACCUG---CGAGGCCCCAGGUGGACUGGGU
 AY453412.1/10700-10767                CCCGUGUCAGGCCGC---AAA--GCGCCACUUCGC.CAAGgAGUGCAGCCUG---UAUGGCCCCAGGAGGACUGGGU
 URS000080DDC1_11079/1-68              ---GGGUCAGAUCGGCGAA--AGUCGCCACUUCGC.CGAGgAGUGCAAUCUG---UGAGGCCCCAGGAGGACUGGGU
-#=GR URS000080DDC1_11079    4PQV_A_SS .....{.(((((((((......)))).((((((......))))))}.))))).........(((((.....))))).
+#=GR URS000080DDC1_11079/1-68 4PQV_A_SS .....{.(((((((((......)))).((((((......))))))}.))))).........(((((.....))))).
 #=GC SS_cons                          ::::((((((((<<<<<____>>>>>,<<<<____.____.>>>>,,)))))--)))----<<<<<_____>>>>>:
 #=GC RF                               CCAauGuCAGgCCACgcuuuagcGUGCCACuCuGC.gGAG.aGUGCaGcCUGcGaCaguGCCCCAGGaGGACUGGGU
 //

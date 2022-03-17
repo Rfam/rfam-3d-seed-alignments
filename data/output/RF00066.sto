@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID U7 
+#=GF DE U7 small nuclear RNA 
 #=GF AU Infernal 1.1.2
 
 M17910.1/2-64                               .NNGUG.UUACAGCUCUUUUAGAAUUUGUCUAGUA.GGCUU.UCU..GGCUUUUC.ACC..GGA.AA..GCCCCU
@@ -51,7 +53,7 @@ CAAB02008541.1/44851-44905                  .-GAAUgAUU--GCUCUUUAGAUAUUUCUCUAGUA.
 AAGW02051582.1/13062-13123                  .CAGUG.UUACAGCUCUUUUCGAAUUUGUCUAGCA.GGCUU.UCC..GGU-UUUC.ACC..GGA.AA..GCCCCC
 AAPE02007016.1/5346-5408                    .CAGUGcUUACAGCUCUUUUUGAAUUUGUCCAGCA.GGUCU.UCC..GGC-UCGU.CCC..GGA.AG..GCCCUC
 URS0001A16A97_9606/1-60                     .-AGUG.UUACAGCUCUUUUAGAAUUUGUCUAGUA.GGCUU.UCU..GGCUUUUU.ACC..GGA.AA..GCCC--
-#=GR URS0001A16A97_9606           6V4X_Z_SS .............................(..)..........................................
+#=GR URS0001A16A97_9606/1-60 6V4X_Z_SS      .............................(..)..........................................
 #=GC SS_cons                                .:::::.::::::::::::::::::::::::::::.<<<<<.<<<..<<<_____.>>>..>>>.>>..>>>:::
 #=GC RF                                     .aAGUG.UUAcAGCUCUUUuAGAAUUUGUCUAGcA.GGuuU.ccc..gguuuuuu.acc..ggg.Aa..gCCCaa
 //

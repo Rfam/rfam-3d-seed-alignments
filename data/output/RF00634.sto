@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID SAM-IV 
+#=GF DE S-adenosyl methionine (SAM) riboswitch, 
 #=GF AU Infernal 1.1.2
 
 AAAP01003574.1/1814-1929                  GGUCAUGAG.UGCCAGCG...CGAAAC..CCCGGUU.UGCUGGC.CGGCAACCCUCC.....UCUCGC.GGCGGGGUGCC.CCGGGUGACGACCAGGCC..GC.AC.GCC.GACC.............GGCGGGC..GGC.AAGCGCGGGGA
@@ -42,13 +44,11 @@ CP000820.1/5910611-5910498                GGUCCUGAG.CGCCAGCG...UCAAGC..CCCGGCU.U
 CP000750.2/3280159-3280049                GGUCAUGAG.UGACAGCG...ACAAGC..CCUGGCU.CGCUGUC.CGGCAACCCUCC.....-UCCGC.GGCGGGGUGCC.CCAGGUGAAGACCCGGCC..GG.A-.-CG.AAAA.............CG--UCC..GGC.AAGCGCGGAUC
 CP000750.2/1351757-1351870                GGUCAUGAG.CGCCAGCG...ACAAGC..CCCGGCU.CGCUGGC.CGGCAACCCUCC.....-UCCGC.GGCGGGGUGCC.CCGGGUGACGACCUGGCC..GG.UG.CCG.ACG-.............UGGCGCC..GGC.AAGCGCGGACC
 URS0000ABD039_164756/1-119                GGUCAUGAG.UGCCAGCG...UCAAGC..CCCGGCU.UGCUGGC.CGGCAACCCUCC.....AACCGC.GGUGGGGUGCC.CCGGGUGAUGACCAGGUU..GA.GU.AGCcGUGAc...........gGCUACGC..GGC.AAGCGCGGGUC
-#=GR URS0000ABD039_164756       6UES_A_SS ((((....(..((((((.......((...{{{{{))..)))))).)(((..(((.((......{{{{{.))..))).))).}}}}}....)))).((((..((.((.((((................))))))))..))).)...}}}}.}.
-URS0000ABD039_164756/1-119                GGUCAUGAG.UGCCAGCG...UCAAGC..CCCGGCU.UGCUGGC.CGGCAACCCUCC.....AACCGC.GGUGGGGUGCC.CCGGGUGAUGACCAGGUU..GA.GU.AGCcGUGAc...........gGCUACGC..GGC.AAGCGCGGGUC
-#=GR URS0000ABD039_164756       6UET_A_SS ((((....(..(((((((......((...{{{{{)).))))))).)(((..((((((.......{{{{.)).)))).))).}}}}}....))))..(....((.((..((((...)...........))).))))....).....}}}}...
+#=GR URS0000ABD039_164756/1-119 6UES_A_SS ((((....(..((((((.......((...{{{{{))..)))))).)(((..(((.((......{{{{{.))..))).))).}}}}}....)))).((((..((.((.((((................))))))))..))).)...}}}}.}.
+#=GR URS0000ABD039_164756/1-119 6UET_A_SS ((((....(..(((((((......((...{{{{{)).))))))).)(((..((((((.......{{{{.)).)))).))).}}}}}....))))..(....((.((..((((...)...........))).))))....).....}}}}...
 URS0000ABD039_1785/1-119                  GGUCAUGAG.UGCCAGCG...UCAAGC..CCCGGCU.UGCUGGC.CGGCAACCCUCC.....AACCGC.GGUGGGGUGCC.CCGGGUGAUGACCAGGUU..GA.GU.AGCcGUGAc...........gGCUACGC..GGC.AAGCGCGGGUC
-#=GR URS0000ABD039_1785         6WLQ_A_SS ((((....(..((((((.......((...{{{{{))..)))))).)(((..((((((.......{{{{.)).)))).))).}}}}}....))))(((((..((.((.(((((...)...........))))))))..))).))..}}}}...
-URS0000ABD039_1785/1-119                  GGUCAUGAG.UGCCAGCG...UCAAGC..CCCGGCU.UGCUGGC.CGGCAACCCUCC.....AACCGC.GGUGGGGUGCC.CCGGGUGAUGACCAGGUU..GA.GU.AGCcGUGAc...........gGCUACGC..GGC.AAGCGCGGGUC
-#=GR URS0000ABD039_1785         6WLR_A_SS ((((....(..((((((.......((...{{{{{))..)))))).)(((..(((.((.......{{{{.))..))).))).}}}}}....))))..(((..((.((.((((................))))))))..))).....}}}}...
+#=GR URS0000ABD039_1785/1-119 6WLQ_A_SS   ((((....(..((((((.......((...{{{{{))..)))))).)(((..((((((.......{{{{.)).)))).))).}}}}}....))))(((((..((.((.(((((...)...........))))))))..))).))..}}}}...
+#=GR URS0000ABD039_1785/1-119 6WLR_A_SS   ((((....(..((((((.......((...{{{{{))..)))))).)(((..(((.((.......{{{{.))..))).))).}}}}}....))))..(((..((.((.((((................))))))))..))).....}}}}...
 #=GC SS_cons                              ((((,,,,<.-<<<<<<-...---<<_.._____>>.->>>>>>.><<<--<<<-<<.....______.>>-->>>->>>.,,,,,,,,,))))--<<<..<<.<<.<<<.____.............>>>>>>>..>>>.:::::::::::
 #=GC RF                                   ggUCAuGAG.ugccaGcg...ucaaGC..CCCGGCu.ugCuggc.CGGCAACCcucC.....aacCGC.GguGgGGUGCC.CCGGGuGAaGAccaGGcc..gg.cc.ccg.aaaa.............cggggcc..ggC.AAGcGcggauc
 //

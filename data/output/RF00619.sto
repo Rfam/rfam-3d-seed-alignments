@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID U6atac 
+#=GF DE U6atac minor spliceosomal RNA 
 #=GF AU Infernal 1.1.2
 
 CAAA01028316.1/26512-26387                    GUGUUGUAUGAAAGGAGAGAAGGUUAGCACUCCCCUUGACAAGGAUGGAAGA..GGCC.CUUGGGCCU....AACA..AC.A.CAC...AUAC.GGUU.A...AGGCAUUGCCAC.CUACUUCGUG..GCAUC.U.......AACCACUGUUUUUU
@@ -64,7 +66,7 @@ AAQR03101741.1/17340-17465                    GUGUUGUAUGAAAGGAGAGAAGGUUAGCACUCCC
 AAWZ02010676.1/197194-197067                  UAGUUGUAUGAAACAAGAGGAGGGUAGCAGUUCCCUUAAUAAGGAAAGUCAC..GGUC.CCAGGGUUC....UGUAgaAC.A.CAC...AUAU.GGUU.A...AGGCAUUGUCAC.UUACUGUGUC..GCAUA.U.......AACCAAGUAAUUUU
 AL772282.9/116596-116471                      GUGUUGUAUGAAAGGAGAGAAGGUUAGCACUCCCCUUGACAAGGAUGGAAGA..GGCC.CUUGGGCCU....AACA..AC.A.CAC...AUAC.GGUU.A...AGGCAUUGCCAC.CUACUUCGUG..GCAUC.U.......AACCACUGUUUUUU
 URS00021ED9B2_9606/1-124                      -UGUUGUAUGAAAGGAGAGAAGGUUAGCACUCCCCUUGACAAGGAUGGAAGA..GGCC.CUCGGGCCU....GACA..AC.A.CGC...AUAC.GGUU.A...AGGCAUUGCCAC.CUACUUCGUG..GCAUC.U.......AACCAUCGUUUUU-
-#=GR URS00021ED9B2_9606             7DVQ_F_SS .............................(((((((.....)))..))).)(..((((.....)))))........................................................................................
+#=GR URS00021ED9B2_9606/1-124 7DVQ_F_SS       .............................(((((((.....)))..))).)(..((((.....)))))........................................................................................
 #=GC SS_cons                                  ::::::::::::::::::::::::::::::::::::::::::::::::::::..<<<<.____>>>>-....----..--.-.---...----.<<<<.-...------<<<<<<._______>>>..>>>--.-.......>>>>::::::::::
 #=GC RF                                       GUGUUguauGAAAGGAGAGAAGGUUAGCAcUCCCCUuGACAAGGAuGGAAaa..ggcC.uUcgGgccu....uacA..aC.A.Cac...AuAu.gguu.A...AGGCauugCccc.cuacuucggg..GcaUc.u.......aaccAauuUUUUUU
 //

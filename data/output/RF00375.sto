@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID HIV_PBS 
+#=GF DE HIV primer binding site (PBS) 
 #=GF AU Infernal 1.1.2
 
 U24479.1/452-550                   ..CUCUGGUAACUAGAGAUCCCUCAGACCCUUUUAGUCAGUGUGG..AAAAUCUCUAGCAGUGGCGCCCGAACAGGGACUUGAAAGCGAAAGGGAAACCAGAG..
@@ -132,17 +134,11 @@ AY517299.1/14-112                  ..CUCUGGUAACUAGAGAUCCCUCAGACCCUUUUAGUCAGUGUGG
 AF465242.1/652-750                 ..CUCUGGUAACUAGAGAUCCCUCAGACCAUUUUAGUCAGUGUGG..AAAAUCUCUAGCAGUGGCGCCCGAACAGGGACCGGAAAGCGAAAGAGAAACCAGAG..
 DQ373063.1/124-224                 ..CUCUGGUAUCUAGAGAUCCCUCAGAUAACUGUAGUCUGUGCGGccAAAAUCUCUAGCAGUGGCGCCCGAACAGGGACUUGAAAACGAAAGUAAGACCAGAG..
 URS0000D56C30_11676/1-101          gaCUCUGGUAACUAGAGAUCCCUCAGACCCUUUUAGUCAGUGUGG..AAAAUCUCUAGCAGUGGCGCCCGAACAGGGACUUGAAAGCGAAAGUAAAGCCAGAG..
-#=GR URS0000D56C30_11676 6B19_C_SS .........................................................................................................
-URS0000D56C30_11676/1-101          gaCUCUGGUAACUAGAGAUCCCUCAGACCCUUUUAGUCAGUGUGG..AAAAUCUCUAGCAGUGGCGCCCGAACAGGGACUUGAAAGCGAAAGUAAAGCCAGAG..
-#=GR URS0000D56C30_11676 6WAZ_C_SS .........................................................................................................
-URS0000D56C30_11676/1-101          gaCUCUGGUAACUAGAGAUCCCUCAGACCCUUUUAGUCAGUGUGG..AAAAUCUCUAGCAGUGGCGCCCGAACAGGGACUUGAAAGCGAAAGUAAAGCCAGAG..
-#=GR URS0000D56C30_11676 6WB0_C_SS ...........(((((.....................................)))))...............................................
-URS0000D56C30_11676/1-101          gaCUCUGGUAACUAGAGAUCCCUCAGACCCUUUUAGUCAGUGUGG..AAAAUCUCUAGCAGUGGCGCCCGAACAGGGACUUGAAAGCGAAAGUAAAGCCAGAG..
-#=GR URS0000D56C30_11676 6WB1_C_SS ...........((((.......................................))))...............................................
-URS0000D56C30_11676/1-101          gaCUCUGGUAACUAGAGAUCCCUCAGACCCUUUUAGUCAGUGUGG..AAAAUCUCUAGCAGUGGCGCCCGAACAGGGACUUGAAAGCGAAAGUAAAGCCAGAG..
-#=GR URS0000D56C30_11676 6WB2_C_SS ...........((((.......................................))))...............................................
+#=GR URS0000D56C30_11676/1-101 6WB0_C_SS ...........(((((.....................................)))))...............................................
+#=GR URS0000D56C30_11676/1-101 6WB1_C_SS ...........((((.......................................))))...............................................
+#=GR URS0000D56C30_11676/1-101 6WB2_C_SS ...........((((.......................................))))...............................................
 URS00021ED92D_11676/1-103          ggCUCUGGUAACUAGAGAUCCCUCAGACCCUUUUAGUCAGUGUGG..AAAAUCUCUAGCAGUGGCGCCCGAACAGGGACUUGAAAGCGAAAGUAAAGCCAGAGcc
-#=GR URS00021ED92D_11676 7LVA_A_SS (((((((((..(((((((((((.(.(((.......))).).).)).....)))))))).(.((.((((((...)))).((....)))).)).)...)))))))))
+#=GR URS00021ED92D_11676/1-103 7LVA_A_SS (((((((((..(((((((((((.(.(((.......))).).).)).....)))))))).(.((.((((((...)))).((....)))).)).)...)))))))))
 #=GC SS_cons                       ..(((((((,,<<<<<<<<__________________________..___>>>>>>>>,,,,,,,,<<<_____>>>,,,,,,,,,,,,,,,,,,,)))))))..
 #=GC RF                            ..CuCuGGuAaCuaGaGauCCCUCAGACccuUuUaGucaGUGUGG..AAAauCuCuaGCAGUGGCGCCCGAACAGGGACuuGAAAGcGAAAGuaaAaCCaGaG..
 //

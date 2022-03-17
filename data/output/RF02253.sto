@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID IRE_II 
+#=GF DE Iron response element II 
 #=GF AU Infernal 1.1.2
 
 DQ496099.1/33592-33622                      UAAUUAUCGGGAACAGUGUUU.CCCAUAAUUU
@@ -31,7 +33,7 @@ AAEX03017890.1/298469-298439                CCGACUUCAGCUACAGUGUUA.GCUAAGUUAG
 CAAB02011656.1/4642-4612                    UCAUUAUCGGGAGCAGUGUCU.CCCAUAAUGU
 BC108025.1/2966-2996                        UAAUUAUCGGAAGCAGUGCCU.UCCAUAAUUG
 URS000080E231_9986/1-29                     -GAUUAUCGGAAGCAGUGCCU.UCCAUAAUC-
-#=GR URS000080E231_9986           3SN2_B_SS .((((((.((((((...).)).))))))))).
+#=GR URS000080E231_9986/1-29 3SN2_B_SS      .((((((.((((((...).)).))))))))).
 #=GC SS_cons                                <<<<<<<-<<<<<<___>->>.>>>>>>>>>>
 #=GC RF                                     caauuAUCgGcggCAGUGUcc.gCcAUaauug
 //

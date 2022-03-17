@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID GIR1 
+#=GF DE GIR1 branching ribozyme 
 #=GF AU Infernal 1.1.2
 
 AJ938153.1/1498-1693                UUUUGGUUGgguugggAAGUAUCAUggcuaAUCAc.cAUG.AUGCAAUCGGGUUGAACACUUAAUUgGGUUAAAACGG.....UGGGGG......ACG.A...UCC.CGUAA....CAU.............-----CCGUCCU.A-------..-.......-------ACGGCGACAGACUGCACGGCCCUGCC.UCUUAGGUGUGU.UCAAUGAACAGUCGUUCC.....-GAAA---GGAAGCAUCCGGUAUcccaagACAAUCAAAU
@@ -14,7 +16,7 @@ Y10190.1/227-437                    CUGUUAAUU.......GUGGGUGUAu...uUAGU...---.GUC
 DQ388519.1/880-1088                 CAGCUGUUUuga.uacAUGCUCGACuu.ucUUUUucuCUU.GUGCAAUGGGGUUUAUGAGUUAAUU.AGCCAAAACGG.....GACCUU......AAA.A...AGGuGUAAG....UAA.............-----CCGUACUaAGUUCGUA..A.......GAACGGAAUGUCUAGAGACUACACGGCUG-AGCgAUUUAGCUCUCA.UAAAUGGAUAGUCCUCAG.....UAUACCAUCUGAGCAUCCCAUAC......AAAAUGGUUA
 AJ001399.1/226-444                  CUGUUAUUG.......GAAUUUGAU.....---A...GUU.GUGCGAUGGGGUUCAUACCUUAA-C.UGCCAAAACGG.....GACCCC......UUU.U...GGG.GUAUAa..aUCUuguaaa.aggauuAUAUUCCGUACU.AAGGAUAU..UugauaauAUCCGGAAUGUCUAGAGACUACACGGCA-AGCC.AAUU-GGUGGUA.UGAAUGGAUAGUCCCUAGuuuuuUUUACCAUCUAGGUAUCCCAUAC......AAAAUGGUAA
 URS000080DE6F_5793/1-188            ----GGUUGgguugggAAGUAUCAUggcuaAUC-accAUG.AUGCAAUCGGGUUGAACACUUAAUUgGGUUAAAACGG.....UGGGGG......ACG.A...UCC.CGUAA....CAU.............-----CCGUCCU.A-------..-.......-------ACGGCGACAGACUGCACGGCCCUGCC.UCUUAGGUGUGU.CCAAUGAACAGUCGUUCC.....-GAAA---GGAAGCAUCCGGUAUcccaagACAAUC----
-#=GR URS000080DE6F_5793   4P8Z_A_SS ....((.(((.(((((..(((((((((...{{{..))))).))))..((((.{{{.{{{{.....{{{{{{...((((.......(((.........}.}...})).).............................))))((.............................)).....(((((...}}}}}}(((......)))}}}}..}}}....))))).((((.............))))....))))...))))).))).))....
+#=GR URS000080DE6F_5793/1-188 4P8Z_A_SS ....((.(((.(((((..(((((((((...{{{..))))).))))..((((.{{{.{{{{.....{{{{{{...((((.......(((.........}.}...})).).............................))))((.............................)).....(((((...}}}}}}(((......)))}}}}..}}}....))))).((((.............))))....))))...))))).))).))....
 #=GC SS_cons                        :[[[[[[[[.......,,<<<<<<<.....____...>>>.>>>>,((((((,,,,,,,,,,,,,,.,,,,,,,<<<<.....<<<<<<......___._...>>>.>----....>>-.............----->>>><<_.________.._......._________>>,,,<-<<<<<---------<<<._____>>>----.-------->>>>>><<<<.....________>>>>,,,)))))),,......,]]]]]]]]:
 #=GC RF                             CuguuauUu.......aaGcacgau.....uuuu...auc.gugCaAuGGGgUUcAUaccUUaAUu.uGCCAAAACGG.....ggccuc......ugu.u...gag.guAua....ccu.............AUAUUCCGUaCU.AaGgauuu..a.......AUcCGGAAcGuCUAGAGACUaCACGGCagAgCC.auUUuGGcggua.UgAAUGGAuAGUCCcuaG.....UuaAcCAUCuagGCAuCCCaUAC......AaAaugguaA
 //

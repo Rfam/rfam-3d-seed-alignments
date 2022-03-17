@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID SAM-SAH 
+#=GF DE SAM/SAH riboswitch 
 #=GF AU Infernal 1.1.2
 
 CP000578.1/343169-343120                    CAA.CCGUCACAACGGCUUCCUGGCGUGAC.GG..GGUUAACCCcAACGGAGCA
@@ -55,7 +57,7 @@ ABSH01000031.1/84911-84863                  ACU.CGUCCGCAACGGCUUCCUGACGCGGAuCG..A
 AACY021083615.1/454-500                     CCG.UAGCUGCAACGGCUUCCUGGCGCAGCuUA..CAUUUU---.AUUGGAGCA
 CP002623.1/543970-544019                    AGC.GAACCACAACGGCUUCCUGACGUGGU.UC..UUCAUUGGCgAUUGGAGCG
 URS0000E60BAC_1224/1-43                     ---.--GUCACAACGGCUUCCUGACGUGGC.AG..AUUGAAUU-.AUUGGAGCA
-#=GR URS0000E60BAC_1224           6HAG_A_SS ......(((((..(.{{{.{{.)..)))))..................}}}}}.
+#=GR URS0000E60BAC_1224/1-43 6HAG_A_SS      ......(((((..(.{{{.{{.)..)))))..................}}}}}.
 #=GC SS_cons                                :::.<<<<<<<--<<<____>>>-->>>>>.>>..:::::::::.:::::::::
 #=GC RF                                     uaa.ccgcCACAACGGCUUCCUGACGUGgc.gg..uuuaaauuu.AaUGGAGCA
 //

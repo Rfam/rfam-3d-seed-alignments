@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID YrlA 
+#=GF DE Y RNA-like 
 #=GF AU Infernal 1.1.2
 
 AEYZ01000396.1/7368-7480                  AUGGCGAAUGCAUGGGGAACUACa.....uCUGUGUCGCGAGUUCGAUUCUCGCCAGGGC.CUGGUCCUGUAGCUCAG-UUGGUAGAGCA.aGCUG-.--UUCCCCGGACACUUGUCGUCAUGAC
@@ -7,7 +9,7 @@ FQ312003.1/3704232-3704124                UUGGCGAAUGCCUGUGGAUCUAC.......AUUUGUUG
 CP002727.1/4011288-4011407                CCGGCGAAUGCCGGUGGAACUACaggacguGAAGGUUGCGGGUUCGACUCCCGCCCCGGC.---GACGGGUAGCUCAACUGGAUAGAGCAacGCGCA.UGUUCCACCAACGAUCGUCGCCGCACU
 ADBF01000255.1/32505-32391                AAAACAAAUGCUUUGGAAACUAC.......AUUGGUCGUAGGUUCGAGUCCUGCCCCGCU.UUCGGCGGGUAGCUCAGUCUGGUAGAGCG..GUUAAaCGUUUCCCAAAAACUCGUUGUUUGCUG
 URS0000D7791B_90371/1-81                  -----------GGGUGGCUCUAC.......AUUUGUUGCGGGUUCGAGACCCGUCAGAGCgAAAGCUCUGUAGCUCAA--UGGUAGAGCG..GUGU-.--AGUCACC------------------
-#=GR URS0000D7791B_90371        6CU1_A_SS ............(((((((..((.......(((....(((((..{....)))))((((((....))))))..((((......}..)))))..))))....)))))))..................
+#=GR URS0000D7791B_90371/1-81 6CU1_A_SS   ............(((((((..((.......(((....(((((..{....)))))((((((....))))))..((((......}..)))))..))))....)))))))..................
 #=GC SS_cons                              :((((((-----(((((((-(((.......,,,,,,,,<<<<<_____>>>>>,<<<<<<.___>>>>>>,,<<<<_________>>>>,..)))--.--)))))))--------))))))::::
 #=GC RF                                   acggCgaAUGCcuggGgaaCcaC.......auugGUuGcgGGcUCGAggCCcgcCccGcc.cuaggCggGUAGCUCAauuuGgUAGAGCa..GugaA.uGuucCccaaAaAcUcGucGccguauu
 //

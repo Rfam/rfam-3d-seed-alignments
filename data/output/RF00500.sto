@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID TCV_H5 
+#=GF DE Turnip crinkle virus (TCV) repressor of minus strand synthesis H5 
 #=GF AU Infernal 1.1.2
 
 X05193.1/1360-1404                  GGGUAACCACUAAAAUCCCGAAA..............................................................................GGGUGGGCU.GUGGUGACCUUCC.
@@ -7,7 +9,7 @@ X12750.1/269-313                    GGGUAACCACUAAAAUCCCGAAA.....................
 AY312063.1/3963-4007                GGGUAACCACUAAAAUCCCGAAA..............................................................................GGGUGGGCU.GUGGUGACCUUCC.
 M22445.2/3960-4004                  GGGUAACCACUAAAAUCCCGAAA..............................................................................GGGUGGGCU.GUGGUGACCUUCC.
 URS000080E1F0_11988/1-102           -------------------G---gacgguggcagcacugucuagcugcgggcauuagacuggaaaacuagugcucuuuggguaaccacuaaaaucccgaaaGGGUGGGCU.GUGGUGACCCUCCg
-#=GR URS000080E1F0_11988  2KRL_A_SS .......................((((.((....)).)))).......((((((((.....{{....))))))))......(..((((.......................))))..)...}}..
+#=GR URS000080E1F0_11988/1-102 2KRL_A_SS .......................((((.((....)).)))).......((((((((.....{{....))))))))......(..((((.......................))))..)...}}..
 #=GC SS_cons                        <<<<-<<<<<------<<<____~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~>>>------.>>>>>->>>>:::.
 #=GC RF                             gGGUAaCCACUAAAAUCCCGAAA~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~GGGUGGGCU.GUGGuGACCcUCC.
 //

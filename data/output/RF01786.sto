@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID c-di-GMP-II 
+#=GF DE Cyclic di-GMP-II riboswitch 
 #=GF AU Infernal 1.1.2
 
 BAAW01001404.1/567-484                        AAUAAAUCUGGAAGU.AAUGAUAAAU..UCU.CUUU.AUUUGGGC.ACUUU....................-G.AGGAUUU.UGAACUAGUAGUGCAACCCGCCAACAAUUAA
@@ -56,9 +58,8 @@ CP001743.1/2770688-2770773                    ACCAAGUUCGGAGGU.GAUGAUCCGUgaUUC.CC
 CP001824.1/1154935-1155018                    GUGAGCG-CGGAGGC.GAUGACGCGC..GGG.CUGUaAUUUGGGC.ACCUC....................-G.CCCGCGC.CGAGCCUGGGGUGCAACCGGCCGGCUAAGAC
 CP001825.1/388010-388096                      AAUUAGCGUAGAGGC.GACGAAGUCC..GCU.UACCuAUAUGGGC.ACCAU...................gGG.AGCGGAU.GGAGCCACUGGUGCAACCGGCUACUGAGAAG
 URS000080E282_1488/1-75                       -----GCGCGGAAAC.AAUGAUGAAU..GGG.UUUA.AAUUGGGC.ACUUG....................-A.CUCAUUU.UGAGUUAGUAGUGCAACCGACCGUGCU----
-#=GR URS000080E282_1488             3Q3Z_A_SS ......(((((..((......(((((..(((.((......{{{{{.{{{.).....................).))))))).)..))....}}}}}}.}}..)))))......
-URS000080E282_1488/1-75                       -----GCGCGGAAAC.AAUGAUGAAU..GGG.UUUA.AAUUGGGC.ACUUG....................-A.CUCAUUU.UGAGUUAGUAGUGCAACCGACCGUGCU----
-#=GR URS000080E282_1488             3Q3Z_V_SS ......((((((.((......(((((..(((.((......{{{{{.{{{.).....................).))))))).)..))....}}}}}}.}}.))))))......
+#=GR URS000080E282_1488/1-75 3Q3Z_A_SS        ......(((((..((......(((((..(((.((......{{{{{.{{{.).....................).))))))).)..))....}}}}}}.}}..)))))......
+#=GR URS000080E282_1488/1-75 3Q3Z_V_SS        ......((((((.((......(((((..(((.((......{{{{{.{{{.).....................).))))))).)..))....}}}}}}.}}.))))))......
 #=GC SS_cons                                  <<<<<<<<<<<-<<<.------<<<<..<<<.<___.________._____...................._>.>>>>>>>.--->>>-------------->>>>>>>>>>>
-#=GC RF                                       cacccauuuGGAgGC.uaUGAaccgu..gcc.cUuu.AUuUGGGC.ACuUu....................gg.ggcacgg.gGAGCcAGUaGUGCAACCGgCCaaaugggug
+#=GC RF                                       cacccauuuGGAgGC.uaUGAaccgu..gcc.cUuu.AUuUGGGC.ACuUu....................gg.ggcacgg.GGAGCcAGUaGUGCAACCGgCCaaaugggug
 //

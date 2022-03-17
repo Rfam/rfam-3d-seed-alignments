@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID PreQ1-III 
+#=GF DE PreQ1-III riboswitch 
 #=GF AU Infernal 1.1.2
 
 BABG01013292.1/257-357                      GAGCAACUUAGGAUUUUAGGCUCCCCG.GUGCGUCUCGAACCGCGCCGGGCCAAACCC.ACAGGGGCUGGCGG-UCCUGU.GCGGUCAAAAUCUUUCCGCUGGAG
@@ -30,8 +32,10 @@ BAAU01020333.1/1-83                         ------------------GGCUCCGCU.GUCGGCUG
 ADJT01007369.1/6381-6474                    GAGCAACUUAGGAUUUUAGGCUCCGCC.UGGU------U---UUCAGGCGCAAACCCA.CCCAAGCCUGGCGGUCUUGGGcGCGGUCAAAAUCUAUCCGCCGGAG
 ADJS01013861.1/2134-2227                    GAGCAACUUAGGAUUUUAGGCUCCGCC.UGGU------U---UUCAGGCGCAAACCCA.CCCAAGCCUGGCGGUCUUGGGcGCGGUCAAAAUCUAUCCGCCGGAG
 URS0000868518_853/1-101                     GAGCAACUUAGGAUUUUAGGCUCCCCG.GCGUGUCUCGAACCAUGCCGGGCCAAACCC.AUAGGG-CUGGCGGUCCCUGU.GCGGUCAAAAUUCAUCCGCCGGAG
-URS0000868518_853/1-101                     GAGCAACUUAGGAUUUUAGGCUCCCCG.GCGUGUCUCGAACCAUGCCGGGCCAAACCC.AUAGGG-CUGGCGGUCCCUGU.GCGGUCAAAAUUCAUCCGCCGGAG
-#=GR URS0000868518_853            4RZD_A_SS .((((.....{{{{{{..)))).((((.((((..........))))))))....((((.((((((.........)))))).).)))..}}}}}}...........
+6XKN_A                                      GAGCAACUUAGGAUUUUAGGCUCCCCG.GCGUGUCUCGAACCAUGCCGGGCCGAACCC.AUAGGG-CUGGCGGUCCCUGU.GCGGUCAAAAUUCAUCCGCCGGAG
+#=GR 6XKN_A                       6XKN_A_SS .((((.....{{{{{{..)))).((((.(((((........))))))))).....(((.((((((.........)))))).).))...}}}}}}...........
+6XKO_A                                      GAGCAACUUAGGAUUUUAGGCUCCCCG.GCGUGUCUCGAACCAUGCCGGGCCAAACCC.AUAGGG-CUGGCGGUCCCUGU.GCGGUCGAAAUUCAUCCGCCGGAG
+#=GR 6XKO_A                       6XKO_A_SS .((((.....{{{{{{..)))).((((.(((((........)))))))))....((((.((((((.........)))))).).)))..}}}}}}...........
 #=GC SS_cons                                <<<<_______________>>>><<<<.<<<<<________>>>>>>>>>----<<<<.<<<<<<<_______>>>>>>>.>->>>:::::::::::::::::::
 #=GC RF                                     GaGCAACUUAGGAUUUUAGGCuCCcCg.GcgcgucuCgaaccgcgCcGgGCcAAaCCC.gccggGgCUGGCGGcCccggc.GcGGuCAAAAUcuAuCCGCuGGAG
 //

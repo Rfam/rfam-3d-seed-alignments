@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID IRE_I 
+#=GF DE Iron response element I 
 #=GF AU Infernal 1.1.2
 
 Y09188.1/1-35                               CU.G.UCUCUUGCUUCAACAGUGUUUGGACGGA-ACAG
@@ -63,9 +65,8 @@ AAQR03095747.1/6073-6108                    CA.G.UUUCCUGCUUCAACAGUGCUUGGACGGAAAC
 AAHX01094585.1/10740-10774                  CU.G.UAUCUUGCUUCAACAGUGUUUGGACAGA-ACAG
 AAPE02030929.1/24760-24794                  UG.G.UUUCCUGCUUCAACAGUGCUUGGACGG-AACCA
 URS000080E11E_8355/1-30                     --.-.GUUCUUGCUUCAACAGUGUUUGAACGGAAC---
-#=GR URS000080E11E_8355           3SNP_C_SS .....(((((.(.((((((...).)))))))))))...
-URS000080E11E_8355/1-30                     --.-.GUUCUUGCUUCAACAGUGUUUGAACGGAAC---
-#=GR URS000080E11E_8355           3SNP_D_SS .....(((((.(.((((((...).)))))))))))...
+#=GR URS000080E11E_8355/1-30 3SNP_C_SS      .....(((((.(.((((((...).)))))))))))...
+#=GR URS000080E11E_8355/1-30 3SNP_D_SS      .....(((((.(.((((((...).)))))))))))...
 #=GC SS_cons                                <<.<.<<<<<-<-<<<<<<___>->>>>>>>>>>>>>>
 #=GC RF                                     Cg.G.uUUCUUGCUUCAACAGUGUUUGAACGGAAaCcG
 //

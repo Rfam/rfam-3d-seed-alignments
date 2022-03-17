@@ -1,4 +1,6 @@
 # STOCKHOLM 1.0
+#=GF ID VA 
+#=GF DE VA RNA 
 #=GF AU Infernal 1.1.2
 
 U52574.1/118-289                      GGCUCG.ACUCCGUGGCCUGGGGGA-..ACG..UG..AACGGGUUG-.GGUCGCG.GUGUA.C...CC.CGGUUCGAGUCcaaagcuaagcaaucacacUCGG.AUC.G.GCCGGA.GCC..GCGGCU.AAC....GUG.GUAUUGGCUAUCCCGUC...-UCG....................-ACCCA..........-GCC-GA..CGAA......U.AUCCAGGGU.ACG.GAGUAGAGU.CGUU
@@ -56,7 +58,7 @@ U52570.1/118-276                      GACUCG.ACUCUGUAGCCUGGAGGA-..ACG..UG..AACGG
 U10681.1/21-180                       GGCUCG.ACUCCGUGGCCUGGAGGCU..AAG..CA..AACGGGUUG-.GGCUGCGcGUGUA.C...CC.CGGUUCGAAUC...................UCGA.AUCaG.GCUGGA.GCC..GCAGCU.AAC....GUG.GUACUGGCACUCCCGUC...-UCG....................-ACCCA..........GGCCUGC.aCAAA......AcCUCCAGGAU.ACG.GAGGCGGGU.CGUU
 X03000.1/10423-10594                  GGCUCG.ACUCCGUGGCCUGGGGGA-..ACG..UG..GACGGGUUG-.GGUCGCG.GUGUA.C...CC.CGGUUCGAGUCcaaagcuaagcaaucacacUCGG.AUC.G.GCCGGA.GCC..GCGGCU.AAC....GUG.GUAUUGGCUAUCCCGUC...-UCG....................-ACCCA..........-GCC-GA..CGAA......U.AUCCAGGGU.ACG.GAGUAGAGU.CGUU
 URS0000EEACE9_10515/1-112             ------.---------------GGA-..CCU..CG..CAAGGGU-AU.CAUGGCG.GACGA.C...CG.GGGUUCGAACC...................CCGG.AUCcG.GC--CG.UCC..GCCGUG.AUC...cAUG.CGGUUACCGCCCGCGU-...GUCG....................AACCCA..........GGUGUGC..GAGG......U.CC-------.---.---------.----
-#=GR URS0000EEACE9_10515    6OL3_C_SS ......................(((...(((..((..((.((((.((.(((((((.((((..(...((.((.((((........................))).))))).)...)).)))..)))))).))....((((.(((..{{{..))))))....)........................))))...........}}}.)))..))))......).))..........................
+#=GR URS0000EEACE9_10515/1-112 6OL3_C_SS ......................(((...(((..((..((.((((.((.(((((((.((((..(...((.((.((((........................))).))))).)...)).)))..)))))).))....((((.(((..{{{..))))))....)........................))))...........}}}.)))..))))......).))..........................
 #=GC SS_cons                          ((((((.((((((((--((((((---..---..--..---((((,,,.<<<<<<<.<<<<-.-...<<.-<<<<______...................__>-.>>>.>.>--->>.>>>..>>>>>>.,,,....<<<.<___________>>>>,...,,,,....................,))))-..........-------..----......-.))))))--).))).))))))))).):::
 #=GC RF                               GgCuCg.cccCCGUgGuCUGGagGAu..Aau..CG..caAGGGUUGa.ggccGCG.GcccA.C...CC.CGgUuCGAguC...................uCgg.AcC.G.GCuGgg.gCC..GCggcc.AaC....gcg.guauUGgCaacCccgcC...gUcg....................aACCCa..........aGCcuGc..ugac......u.cuCCAGgAc.ACG.GgggcGaGc.CuUU
 //
