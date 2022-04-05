@@ -548,6 +548,7 @@ def align_pdbs_to_seed(rfam_acc, pdb_ids, rnacentral_ids):
     seed_rnacentral_ids = get_rfam_family_rnacentral_ids(rfam_acc)
 
     aligned_counter = 0
+    files_copied = False
     for pdb_id in pdb_ids:
         if pdb_id in rnacentral_ids:
             print(f'{pdb_id} {rnacentral_ids[pdb_id]}')
@@ -573,6 +574,7 @@ def align_pdbs_to_seed(rfam_acc, pdb_ids, rnacentral_ids):
             print('\tStarting with an official seed and cm')
             shutil.copyfile(get_rfam_cm_filename(rfam_acc), get_temp_cm_filename(rfam_acc))
             shutil.copyfile(get_rfam_seed_filename(rfam_acc), get_temp_3d_seed_filename(rfam_acc))
+            files_copied = True
         pdb_fasta = get_pdb_fasta_file(pdb_id)
         if not pdb_fasta:
             print(f'No pdb fasta file found {pdb_id}')
@@ -582,6 +584,11 @@ def align_pdbs_to_seed(rfam_acc, pdb_ids, rnacentral_ids):
         generate_new_cm(rfam_acc, pdb_sto)
         aligned_counter += 1
         shutil.copyfile(pdb_sto, f'temp/{rfam_acc}-with-3d-{aligned_counter}.sto')
+
+    if not files_copied:
+        print('\tStarting with an official seed and cm')
+        shutil.copyfile(get_rfam_cm_filename(rfam_acc), get_temp_cm_filename(rfam_acc))
+        shutil.copyfile(get_rfam_seed_filename(rfam_acc), get_temp_3d_seed_filename(rfam_acc))
     return aligned_pdbs_ids
 
 
