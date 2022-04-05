@@ -68,18 +68,48 @@ def get_temp_3d_seed_filename(rfam_acc):
     return os.path.join(TEMPDIR, f'{rfam_acc}-with-3d.sto')
 
 
-def download_rfam_cm(rfam_acc, nocache):
+def get_rfam_cm(rfam_acc, nocache):
     """
-    Download and uncompress Rfam covariance model for a given family.
+    Build a covariance model for a given family using the official seed file
+    and the --hand option. This is required to be able to transfer the GR and GC
+    lines from the official seed file, as the official covariance model cannot
+    be used here.
     """
     if not os.path.exists(TEMPDIR):
         os.mkdir(TEMPDIR)
-    filename = get_rfam_cm_filename(rfam_acc)
-    if not os.path.exists(filename) or nocache:
-        print(f'Downloading the latest {rfam_acc} CM from SVN')
-        url = 'https://xfamsvn.ebi.ac.uk/svn/data_repos/trunk/Families'
-        cmd = f'wget -q -a {TEMPDIR}/wget.log -O {filename} {url}/{rfam_acc}/CM'
+    seed_file = get_rfam_seed_filename(rfam_acc)
+    cm_file = get_rfam_cm_filename(rfam_acc)
+    if not os.path.exists(cm_file) or nocache:
+        print('Building a new CM with the --hand option')
+        cmd = f'rm -f {cm_file}.i1*' # remove old cmpress files if found
         subprocess.check_output(cmd, shell=True)
+        cmd = f'cmbuild --hand -F {cm_file} {seed_file}'
+        subprocess.check_output(cmd, shell=True)
+
+
+def cmalign_keep_annotations(cm_file, seed_file, fasta, output_file):
+    """
+    # $1: CM file
+    # $2: seed file (used to build CM with --hand)
+    # $3: fasta file of seqs to align
+    # $4: name of alignment file to create
+    """
+    # cmd = f'esl-seqstat -a {fasta} | grep ^\\= | awk "{{ print $2 }}" > {output_file}.list'
+    cmd = f"grep '>' {fasta} | sed 's/>//' > {output_file}.list"
+    subprocess.check_output(cmd, shell=True)
+
+    # align sequences using --mapstr --mapali to keep SS_cons from SEED
+    cmd = f'cmalign --sub --notrunc -g --mapstr --mapali {seed_file} -o {output_file}.tmp ' \
+          f'{cm_file} {fasta} > {output_file}.cmalign'
+    subprocess.check_output(cmd, shell=True)
+
+    # remove orignal seed seqs (to keep SS_cons we need --mapstr --mapali above)
+    cmd = f'esl-alimanip --seq-k {output_file}.list {output_file}.tmp > {output_file}.tmp2'
+    subprocess.check_output(cmd, shell=True)
+
+    # merge original seed with new seqs to get original annotation from the seed
+    cmd = f'esl-alimerge {seed_file} {output_file}.tmp2 > {output_file}'
+    subprocess.check_output(cmd, shell=True)
 
 
 def download_rfam_seed(rfam_acc, nocache):
@@ -216,9 +246,9 @@ def align_to_seed(rfam_acc, pdb_fasta):
     cmd = f'head -2 {pdb_fasta} > {temp_fasta}'
     subprocess.check_output(cmd, shell=True)
     print('\tRunning cmalign')
-    cmd = f'cmalign --mapali {pdb_sto} {get_temp_cm_filename(rfam_acc)} ' \
-          f'{temp_fasta} > {pdb_sto_new}'
-    subprocess.check_output(cmd, shell=True)
+    cmalign_keep_annotations(get_temp_cm_filename(rfam_acc),
+                             get_temp_3d_seed_filename(rfam_acc), temp_fasta,
+                             pdb_sto_new)
     shutil.copyfile(pdb_sto_new, pdb_sto)
 
 
@@ -273,7 +303,7 @@ def generate_new_cm(rfam_acc, pdb_sto):
     Build a new covariance model using cmbuild.
     """
     print('\tRunning cmbuild')
-    cmd = f'cmbuild -o {TEMPDIR}/cmbuild.log -F {get_temp_cm_filename(rfam_acc)} {pdb_sto}'
+    cmd = f'cmbuild --hand -o {TEMPDIR}/cmbuild.log -F {get_temp_cm_filename(rfam_acc)} {pdb_sto}'
     subprocess.check_output(cmd, shell=True)
 
 
@@ -684,7 +714,7 @@ def main():
             print('No PDB structures with basepairs found')
             continue
         download_rfam_seed(rfam_acc, nocache)
-        download_rfam_cm(rfam_acc, nocache)
+        get_rfam_cm(rfam_acc, nocache)
         rfam_pdb_ids = get_rfam_family_pdb_ids(rfam_acc)
         new_pdb_ids = structured_valid_pdb_ids - rfam_pdb_ids
         if new_pdb_ids:
