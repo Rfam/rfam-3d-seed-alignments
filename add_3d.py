@@ -205,6 +205,10 @@ def generate_ss_line(structure, line):
     """
     new_line = []
     match = re.match(r'^(\w+)(\s+)(\S+)', line)
+    if not match:
+        # URS000080E2F0_93929/1-52
+        match = re.match(r'(URS\w{10}_\d+\/\d+-\d+)(\s+)(\S+)', line)
+
     accession = match.group(1)
     spacer = match.group(2)
     data = match.group(3)
