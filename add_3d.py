@@ -585,6 +585,7 @@ def finalise_alignment(rfam_acc, pdb_ids, rnacentral_ids):
     subprocess.check_output(cmd, shell=True)
     output_file = rename_accessions(rfam_acc, pdb_ids, rnacentral_ids)
     add_metadata_lines(rfam_acc, output_file)
+    fix_stockholm_whitespace(rfam_acc)
     cmd = f'esl-alistat {output_file}'
     try:
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT,
@@ -594,6 +595,53 @@ def finalise_alignment(rfam_acc, pdb_ids, rnacentral_ids):
     else:
         print(f'esl-alistat:\n{output}')
     print(f'Created {output_file}')
+
+
+def fix_stockholm_whitespace(rfam_acc):
+    """
+    Make sure that the Stockholm file is properly formatted and there is no
+    misalignment.
+    """
+    max_width = 0
+    new_lines = {}
+    filename = os.path.join('data', 'output', f'{rfam_acc}.sto')
+    with open(filename, 'r', encoding='UTF-8') as f_sto:
+        lines = f_sto.readlines()
+        for line in lines:
+            # #=GR URS000012D749_4932/1-568 6N7R_R_SS   AUCGCGCG
+            match = re.match(r'^(#=GR\s+\S+\s+\S+)\s+(\S+)$', line)
+            if match:
+                left_column = match.group(1)
+                left_column = re.sub(r'\s+', ' ', left_column)
+                if len(left_column) > max_width:
+                    max_width = len(left_column)
+                new_lines[line] = (left_column, match.group(2))
+                continue
+            # U03476.1/1-572    AUCGCGCG
+            match = re.match(r'^(\S+)\s+(\S+)$', line)
+            if match:
+                left_column = match.group(1)
+                if len(left_column) > max_width:
+                    max_width = len(left_column)
+                new_lines[line] = (left_column, match.group(2))
+                continue
+            # #=GC RF   AUCGCGCG
+            match = re.match(r'^(#=GC\s+\S+)\s+(\S+)$', line)
+            if match:
+                left_column = match.group(1)
+                if len(left_column) > max_width:
+                    max_width = len(left_column)
+                new_lines[line] = (left_column, match.group(2))
+                continue
+            new_lines[line] = line
+    with open(filename, 'w', encoding='UTF-8') as f_out:
+        for line in lines:
+            if isinstance(new_lines[line], str):
+                f_out.write(new_lines[line])
+            else:
+                left_column, right_column = new_lines[line]
+                new_line = left_column.ljust(max_width + 3) + right_column + '\n'
+                f_out.write(new_line)
 
 
 def main():
