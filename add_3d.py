@@ -798,6 +798,14 @@ def transfer_gc_annotations(rfam_acc):
                     print(f'Transferred a {label} line')
 
 
+def delete_cached_files():
+    """
+    Trigger download of fresh Rfam-PDB and RNAcentral-PDB mappings files.
+    """
+    os.remove('pdb_full_region.txt')
+    os.remove('pdb.tsv')
+
+
 def main():
     """
     Main entrypoint.
@@ -815,6 +823,8 @@ def main():
     rfam_accs = args.rfam_acc
     nocache = args.nocache
 
+    if nocache:
+        delete_cached_files()
     pdb_data = merge_3d_mappings(get_rfam_3d_mapping(), get_curated_3d_mapping())
 
     if rfam_accs[0] == 'all':
