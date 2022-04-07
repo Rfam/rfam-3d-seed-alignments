@@ -19,6 +19,10 @@ RUN \
     cd $INFERNAL && \
     rm infernal-1.1.2.tar.gz
 
+ADD requirements.txt .
+
+RUN pip install -r requirements.txt
+
 ENV PATH="$INFERNAL/infernal-1.1.2/bin:$RNA:$PATH"
 
 ENTRYPOINT ["/bin/bash"]

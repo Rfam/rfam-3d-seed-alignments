@@ -18,6 +18,8 @@ import subprocess
 
 import collections
 
+from colorama import Fore, Style, init
+
 from fr3d_2d import fr3d_2d
 
 
@@ -633,10 +635,10 @@ def finalise_alignment(rfam_acc, pdb_ids, rnacentral_ids):
         output = subprocess.check_output(cmd, stderr=subprocess.STDOUT,
                                          shell=True, universal_newlines=True)
     except subprocess.CalledProcessError as exc:
-        print('Status : FAIL', exc.returncode, exc.output)
+        print(f'{Fore.RED}Status : FAIL', exc.returncode, exc.output)
     else:
         print(f'esl-alistat:\n{output}')
-    print(f'Created {output_file}')
+    print(f'{Style.BRIGHT}Created {output_file}')
 
 
 def fix_stockholm_whitespace(rfam_acc):
@@ -815,6 +817,8 @@ def main():
 
     if rfam_accs[0] == 'all':
         rfam_accs = pdb_data.keys()
+
+    init(autoreset=True)
 
     for rfam_acc in sorted(rfam_accs):
         print(rfam_acc)
