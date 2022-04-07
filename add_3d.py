@@ -270,16 +270,16 @@ def add_structure_to_alignment(pdb_id, pdb_sto, structure):
     return structure_lines
 
 
-def add_structure_to_alignment_2(pdb_id, pdb_id_2, pdb_sto, structure):
+def add_structure_to_alignment_and_rename(aligned_pdb_id, pdb_id, pdb_sto, structure):
     """
     """
     structure_lines = []
     with open(pdb_sto, 'r', encoding='UTF-8') as f_sto:
         for line in f_sto.readlines():
-            if line.startswith(pdb_id):
+            if line.startswith(aligned_pdb_id):
                 new_line, _ = generate_ss_line(structure, line)
-                new_line = new_line.rstrip().replace(f'{pdb_id}_SS',
-                                                     f'{pdb_id_2}_SS')
+                new_line = new_line.rstrip().replace(f'{aligned_pdb_id}_SS',
+                                                     f'{pdb_id}_SS')
                 structure_lines.append(new_line)
     return structure_lines
 
@@ -617,7 +617,7 @@ def add_secondary_structure(rfam_acc, pdb_ids, rnacentral_ids, aligned_pdbs_ids)
         if pdb_id == aligned_pdb_id:
             structure_lines = add_structure_to_alignment(pdb_id, pdb_sto, structure)
         else:
-            structure_lines = add_structure_to_alignment_2(aligned_pdb_id, pdb_id, pdb_sto, structure)
+            structure_lines = add_structure_to_alignment_and_rename(aligned_pdb_id, pdb_id, pdb_sto, structure)
         generate_new_seed(rfam_acc, structure_lines, pdb_id)
 
 
