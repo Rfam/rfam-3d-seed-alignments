@@ -626,6 +626,7 @@ def finalise_alignment(rfam_acc, pdb_ids, rnacentral_ids):
     subprocess.check_output(cmd, shell=True)
     output_file = rename_accessions(rfam_acc, pdb_ids, rnacentral_ids)
     add_metadata_lines(rfam_acc, output_file)
+    transfer_gc_annotations(rfam_acc)
     fix_stockholm_whitespace(rfam_acc)
     cmd = f'esl-alistat {output_file}'
     try:
@@ -683,6 +684,114 @@ def fix_stockholm_whitespace(rfam_acc):
                 left_column, right_column = new_lines[line]
                 new_line = left_column.ljust(max_width + 3) + right_column + '\n'
                 f_out.write(new_line)
+
+
+def transfer_gc_annotations(rfam_acc):
+    """
+    Transfer all manually curated comment lines from the official Rfam seeds
+    into the newly created alignments.
+
+    To find all manually added GC lines:
+    egrep -h -o '#=GC\s+\w+' data/seed/*.seed | sort | uniq
+
+    As of 14.7 the following GC lines were present:
+    #=GC RNA_ligand_AdoCbl
+    #=GC RNA_ligand_AqCbl
+    #=GC RNA_ligand_FMN
+    #=GC RNA_ligand_Guanidinium
+    #=GC RNA_ligand_SAM
+    #=GC RNA_ligand_THF_1
+    #=GC RNA_ligand_THF_2
+    #=GC RNA_ligand_TPP
+    #=GC RNA_ligand_ZMP
+    #=GC RNA_ligand_fluoride
+    #=GC RNA_ligand_guanidine
+    #=GC RNA_ligand_preQ1
+    #=GC RNA_motif_k_turn
+    """
+    # convert to pfam format
+    pfam_format_seed = f'{get_rfam_seed_filename(rfam_acc)}.pfam'
+    cmd = f'esl-reformat pfam {get_rfam_seed_filename(rfam_acc)} > ' \
+          f'{pfam_format_seed}'
+    subprocess.check_output(cmd, shell=True)
+
+    # find a sequence with the least number of gaps
+    data = {}
+    reference_sequence = {}
+    gc_lines = []
+    with open(pfam_format_seed, 'r', encoding='UTF-8') as f_seed:
+        for line in f_seed:
+            if line.startswith('#=GC') and not line.startswith('#=GC SS_cons') \
+               and not line.startswith('#=GC RF'):
+                match = re.match(r'^(#=GC\s+\S+)\s+(\S+)$', line)
+                label = match.group(1)
+                annotation = match.group(2)
+                gc_lines.append((label, annotation))
+            if line.startswith('#') or len(line) < 10:
+                continue
+            if not reference_sequence:
+                match = re.match(r'^(\S+)\s+(\S+)$', line)
+                accession = match.group(1)
+                sequence = match.group(2)
+                gap_count = sequence.count('.') + sequence.count('-')
+                data[accession] = {
+                    'sequence': sequence,
+                    'gap_count': gap_count,
+                }
+                # if there are no gaps, use as a reference
+                if gap_count == 0:
+                    reference_sequence[accession] = data[accession]
+    if not gc_lines:
+        # nothing to transfer
+        return
+    if not reference_sequence:
+        # loop and select an entry with least gaps
+        min_gap = 100000000
+        min_accession = ''
+        for accession, metadata in data.items():
+            if metadata['gap_count'] < min_gap:
+                min_accession = accession
+        reference_sequence[min_accession] = data[min_accession]
+
+    # map GC symbols to the selected sequence
+    new_gc_lines = []
+    new_seed = os.path.join('data', 'output', f'{rfam_acc}.sto')
+    lines = []
+    with open(new_seed, 'r', encoding='UTF-8') as f_new_seed:
+        reference_accession = list(reference_sequence.keys())[0]
+        ref_seq = reference_sequence[reference_accession]['sequence']
+        for line in f_new_seed:
+            lines.append(line)
+            if not line.startswith(reference_accession):
+                continue
+            match = re.match(r'^(\S+)\s+(\S+)$', line)
+            sequence = match.group(2)
+            # generate a new GC line for the same sequence in the new alignment
+            for gc_line in gc_lines:
+                label, annotation = gc_line
+                if len(sequence) == len(annotation):
+                    new_gc_lines.append((label, annotation))
+                    continue
+                new_gc_annotation = []
+                # compare with ref_seq
+                index = 0
+                for symbol in sequence:
+                    if symbol == ref_seq[index]:
+                        new_gc_annotation.append(annotation[index])
+                        index += 1
+                    else:
+                        new_gc_annotation.append('*')
+                new_gc_lines.append((label, ''.join(new_gc_annotation)))
+
+    # rewrite the seed with the new GC line
+    with open(new_seed, 'w', encoding='UTF-8') as f_new_seed:
+        for line in lines:
+            f_new_seed.write(line)
+            if line.startswith('#=GC RF'):
+                for new_line in new_gc_lines:
+                    label, annotation = new_line
+                    f_new_seed.write(f'{label}  {annotation}\n')
+                    print(f'Transferred a {label} line')
 
 
 def main():
