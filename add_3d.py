@@ -544,8 +544,7 @@ def align_pdbs_to_seed(rfam_acc, pdb_ids, rnacentral_ids):
     """
     Align PDB sequences to seed if it has not been done already.
     """
-    print(len(pdb_ids))
-    print(f'{len(pdb_ids)} PDB structure(s): ' + ', '.join(pdb_ids))
+    print(f'{len(pdb_ids)} new PDB structure(s): ' + ', '.join(pdb_ids))
 
     aligned_rnacentral_ids = []
     aligned_pdbs_ids = {}
@@ -603,7 +602,7 @@ def add_secondary_structure(rfam_acc, pdb_ids, rnacentral_ids, aligned_pdbs_ids)
     """
     pdb_sto = get_temp_3d_seed_filename(rfam_acc)
     for pdb_id in pdb_ids:
-        print(pdb_id)
+        print(f'Adding secondary structure GR lines for {pdb_id}')
         pdb_fasta = get_pdb_fasta_file(pdb_id)
         if not pdb_fasta:
             print('PDB fasta file not found')
@@ -824,8 +823,8 @@ def main():
     init(autoreset=True)
 
     for rfam_acc in sorted(rfam_accs):
-        print(rfam_acc)
         # if rfam_acc <= 'RF01734':
+        print(f'{Fore.MAGENTA}{rfam_acc}')
         #     continue
         if skip_family(rfam_acc, nocache):
             continue
@@ -855,6 +854,7 @@ def main():
         aligned_pdbs_ids = align_pdbs_to_seed(rfam_acc, pdb_ids, rnacentral_ids)
         add_secondary_structure(rfam_acc, pdb_ids, rnacentral_ids, aligned_pdbs_ids)
         finalise_alignment(rfam_acc, pdb_ids, rnacentral_ids)
+        print(f'Added {len(pdb_ids)} new PDB ID(s) from {len(rnacentral_ids)} RNAcentral ID(s)')
 
 
 if __name__ == '__main__':
