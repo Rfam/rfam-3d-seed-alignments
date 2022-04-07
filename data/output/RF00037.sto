@@ -1,6 +1,8 @@
 # STOCKHOLM 1.0
 #=GF ID IRE_I 
 #=GF DE Iron response element I 
+#=GF CC Review new structure 3SNP_C
+#=GF CC Review new structure 3SNP_D
 
 Y09188.1/1-35                            CU.G.UCUCUUGCUUCAACAGUGUUUGGACGGA-ACAG
 M14211.1/193-227                         GG.G.UUUCCUGCUUCAACAGUGCUUGGACGG-AACCC

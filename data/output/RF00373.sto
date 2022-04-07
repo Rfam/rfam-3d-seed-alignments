@@ -1,6 +1,10 @@
 # STOCKHOLM 1.0
 #=GF ID RNaseP_arch 
 #=GF DE Archaeal RNase P 
+#=GF CC Review new structure 6K0A_X
+#=GF CC Review new structure 6K0A_Y
+#=GF CC Review new structure 6K0B_X
+#=GF CC Review new structure 6K0B_Y
 
 AF192349.1/1-262                          ...--------------------.------.......................................----..........----GAGGAAAGUCCCGCCUCCAGAUCA-..AGGGAAGUCCC.GCGA.-GGGAC.AAGGG.UAGUaCCCUU..GG.CAA.CUGC.ACAGAAAACU.UACCC..CUAAAUAUUc.AAU..GAGGAU.......UUGauucgac.....................................................................................................................UCU..UACCUUG..GCGA..CAAGGUA......agauaGAUGAAGAG........................................................AAUAUU.U.AG--GGGUUGAAAC-.GCAG...-U...CCUUCCC..GGAGCAAGU--AGG..........GGGGUc...AAUGAGAA.UGAUCUGAA................................................gAC.CUC..CCUUG--ACGCAUAGUCGAAUCCCCCA.........................................................-AA..UACAGAAGCGGGCUUA..------------......
 AF192350.1/1-267                          ...--------------------.------.......................................----..........----GAGGAAAGUCCCGCCUCCUGGCCU-..AAAGGAGUCUC.UAUA.-GAGAC.AAGGGcAACA.CCCUU..GG.CAA.CUAU.ACAGAAACAAgUACCU..UGAAAGCUA..CAU..GUGAAAa......UGAuugugcc.....................................................................................................................CCU..UCCUCUG..GUAA..CGGAGGA......agaaaCAUGAGAGU........................................................-AGCUU.U.CA--AGGAUGAAAAG.AUAG...-A...CCUCCUA..GGAGCAAGU--AGA..........GGGAAa...GAUGAGAC.UAGGCCCGA................................................uUU.CCC.uCUAGG--ACGCAUAGCCAAAUCCCCCA.......................................................acCAU..UACAAAAGCGGGCUUA..------------......

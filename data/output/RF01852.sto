@@ -1,6 +1,32 @@
 # STOCKHOLM 1.0
 #=GF ID tRNA-Sec 
 #=GF DE Selenocysteine transfer RNA 
+#=GF CC Review new structure 3A3A_A
+#=GF CC Review new structure 3ADB_C
+#=GF CC Review new structure 3ADB_D
+#=GF CC Review new structure 3ADC_C
+#=GF CC Review new structure 3ADC_D
+#=GF CC Review new structure 3ADD_C
+#=GF CC Review new structure 3ADD_D
+#=GF CC Review new structure 3HL2_E
+#=GF CC Review new structure 3RG5_A
+#=GF CC Review new structure 3RG5_B
+#=GF CC Review new structure 3W1K_F
+#=GF CC Review new structure 3W1K_G
+#=GF CC Review new structure 3W1K_H
+#=GF CC Review new structure 3W1K_I
+#=GF CC Review new structure 3W1K_J
+#=GF CC Review new structure 3W3S_B
+#=GF CC Review new structure 4RQE_B
+#=GF CC Review new structure 4RQE_D
+#=GF CC Review new structure 4RQF_C
+#=GF CC Review new structure 4ZDO_E
+#=GF CC Review new structure 4ZDP_E
+#=GF CC Review new structure 5LZB_y
+#=GF CC Review new structure 5LZC_y
+#=GF CC Review new structure 5LZD_y
+#=GF CC Review new structure 5LZE_y
+#=GF CC Review new structure 5LZF_y
 
 CP000112.1/1531804-1531715                 GGAAGCGUA-..UC..GU.CA.C.CGGU.GUGGCGCCCGGUCUUCAAAACCG.G..U..GGACG.GCUGAGA.....GGUCGUCG..GUAGGUUCGACUCCUA...U.ACGCUU...CC....
 X75790.1/378-471                           GGAAGCGUA-..UC..GU.CA.C.CGGU.GUGGCGCCCGGUCUUCAAAACCG.G..U..GGAAG.GUCGAGA.....GGUCUUCG..GUAGGUUCGACUCCUA...U.ACGCUU...CCgcca

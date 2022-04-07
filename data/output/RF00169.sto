@@ -1,6 +1,23 @@
 # STOCKHOLM 1.0
 #=GF ID Bacteria_small_SRP 
 #=GF DE Bacterial small signal recognition particle RNA 
+#=GF CC Review new structure 1LNG_B
+#=GF CC Review new structure 1Z43_A
+#=GF CC Review new structure 2J28_8
+#=GF CC Review new structure 2V3C_M
+#=GF CC Review new structure 2V3C_N
+#=GF CC Review new structure 2XKV_B
+#=GF CC Review new structure 2XXA_F
+#=GF CC Review new structure 2XXA_G
+#=GF CC Review new structure 3ZN8_G
+#=GF CC Review new structure 4XCO_E
+#=GF CC Review new structure 4XCO_M
+#=GF CC Review new structure 5AKA_7
+#=GF CC Review new structure 5GAD_1
+#=GF CC Review new structure 5GAF_1
+#=GF CC Review new structure 5GAG_1
+#=GF CC Review new structure 5GAH_1
+#=GF CC Review new structure 5NCO_1
 
 BA000034.2/177239-177336                  A...........................U.AA.UAG.-..GCG..GAGC..AACA.CUU..GUGCGUGAAG.UGGGUCAGGGGA.GGAAUCCAGCAGCCCUaAGCGAUUuUCG.G.GUG.U.GUG..CU.C.UUUU...UUUUGUUGACUU........
 AE000783.1/482312-482409                  C...........................C.UA.GGA.C..CCG..UACU..AUCA.AGU..AUUGCUGAAU.CCCGUCAGGACU.GGAAGGUAGCAGCGGU.AAGCGAU.UUU.U.UUG.A.-UG.aGU.A.CGUA...AGUCUUAGGUUUa.......

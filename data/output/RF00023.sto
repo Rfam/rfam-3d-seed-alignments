@@ -1,6 +1,26 @@
 # STOCKHOLM 1.0
 #=GF ID tmRNA 
 #=GF DE transfer-messenger RNA 
+#=GF CC Review new structure 1P6V_B
+#=GF CC Review new structure 1P6V_D
+#=GF CC Review new structure 2CZJ_B
+#=GF CC Review new structure 2CZJ_D
+#=GF CC Review new structure 2CZJ_F
+#=GF CC Review new structure 2CZJ_H
+#=GF CC Review new structure 3IYQ_A
+#=GF CC Review new structure 3IYR_A
+#=GF CC Review new structure 3IZ4_A
+#=GF CC Review new structure 4V6T_AV
+#=GF CC Review new structure 4V8Q_BY
+#=GF CC Review new structure 5ZEY_A
+#=GF CC Review new structure 6Q95_4
+#=GF CC Review new structure 6Q97_4
+#=GF CC Review new structure 6Q98_4
+#=GF CC Review new structure 6Q9A_4
+#=GF CC Review new structure 7ABZ_4
+#=GF CC Review new structure 7AC7_4
+#=GF CC Review new structure 7ACJ_4
+#=GF CC Review new structure 7ACR_4
 
 AF389977.1/33-350                           --------g..-------..--ACAAGAUUCACGA......--A.ACCCA--.AGGUgCAUGCCGAGG.....UGCGGUAg.....GCCUCGUUAAC-.....-AAACCGCA....-AAAAAAUAGUCGCAAACGACGAAAACUAC-.......................................................................................................................................................................--.--GCACUC-GCAG.....................................cUUAAua....................acCUGCGCUGAgc.....................................................................CCUUCUc.............CCCC..aGCUUGC.....CUGU-GUc....CUAG-....-GGAAu...........................................................uGGAAGGUCAu...ccUUCAC-AGGAUc...................................--GUGUGG--.aagu...cCUGCUCGgg...................gCg..-GAAGCAUUAAA.Ac....-CAUUCGAGCUA...GUCAAUGCGU....GGCG...UGUCU..CUC...C.GC....AGCGUGUUGGCGAAU-..................................................GuaaAGAG-.UGAC...UA...AGCAUGUA..gUACCG--AGGAUGU..........-AGUAAUUUUGGA.CGGG--------------.----------.G
 AAFX01035522.1/635-271                      GGGGCUG-..aCAGGAAU..CGACAGUAGAGU---g....uAUC.AUGUCAG.UAAG.CAUGCCGGGGa...aUGGUGGUu....uACCCCGUUAUCAa...aUGAUUACCG....--ACCAAUAAUUGGCGAAACUCGUUUC----.......................................................................................................................................................................--.GCGUUGGCUGCCU......................................AAUUca......................AGGAA-UUAgcg...................................................................u-GCCUU..............CAUGc..UAAGG-.....GUUUGAUa....UCUGC....-UAAAa...........................................................cCCGGUGC--.....aUUCAUCAAUG-....................................---CAGGUUAagc.ca..aAGGGAUG......................U.ccCGACCGG-----.-.a..gGCCGACAAUCCAgggAACCGGAUGUcaucACGU...-UGUUgcAGU...A.CCagauGGCAUCUUAAAUCCG-..................................................-...AUCUGcAAA-...UA...AGCAUGUA..g-AAAGCUGAUGUGGg.........C--UUUAGCUGGA.CGGGGGUUCAAUUCCCCC.CGGCUCCACC.A

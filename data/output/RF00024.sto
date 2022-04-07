@@ -1,6 +1,11 @@
 # STOCKHOLM 1.0
 #=GF ID Telomerase-vert 
 #=GF DE Vertebrate telomerase RNA 
+#=GF CC Review new structure 7BG9_B
+#=GF CC Review new structure 7BGB_B
+#=GF CC Review new structure 7QXA_B
+#=GF CC Review new structure 7QXB_B
+#=GF CC Review new structure 7QXS_B
 
 AF221915.1/120-667                        .................UCA-..............-CAUUGCU..GCGGGGUgGAGGC...GUUUUU..AACUAACCCUAA-UGCAGAGUAA..GUGG..cugg..............-GCCUUccucacacUGCCUCCCgcug..........cgugaaACCUCGCUGUUUUCUUGGCUAACUUUCAGCGAGGUgAGGcAAGGCGGCAaa............--------.-------........................aaaaaguugggag............cAGCAACGGCAAGCAAa...AAAAAAGUUccAGC.CGAg......GCC.UCcucacCA-CGCGGC--c...UG-...GGucugaggguaacauggcCCUGCGGGAGAGAGCcAACacggg.........ggggccccgguccggcuaacagggcaggag...-GUCGGCCCcAauugCCUca.....--GGCCC-...AGCC-.ACUCC.......GGGCCGCGAUCAGCCC.GGGCUUU-...cCCUAcuuU-GGGGCCC.AAUGCUGUCGCGAAGAGu-UCG-gCUCUGUCAGCCC..-GGCU.---..GGGUC--.....cGGGUG.gGGGC..CGGC-.acagagggacacaccgggccggggcgCCGAGGAuaGCUACcgcCCGCAGG.GAUAGUAAAuaucCGuGACCAGu-GGC--......CUCGGUGGCUGCG--uCUCCC.GGAGCAAU.GGGA.CC.-CGCAagGCu--GCC-.C.UGGUCAUACACGC
 AF221933.1/121-679                        .................UCA-..............-CAUUGCU..GCGGGGUgGAGGC...GAUUUU..AACUAACCCUAA-UGCAGAGUAA..GUGG..cugg..............-GCCUUccucacacUGCCUCCCgcug..........cgcgaaACCUCGCUGUUUUCUUGGCUAACUUUCAGCGAGGUgAGGaGAGGCGGCAaa............--------.-------.....................aaaaaaagguugggag............cAGCAGCGGCAAACAAaa..AAAAAAGUUccAGC.CGAg......GCC.UCcucacCCCCGCGGC--c...UG-...GGucugaggguaacacggcCCUGCGGGAGAGAGGcAACacgg..........gggcccccgguccggcgaacagggcaggag...-GUCGGUCCcAaucgCCUcaca...--GGCCC-...AGCC-.ACUCC.......GGGCCGCGGUCAGCCC.GGGGCUUUccccCCCAccaUGGGGGCCC.AAUGCUGCCGCGAAGAGu-UCG-gCUCUGUCAGCCC..-GGCU.---..GGGCC--.....aGGGUG.gGGGC..CGGC-.acagagggacacaccgggccggggcgCCGGGGAuaGCUACcgcCCGCAGG.GAUAGCAAAuaucCGuGACCAGu-GGU--......CUCGGUGGCUGCG--uCUCCC.GGAGCAAU.GGGA.CC.-CGCAagGCu--GCC-.C.UGGUCAUACACAU

@@ -367,7 +367,7 @@ def parse_desc(rfam_acc):
     return data
 
 
-def add_metadata_lines(rfam_acc, output_file):
+def add_metadata_gf_lines(rfam_acc, pdb_ids, output_file):
     """
     Include ID and DE lines in the output file to make it easier to explore
     output alignments.
@@ -392,6 +392,9 @@ def add_metadata_lines(rfam_acc, output_file):
                 f_out.write(gf_line)
                 gf_line = f'#=GF DE {desc_data["DE"]}\n'
                 f_out.write(gf_line)
+                for pdb_id in pdb_ids:
+                    gf_line = f'#=GF CC New structure {pdb_id}\n'
+                    f_out.write(gf_line)
 
 
 def get_sequence_length(line):
@@ -627,7 +630,7 @@ def finalise_alignment(rfam_acc, pdb_ids, rnacentral_ids):
     cmd = f'esl-reformat pfam {pdb_sto} > temp/{rfam_acc}-final.sto'
     subprocess.check_output(cmd, shell=True)
     output_file = rename_accessions(rfam_acc, pdb_ids, rnacentral_ids)
-    add_metadata_lines(rfam_acc, output_file)
+    add_metadata_gf_lines(rfam_acc, pdb_ids, output_file)
     transfer_gc_annotations(rfam_acc)
     fix_stockholm_whitespace(rfam_acc)
     cmd = f'esl-alistat {output_file}'

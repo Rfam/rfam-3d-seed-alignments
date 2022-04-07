@@ -1,6 +1,9 @@
 # STOCKHOLM 1.0
 #=GF ID mir-16 
 #=GF DE mir-16 microRNA precursor family 
+#=GF CC Review new structure 6LXD_D
+#=GF CC Review new structure 6V5B_D
+#=GF CC Review new structure 6V5C_D
 
 AL669869.10/100495-100571                 ................UCCUGGCUCUAGCAGCACAGAAAUAUUGGCAUGGGGAAGUGAGUCUG--.--CCAAUAUUGGCUGUGCUGCUCCAGGCAGGG.............
 AY865955.1/411-487                        ................CCUGGGCUCUAGCAGCACAGAAAUAUUGGCACAGGGAAGCGAGUCUG--.--CCAAUAUUGGCUGUGCUGCUCCAGGCAGGG.............

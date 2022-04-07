@@ -1,6 +1,10 @@
 # STOCKHOLM 1.0
 #=GF ID RNaseP_bact_b 
 #=GF DE Bacterial RNase P class B 
+#=GF CC Review new structure 1NBS_A
+#=GF CC Review new structure 1NBS_B
+#=GF CC Review new structure 2A64_A
+#=GF CC Review new structure 3DHS_A
 
 U64877.1/1-316                            .......--..----..-------------------........................................----.....-----GAGGAAAGUCCGGG.CUAGCACAC.ACcUUAUGG.GUGUGUAGUGUUUGU.GCUAAGG..GAAAUCAUAACCUUAGGUA..UGUUg....UAUA.....AACA..UAACGGCaaACUA.GUUA.UA.GCUAAGGUg.UUUC......ACUAC.GUUAUAACUUAAA.....UUAAA..GUGCCACAGAGACGAA-UCUAUU.UA.......................GAAA........................UAA.AUAGAGUGAAACG.CGGUAAACCCCUCAAGCUAGCAACCCAAAUU-..AGGUAGGGGCAC.A.UGAUG..UGUAG----...CAAUACAA.CAUCAUGC.AAGAU-...............UUGA.....AUC..UUGAGAUUAAUAGUCACAA...AAGAA..-.----..............GAAA...................----UUCUU...UACAGAACGCGGCUUA--..............---.......................
 M19023.1/1-411                            augcaggAA..AUGC..GGGUAGCCGCUGCCGCAAUcgucuc..................................GGCGauuggCGGUAGAGGAAAGUCCAGG.CUCGCCCAA.GC.UGAGAU.GCUUGGAGUGUUCGU.ACCUGGC..GCAA------GCCAGGGCAa.GUGAggc..GCAA..gccUCGC..UGACGGC..-GUG.GAAA.GG.GCU--CUC..UCU-......GAG--.GCCCGAGUACGC-.....UGAAA..GUGCCACAGAAACGUAGCUUUUC.UG.......................GCGA........................CAG.AAAAGAUGGAACG.CGGUAAACCCUGCGAGCGAGAAACCCAAAUU-..UGGUAGGGGAAC.C.GUCCU..GAAGGAAUC...AAACGGAA.GGGACGGA.UGGUAUcuu............CGGA.....UGC..CAUAGAUAGAUGGCUACCG...CUCUU..GgUGCGagg...........GAUA......cgucccgcuugcaGCACGGGAG..aGACAGAACCUGGCUUAUA..............GCA..........uuuccugcuggau

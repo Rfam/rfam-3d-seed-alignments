@@ -1,6 +1,13 @@
 # STOCKHOLM 1.0
 #=GF ID IRES_HCV 
 #=GF DE Hepatitis C virus internal ribosome entry site 
+#=GF CC Review new structure 4UJC_AC
+#=GF CC Review new structure 4UJD_BC
+#=GF CC Review new structure 5A2Q_3
+#=GF CC Review new structure 5FLX_z
+#=GF CC Review new structure 5OA3_3
+#=GF CC Review new structure 6IP6_zz
+#=GF CC Review new structure 6IP8_zz
 
 D37841.1/1-365                              GCCagccccuuaacggggcgacacuccaccauga...ucacuccccugu...................GaG.Gaacuacugucu...UCAcgcagaaAGCGUCUAGCCAUGGCGUUAGUAUGAG..UGUCGUGCAGC..CUCCAGGCCCCCC.CCUCCCGGG....AG.AGCCAUAGUAGUCUGCGGAACCGGUGAGUACACCGGAAUUGCC.AGGACGACCGGGU.CCUUUCcaUUGGAUCaA.ACCCGCUC.AAUG.CCUGGA.GAUUUGGGCGUG.CCCC.CGCAAG.ACUGCUAGCCGA.GUAGC.GU.UGGGUUGCG.AAAGGCCUUGUGGUAC.UGCCUGAUAGGGUGCUUgc............................................................................................................................................................................gaGUGC.CCCGGGAGGucucguagaccgugcaacaugagcacacuuccuaaaccuca
 M84754.1/1-364                              GCCagcccccgauugggggcgacacuccaccaua...gaucacuccccugu.................GaG.Gaacuacugucu...UCAcgcagaaAGCGUCUAGCCAUGGCGUUAGUAUGAG..UGUCGUGCAGC..CUCCAGGACCCCC.CCUCCCGGG....AG.AGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCC.AGGACGACCGGGU.CCUUUC..UUGGAUC.A.ACCCGCUC.AAUG.CCUGGA.GAUUUGGGCGUG.CCCC.CGCGAG.ACUGCUAGCCGA.GUAGU.GU.UGGGUCGCG.AAAGGCCUUGUGGUAC.UGCCUGAUAGGGUGCUUgc............................................................................................................................................................................gaGUGC.CCCGGGAGGucucguagaccgugcaccaugagcacgaaugguaaaccuca

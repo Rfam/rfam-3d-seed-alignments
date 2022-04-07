@@ -1,6 +1,17 @@
 # STOCKHOLM 1.0
 #=GF ID Histone3 
 #=GF DE Histone 3' UTR stem-loop 
+#=GF CC Review new structure 1JU7_A
+#=GF CC Review new structure 1JWC_A
+#=GF CC Review new structure 4L8R_A
+#=GF CC Review new structure 4L8R_D
+#=GF CC Review new structure 4QOZ_A
+#=GF CC Review new structure 4QOZ_D
+#=GF CC Review new structure 4TUW_C
+#=GF CC Review new structure 4TUW_D
+#=GF CC Review new structure 4TUX_C
+#=GF CC Review new structure 4TUX_D
+#=GF CC Review new structure 4TV0_B
 
 CAAE01014536.1/93243-93288                ..ACAACGGCUCUUUUAAGAGCCACCaCAUGU-GACCGAAAGAGCAUUU
 AC084589.1/5032-4987                      ..CCAACGGCCCUCUUUAGGGCCACGaAUCACAUGAAUCCAAAUUGAU-
