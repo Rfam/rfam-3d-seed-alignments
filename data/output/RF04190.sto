@@ -1,14 +1,14 @@
 # STOCKHOLM 1.0
 #=GF ID Hairpin-meta1 
 #=GF DE Hairpin ribozyme 1 from viruses-like metatranscriptomes 
-#=GF CC Review new structure 1M5K_B
-#=GF CC Review new structure 1M5K_E
-#=GF CC Review new structure 1M5O_B
-#=GF CC Review new structure 1M5O_E
-#=GF CC Review new structure 1M5P_B
-#=GF CC Review new structure 1M5P_E
-#=GF CC Review new structure 1M5V_B
-#=GF CC Review new structure 1M5V_E
+#=GF CC New structure 1M5K_B
+#=GF CC New structure 1M5K_E
+#=GF CC New structure 1M5O_B
+#=GF CC New structure 1M5O_E
+#=GF CC New structure 1M5P_B
+#=GF CC New structure 1M5P_E
+#=GF CC New structure 1M5V_B
+#=GF CC New structure 1M5V_E
 
 URS00022AE672_12908/1-211                 CAUUUGAGUUGUUAUAacuucuuc..................auggauaaAGCAUacucuca.uaucggc.............UUAA................................................gccgguggcauggguaCGUUUaaaca...............................UGUG-UAG....agugcaa...agguuccuu......AAAA-.......................................aagguuucaaacuugcauuuaaACUACUACAAAc.................................gaagaa..-AUAACAAUGAAGAUG..ACCAGGGAAACAUGACGUACA...................................GUAA.................................UGUGCGUUAGCACAUUAACUGGU
 URS00022AE6BD_12908/1-113                 CUUCUGUCCGUCAAA-..................................-----............................----................................................................----Augaa................................GCACCU--.............................AGGGUucaa.........................................................---AGGUGUGGg.........................................-UUUGACGAGAAGAAUg.UCCGGUGAAACACAGCCUGGG...................................AUUAaccuc............................CCCAGACUGGGAUAUUACCCGGA

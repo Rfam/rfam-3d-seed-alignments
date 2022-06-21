@@ -1,8 +1,8 @@
 # STOCKHOLM 1.0
 #=GF ID PreQ1-III 
 #=GF DE PreQ1-III riboswitch 
-#=GF CC Review new structure 6XKN_A
-#=GF CC Review new structure 6XKO_A
+#=GF CC New structure 6XKN_A
+#=GF CC New structure 6XKO_A
 #=GF AU Infernal 1.1.2
 
 BABG01013292.1/257-357                   GAGCAACUUAGGAUUUUAGGCUCCCCG.GUGCGUCUCGAACCGCGCCGGGCCAAACCC.ACAGGGGCUGGCGG-UCCUGU.GCGGUCAAAAUCUUUCCGCUGGAG
@@ -35,10 +35,10 @@ ADJT01007369.1/6381-6474                 GAGCAACUUAGGAUUUUAGGCUCCGCC.UGGU------U
 ADJS01013861.1/2134-2227                 GAGCAACUUAGGAUUUUAGGCUCCGCC.UGGU------U---UUCAGGCGCAAACCCA.CCCAAGCCUGGCGGUCUUGGGcGCGGUCAAAAUCUAUCCGCCGGAG
 URS0000868518_853/1-101                  GAGCAACUUAGGAUUUUAGGCUCCCCG.GCGUGUCUCGAACCAUGCCGGGCCAAACCC.AUAGGG-CUGGCGGUCCCUGU.GCGGUCAAAAUUCAUCCGCCGGAG
 #=GR URS0000868518_853/1-101 4RZD_A_SS   ((((......{{{{{{...))))((((.(((((........)))))))))....((((.(.((((.........)))).).).)))..}}}}}}...........
-6XKN_A                                   GAGCAACUUAGGAUUUUAGGCUCCCCG-GCGUGUCUCGAACCAUGCCGGGCCGAACCC-AUAGGG-CUGGCGGUCCCUGU-GCGGUCAAAAUUCAUCCGCCGGAG
-#=GR 6XKN_A 6XKN_A_SS                    .((((.....{{{{{{..)))).((((.(((((........))))))))).....(((.((((((.........)))))).).))...}}}}}}...........
-6XKO_A                                   GAGCAACUUAGGAUUUUAGGCUCCCCG-GCGUGUCUCGAACCAUGCCGGGCCAAACCC-AUAGGG-CUGGCGGUCCCUGU-GCGGUCGAAAUUCAUCCGCCGGAG
-#=GR 6XKO_A 6XKO_A_SS                    .((((.....{{{{{{..)))).((((.(((((........)))))))))....((((.((((((.........)))))).).)))..}}}}}}...........
+URS0002311A1C_853/1-101                  GAGCAACUUAGGAUUUUAGGCUCCCCG-GCGUGUCUCGAACCAUGCCGGGCCGAACCC-AUAGGG-CUGGCGGUCCCUGU-GCGGUCAAAAUUCAUCCGCCGGAG
+#=GR URS0002311A1C_853/1-101 6XKN_A_SS   .((((.....{{{{{{..)))).((((.(((((........))))))))).....(((.((((((.........)))))).).))...}}}}}}...........
+URS000231199B_853/1-101                  GAGCAACUUAGGAUUUUAGGCUCCCCG-GCGUGUCUCGAACCAUGCCGGGCCAAACCC-AUAGGG-CUGGCGGUCCCUGU-GCGGUCGAAAUUCAUCCGCCGGAG
+#=GR URS000231199B_853/1-101 6XKO_A_SS   .((((.....{{{{{{..)))).((((.(((((........)))))))))....((((.((((((.........)))))).).)))..}}}}}}...........
 #=GC SS_cons                             <<<<______AAAAAA___>>>><<<<.<<<<<________>>>>>>>>>----<<<<.<<<<<<<_______>>>>>>>.>->>>::aaaaaa:::::::::::
 #=GC RF                                  GaGCAACUUAGGAUUUUAGGCuCCcCg.GcgcgucuCgaaccgcgCcGgGCcAAaCCC.gccggGgCUGGCGGcCccggc.GcGGuCAAAAUcuAuCCGCuGGAG
 #=GC RNA_ligand_preQ1                    ======X=========X======================================================================X=================

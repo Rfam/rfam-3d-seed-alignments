@@ -1,24 +1,25 @@
 # STOCKHOLM 1.0
 #=GF ID Metazoa_SRP 
 #=GF DE Metazoan signal recognition particle RNA 
-#=GF CC Review new structure 1L9A_B
-#=GF CC Review new structure 1MFQ_A
-#=GF CC Review new structure 1RY1_A
-#=GF CC Review new structure 2GO5_A
-#=GF CC Review new structure 2J37_A
-#=GF CC Review new structure 3JAJ_4
-#=GF CC Review new structure 3JAN_4
-#=GF CC Review new structure 3KTV_A
-#=GF CC Review new structure 3KTV_C
-#=GF CC Review new structure 4P3E_A
-#=GF CC Review new structure 4UE5_A
-#=GF CC Review new structure 5M73_A
-#=GF CC Review new structure 5M73_E
-#=GF CC Review new structure 6FRK_1
-#=GF CC Review new structure 6R6G_AF
-#=GF CC Review new structure 7NFX_1
-#=GF CC Review new structure 7OBQ_1
-#=GF CC Review new structure 7OBR_1
+#=GF CC New structure 1L9A_B
+#=GF CC New structure 1MFQ_A
+#=GF CC New structure 1RY1_A
+#=GF CC New structure 2GO5_A
+#=GF CC New structure 2J37_A
+#=GF CC New structure 3JAJ_4
+#=GF CC New structure 3JAN_4
+#=GF CC New structure 3KTV_A
+#=GF CC New structure 3KTV_C
+#=GF CC New structure 4P3E_A
+#=GF CC New structure 4UE5_A
+#=GF CC New structure 5M73_A
+#=GF CC New structure 5M73_E
+#=GF CC New structure 6FRK_1
+#=GF CC New structure 6R6G_AF
+#=GF CC New structure 7NFX_1
+#=GF CC New structure 7OBQ_1
+#=GF CC New structure 7OBR_1
+#=GF CC New structure 7QWQ_1
 
 AL627171.1/120155-119857                   GCCGGGCGCGG.....UGGC...GCGUGCCUGUAG.UCC....CAGCUAC....uCG.GGAGGC....UGAGGUGGGAG.GAUCGCUU..GAGCCCAGGA.GUUCUG.GGCUG...-UAGUGC...GCUAUGCC................................GAUCGGGU.GU.CCGCACUA.AGUUC.GGCAUCAAUAUGGUGACCUC.CCGGGAGCGG.GGGACCACCAGGUUG.CCUAAGGAGGGGUGAAC.CGGCCCAGGUCGGAAACGGAGCAGGUCAAAAC.UCCCGUGCU.GA.UCAG.UAGUG.GG.AUCGC.GCCUGU...........GAAUAGC....CACUG....-CACUC.C.AG...CCUGAGCAA..CAUAGCGAG...ACCCCGUCUC.U-....
 AAQA01001314.1/4979-5279                   GCCGGGCGUUG.....UGGC...GAGCGCUUGUAA.UCC....AAGUGAC.....UG.GGAGGC....AUGUGGUGGCG.GAUGGAGU..GAGAGGAGGA.GUCCUG.GCUGA...UGCUUG-...GCGGUGGC................................GACCGAGC.GU.CCAGGCCA.AGCGU.GGCGUCGACAAGGUGUCGAG.AUAGGAGUGUcAUCGGUACCUGGUCG.CAUAAUGAGGGGCGUAC.-GGCUCAGGGCCGAAAGGCAGCAGGCAAAAGU.CCCCGCGUC.AUgACAG.UGGCC.GG.AUAGC.GCUUGC...........GAGUCGU....CGGU-....AUUAGU.C.AG...CCUUGUCAA..UACCUCCAG...ACCCAUCG--.-Cuuuu
@@ -137,12 +138,14 @@ URS000075ACE9_9615/1-299                   GCCGGGCGCGG-----UGGC---GCGCGCCUGUAG-U
 #=GR URS000075ACE9_9615/1-299 6FRK_1_SS    ((((((((((.......{{{....))))))).....(((....(.}}..}......).)))))).....(((.(.((.....(((((..............................(((((....((((................................................((.(.((......(.(((.(((((.(((((..(((.(((....))).)))..))))).)))).......(.(((((......((((...((((....))))...))))...)).))))).))).)........)).).))...........................))))....)))))................................)))))......)).).))).......
 URS0000EEACEA_9615/1-206                   GCCGGGCGCGG-----UGGC---GCGCGCCUGUAG-UCC----CAGCUAC----UCG-GGAGGC----UGAGGCUGGA-------------------------------------------------------G--------------------------------GAUCG-------CUUGACUA-AGUUC-GGCAUCAAUAUGGUGACCUC-CCGGGAGCGG-GGGACCACCAGGUUG-CCUAAGGAGGGGUGAAC-CGGCCCAGGUCGGAAACGGAGCAGGUCAAAAC-UCCCGUGCU-GA-UCAG-UAGUUUAG----------CGAGACCCCGUCUC-----------------.--------------------------------------------------------
 #=GR URS0000EEACEA_9615/1-206 6R6G_AF_SS   ((((((((((.......{{{....))))))).....(((....(.}}..}......).)))))).....(((.(.((........................................................(..................................(((.......((((((.......(..((((((((.(((((..(((.(((....))).)))..))))).)))).......(.(((((......((((...((((....))))...))))...)).))))))))..).........))))))..........)))..))).).)))..........................................................................
-7NFX_1                                     GCCGGGCGCGG-----UGGC---GCGCGCCUGUAG-UCC----CAGCUAC----UCG-GGAGGC----UGAGGCAGGAG-GAUCGCUU--GAGUCCAGGA-GUUCUG-GGCUG----UAGUGC---GCUAUGCC--------------------------------GAUCGGGU-GU-CCGCACUA-AGUUC-GGCAUCAAUAUGGUGACCUC-CCGGGAGCGG-GGGACCACCAGGUUG-CCUAAGGAGGGGUGAAC-CGGCCCAGGUCGGAAACGGAGCAGGUCAAAAC-UCCCGUGCU-GA-UCAG-UAGUG-GG-AUCGC-GCCUGU-----------GAAUAGC----CACUG-.---CACUC-C-AG---CCUGGGCAA--CAUAGCGAG---ACCCCGUCUC-U-----
-#=GR 7NFX_1 7NFX_1_SS                      ((((((((((.......{{{....))))))).....(((....(.}}..}......).)))))).....(((.(.((.(...(((((.......................................((.(.......................................(.(.(.(..((.(......(.((.(((((((.(..(((((.(((.(((....))).))).)))))..).)).......(.(((((.......(.(...((((....))))....).)...)).))))))))).))..).......).)).....)..).).)..............).).....)....................................))))).....))).).))).......
-7OBQ_1                                     GCCGGGCGCGG-----UGGC---GCGCGCCUGUAG-UCC----CAGCUAC----UCG-GGAGGC----UGAGGCA---------------------GGA------------GG--AUCGCUUC---GCUAUGCC--------------------------------GAUCGGGU-GU-CCGCACUA-AGUUC-GGCAUCAAUAUGGUGACCUC-CCGGGAGCGG-GGGACCACCAGGUUG-CCUAAGGAGGGGUGAAC-CGGCCCAGGUCGGAAACGGAGCAGGUCAAAAC-UCCCGUGCU-GA-UCAG-UAGUG-GG-AUCGC-GCCUGU-----------GAAUAGCA--U-AGCGAGACCCCG----------UCUC------------------------------------
-#=GR 7OBQ_1 7OBQ_1_SS                      ...........................................................................................................................................................................(((.((.((.(..(...((.(.((((((((..(((((..(.(.(((....))).).)..)))))..))).......(.((.((......((((...((((....))))...))))...))..)))))))).)..))....)..).))....)).)))........................................................................................
-7OBR_1                                     GCCGGGCGCGG-----UGGC---GCGCGCCUGUAG-UCC----CAGCUAC----UCG-GGAGGC----UGAGGC---------------------AGGA------------GG--AUCGCUUC---GCUAUGCC--------------------------------GAUCGGGU-GU-CCGCACUA-AGUUC-GGCAUCAAUAUGGUGACCUC-CCGGGAGCGG-GGGACCACCAGGUUG-CCUAAGGAGGGGUGAAC-CGGCCCAGGUCGGAAACGGAGCAGGUCAAAAC-UCCCGUGCU-GA-UCAG-UAGUG-GG-AUCGC-GCCUGU-----------GAAUAGC---CUAGCGAGACCCCG----------UCUC------------------------------------
-#=GR 7OBR_1 7OBR_1_SS                      ((((((((((.......{{{....))))))).....(((....(.}}..}......).)))))).....(((.(......................((.............(....(((((.....(..(.........................................(.(.(..((.((((...((((.(((((((.(..((((..(((.(((....))).)))..))))..).)).......(.(((((.......(.(...((((....))))....).)...)).))))))))).)).))....)))).)).....)..).)................)......).)))))..))).)...........)))....................................
+URS0002311994_9606/1-299                   GCCGGGCGCGG-----UGGC---GCGCGCCUGUAG-UCC----CAGCUAC----UCG-GGAGGC----UGAGGCAGGAG-GAUCGCUU--GAGUCCAGGA-GUUCUG-GGCUG----UAGUGC---GCUAUGCC--------------------------------GAUCGGGU-GU-CCGCACUA-AGUUC-GGCAUCAAUAUGGUGACCUC-CCGGGAGCGG-GGGACCACCAGGUUG-CCUAAGGAGGGGUGAAC-CGGCCCAGGUCGGAAACGGAGCAGGUCAAAAC-UCCCGUGCU-GA-UCAG-UAGUG-GG-AUCGC-GCCUGU-----------GAAUAGC----CACUG-.---CACUC-C-AG---CCUGGGCAA--CAUAGCGAG---ACCCCGUCUC-U-----
+#=GR URS0002311994_9606/1-299 7NFX_1_SS    ((((((((((.......{{{....))))))).....(((....(.}}..}......).)))))).....(((.(.((.(...(((((.......................................((.(.......................................(.(.(.(..((.(......(.((.(((((((.(..(((((.(((.(((....))).))).)))))..).)).......(.(((((.......(.(...((((....))))....).)...)).))))))))).))..).......).)).....)..).).)..............).).....)....................................))))).....))).).))).......
+URS00023119B1_9615/1-249                   GCCGGGCGCGG-----UGGC---GCGCGCCUGUAG-UCC----CAGCUAC----UCG-GGAGGC----UGAGGCA---------------------GGA------------GG--AUCGCUUC---GCUAUGCC--------------------------------GAUCGGGU-GU-CCGCACUA-AGUUC-GGCAUCAAUAUGGUGACCUC-CCGGGAGCGG-GGGACCACCAGGUUG-CCUAAGGAGGGGUGAAC-CGGCCCAGGUCGGAAACGGAGCAGGUCAAAAC-UCCCGUGCU-GA-UCAG-UAGUG-GG-AUCGC-GCCUGU-----------GAAUAGCA--U-AGCGAGACCCCG----------UCUC------------------------------------
+#=GR URS00023119B1_9615/1-249 7OBQ_1_SS    ...........................................................................................................................................................................(((.((.((.(..(...((.(.((((((((..(((((..(.(.(((....))).).)..)))))..))).......(.((.((......((((...((((....))))...))))...))..)))))))).)..))....)..).))....)).)))........................................................................................
+URS0002311977_9615/1-249                   GCCGGGCGCGG-----UGGC---GCGCGCCUGUAG-UCC----CAGCUAC----UCG-GGAGGC----UGAGGC---------------------AGGA------------GG--AUCGCUUC---GCUAUGCC--------------------------------GAUCGGGU-GU-CCGCACUA-AGUUC-GGCAUCAAUAUGGUGACCUC-CCGGGAGCGG-GGGACCACCAGGUUG-CCUAAGGAGGGGUGAAC-CGGCCCAGGUCGGAAACGGAGCAGGUCAAAAC-UCCCGUGCU-GA-UCAG-UAGUG-GG-AUCGC-GCCUGU-----------GAAUAGC---CUAGCGAGACCCCG----------UCUC------------------------------------
+#=GR URS0002311977_9615/1-249 7OBR_1_SS    ((((((((((.......{{{....))))))).....(((....(.}}..}......).)))))).....(((.(......................((.............(....(((((.....(..(.........................................(.(.(..((.((((...((((.(((((((.(..((((..(((.(((....))).)))..))))..).)).......(.(((((.......(.(...((((....))))....).)...)).))))))))).)).))....)))).)).....)..).)................)......).)))))..))).)...........)))....................................
+7QWQ_1                                     --------------------------------------------------------------------------------------------------------------------------C---GCUAUGCC--------------------------------GAUCGGGU-GU-CCGCACUA-AGUUC-GGCAUCAAUAUGGUGACCUC-CCGGGAGCGG-GGGACCACCAGGUUG-CCUAAGGAGGGGUGAAC-CGGCCCAGGUCGGAAACGGAGCAGGUCAAAAC-UCCCGUGCU-GA-UCAG-UAGUG-GG-AUCGC-GCCUGU-----------GAAUAGC----C--------------------------------------------------------------
+#=GR 7QWQ_1 7QWQ_1_SS                      ..............................................................................................................................((.(.........................................(...(..((.((((...((.(.(((.(((.(..((((..(((.(((....))).)))..))))..).)).......(.(((((.......(.(...((((....))))....).)...)).))))).))).)..))....)))).)).....)....)................).).....)..............................................................
 #=GC SS_cons                               (((<<<<<<<<.....____...>>>>>>>>,,,,.<<<...._______.....__.>>>)))....-((((((((((.-(((((((..(((((((((-.---(((.(((((...-(((((-...(((((((-................................--((((((.((.((-(((((.(((((.(((((<<<<<<<<<<<<<<<.<<<____>>>.>>>>>>>>>>>>>>>.<<___>><<<<<<<---.<<<<<----<<<____>>>---->>>>>->>>.>>>>))))).)).)))-.))))).)).---)).))))))...........)))))))....)))))....-))))).).))...)))))))))..--)))))))...)))))))))).::....
 #=GC RF                                    gCcGGGcgcgg.....uGgC...gcgcgCCUGUAA.ucc....aagcUaC.....Ug.ggagGc....ugggggggggg.ggucgcgu..gcggccggGA.guucug.ggccg...gcagcgu...cccaugcc................................GAccgggc.Gu.Ccgcgcua.ggcuc.ggcGUcgacauggggccccc.ggcGGAGgcc.gggggccccaggucg.ccuAAggaGgggcGaAc.cggcccAGGgcgGAAAcgcAGCAggcagAAgc.ccCcGCgcc.ga.gccG.uagcg.gG.AUagC.gcccgg...........gaauggg....cgcug....Ccggcc.c.ag...Cccggccga..uAacgcgac...accccccccc.UU....
 //

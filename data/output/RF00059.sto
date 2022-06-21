@@ -1,10 +1,10 @@
 # STOCKHOLM 1.0
 #=GF ID TPP 
 #=GF DE TPP riboswitch (THI element) 
-#=GF CC Review new structure 7TD7_A
-#=GF CC Review new structure 7TDA_A
-#=GF CC Review new structure 7TDB_A
-#=GF CC Review new structure 7TDC_A
+#=GF CC New structure 7TD7_A
+#=GF CC New structure 7TDA_A
+#=GF CC New structure 7TDB_A
+#=GF CC New structure 7TDC_A
 #=GF AU Infernal 1.1.2
 
 BX842649.1/277414-277318                  ACCUGACGCUAGGGGUGUUGGUGAa...............................................uuCACCG.ACUGAGAA------.................................................-----UAA.CCCUUUGA.ACCUGA.UAGAGAUAAUGCUCGCG.CAGGGA..AGCAAGAAUAGAAAGAU

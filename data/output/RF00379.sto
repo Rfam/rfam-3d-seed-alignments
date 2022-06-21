@@ -1,22 +1,22 @@
 # STOCKHOLM 1.0
 #=GF ID ydaO-yuaA 
 #=GF DE ydaO/yuaA leader 
-#=GF CC Review new structure 4QK8_A
-#=GF CC Review new structure 4QK9_A
-#=GF CC Review new structure 4QKA_A
-#=GF CC Review new structure 4QLM_A
-#=GF CC Review new structure 4QLN_A
-#=GF CC Review new structure 4W90_C
-#=GF CC Review new structure 4W92_C
-#=GF CC Review new structure 6N5K_A
-#=GF CC Review new structure 6N5N_A
-#=GF CC Review new structure 6N5O_A
-#=GF CC Review new structure 6N5P_A
-#=GF CC Review new structure 6N5Q_A
-#=GF CC Review new structure 6N5S_A
-#=GF CC Review new structure 6N5T_A
-#=GF CC Review new structure 6WTL_A
-#=GF CC Review new structure 6WTR_A
+#=GF CC New structure 4QK8_A
+#=GF CC New structure 4QK9_A
+#=GF CC New structure 4QKA_A
+#=GF CC New structure 4QLM_A
+#=GF CC New structure 4QLN_A
+#=GF CC New structure 4W90_C
+#=GF CC New structure 4W92_C
+#=GF CC New structure 6N5K_A
+#=GF CC New structure 6N5N_A
+#=GF CC New structure 6N5O_A
+#=GF CC New structure 6N5P_A
+#=GF CC New structure 6N5Q_A
+#=GF CC New structure 6N5S_A
+#=GF CC New structure 6N5T_A
+#=GF CC New structure 6WTL_A
+#=GF CC New structure 6WTR_A
 
 AL939120.1/174742-174619                    CCAGGUAAGUCGCC.G.C..ACCG-..............GUCA...........................-CC.ACCGGAG--.--CG--..................................-GCU-.......-CGGGGU.GAA.GCCGUACcc.........................................................GUCAGgg........................CACGGCCGGGC-.......ACCUCCC-..C............GCCCGAACCCGACAGCUCACCUCGCA.GGCG.U.---AAGGAGAGGGA
 AL939118.1/280215-280371                    CGUGCGCACGCGCC.G.A..AUCCC..............GCAA...........................GGG.AACCGGGGA.ACCA--..................................CCACA.......UUGGGGU.GAA.UCGGGCG...........................................................-UAUGccgccgugggaacacggucggcaggcACCCGUAGGAG-.......ACCUUCCU..G............CUCCGAACCCGUCAGCUAACCCGGUA.GGCG.-.AAAGGAAGGAAAGG
@@ -149,10 +149,10 @@ URS000197CF70_9606/1-123                    -------GGUUGCC-G-A--AUCCA-----------
 #=GR URS000197CF70_9606/1-123 6N5S_A_SS     ..........((((.......((((.............................................))).).(((((.....(.................................................{.(((((.....(((((((.........................................................................................))))))).(((((........{{{{{{...)............))))..)))).}).)....)))))...)))).......}}}}}}....
 URS000197CF7C_9606/1-126                    -------GGUUGCC-G-A--AUCCCC------------UAGAA---------------------------AGG-UACGGAGGA-ACCG-------------------------------------CUUU-------UUGGGGU-UAA-UCUGCAG-----------------------------------------------------------UGAAG-------------------------CUGCAGUAGGGAU-------ACCUUCU---G------------UCCCGCACCCGACAGCUAACUCCGGA-GGCA-A-UAAAGGAAGGAG--
 #=GR URS000197CF7C_9606/1-126 6N5T_A_SS     ..........((((.......(((...............................................)).).(((((.....(.................................................{.(((((.....(((((((.........................................................................................))))))).(((((........{{{{{{...)............))))..)))).}).)....)))))...)))).......}}}}}}....
-6WTL_A                                      -------GGUUGCC-G-A--AUCCA--------------UAUG---------------------------UGG-UACGGAGGA-ACCG-------------------------------------CUUU-------UUGGGGU-UAA-UCUGCAG-----------------------------------------------------------UGAAG-------------------------CUGCAGUAGGGAU-------ACCUUCU---G------------UCCCGCACCCGACAGCUAACUCCGGA-GGCA-A-UAAAGGAAGGAG--
-#=GR 6WTL_A 6WTL_A_SS                       ..........((((.......((((.............................................))).).(((((.....(.................................................{.(((((.....(((((.(.........................................................................................).))))).(((((........{{{{{{...)............))))..)))).}).)....)))))...)))).......}}}}}}....
-6WTR_A                                      -------GGUUGCC-G-A--AUCCU--------------UUAC--------------------------UUGG-UACGGAGGA-ACCG-------------------------------------CUUU-------UUGGGGU-UAA-UCUGCAG-----------------------------------------------------------UGAAG-------------------------CUGCAGUAGGGAU-------ACCUUCU---G------------UCCCGCACCCGACAGCUAACUCCGGA-GGCA-A-UAAAGGAAGGAG--
-#=GR 6WTR_A 6WTR_A_SS                       ..........((((.......((((.............................................))).).(((((.....(.................................................{.(((((.....(((((((.........................................................................................))))))).(((((........{{{{{{...)............))))..)))).}).)....)))))...)))).......}}}}}}....
+URS000197CF5D_9606/1-124                    -------GGUUGCC-G-A--AUCCA--------------UAUG---------------------------UGG-UACGGAGGA-ACCG-------------------------------------CUUU-------UUGGGGU-UAA-UCUGCAG-----------------------------------------------------------UGAAG-------------------------CUGCAGUAGGGAU-------ACCUUCU---G------------UCCCGCACCCGACAGCUAACUCCGGA-GGCA-A-UAAAGGAAGGAG--
+#=GR URS000197CF5D_9606/1-124 6WTL_A_SS     ..........((((.......((((.............................................))).).(((((.....(.................................................{.(((((.....(((((.(.........................................................................................).))))).(((((........{{{{{{...)............))))..)))).}).)....)))))...)))).......}}}}}}....
+URS000197CF84_9606/1-125                    -------GGUUGCC-G-A--AUCCU--------------UUAC--------------------------UUGG-UACGGAGGA-ACCG-------------------------------------CUUU-------UUGGGGU-UAA-UCUGCAG-----------------------------------------------------------UGAAG-------------------------CUGCAGUAGGGAU-------ACCUUCU---G------------UCCCGCACCCGACAGCUAACUCCGGA-GGCA-A-UAAAGGAAGGAG--
+#=GR URS000197CF84_9606/1-125 6WTR_A_SS     ..........((((.......((((.............................................))).).(((((.....(.................................................{.(((((.....(((((((.........................................................................................))))))).(((((........{{{{{{...)............))))..)))).}).)....)))))...)))).......}}}}}}....
 #=GC SS_cons                                ::::::::::{{{{.,.,..,<<<_..............____..........................._>>.>[[[[[[,,.,,<<__.................................._____......._>>(((,.,,,.,<<<<__..........................................................._____.........................._>>>>,,<<<<_.......________.._............>>>>,,,))),,,,,,,,,]]]]]],.}}}}.:.::::::::::::::
 #=GC RF                                     uauuauaaaacGCc.G.A..Auccc..............auaa...........................ggg.agCGgGGGA.aCCaau..................................cuauu.......UuGGGGU.GAA.Uccgguu...........................................................auauu..........................accgguAGGGca.......AcccUccu..g............gCCCGAACCCGaCAGCUAACCuCGcA.gGCg.u.uaaaGAGaGgAaaa
 //

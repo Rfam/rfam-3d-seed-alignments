@@ -1,11 +1,11 @@
 # STOCKHOLM 1.0
 #=GF ID HIV_FE 
 #=GF DE HIV Ribosomal frameshift signal 
-#=GF CC Review new structure 1Z2J_A
-#=GF CC Review new structure 2L94_A
-#=GF CC Review new structure 6VWL_4
-#=GF CC Review new structure 6VWM_4
-#=GF CC Review new structure 6VWN_4
+#=GF CC New structure 1Z2J_A
+#=GF CC New structure 2L94_A
+#=GF CC New structure 6VWL_4
+#=GF CC New structure 6VWM_4
+#=GF CC New structure 6VWN_4
 
 AF067154.1/1449-1500                      ..UUUUUU................................................A...GG................GAAAAUUUGGCCUUCCCACAAGGGGAGGCCAGGGAAUUUCCUU
 AF349363.1/33-84                          ..UUUUUU................................................A...GG................GAAGAUCUGGCCUUCCCACAAGGGGAGGCCAGGGAAUUUUCUC

@@ -1,9 +1,9 @@
 # STOCKHOLM 1.0
 #=GF ID HIV-1_SD 
 #=GF DE Human immunodeficiency virus type 1 major splice donor 
-#=GF CC Review new structure 1ESY_A
-#=GF CC Review new structure 1F6U_B
-#=GF CC Review new structure 2N1Q_A
+#=GF CC New structure 1ESY_A
+#=GF CC New structure 1F6U_B
+#=GF CC New structure 2N1Q_A
 
 EF545108.1/38-56                           GGCGACYGGUG................................................................................................................................................AGUACGCC
 S69386.1/283-301                           GGCGACUGGUG................................................................................................................................................AGUACGCC

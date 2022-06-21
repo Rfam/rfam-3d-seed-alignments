@@ -1,9 +1,9 @@
 # STOCKHOLM 1.0
 #=GF ID Tymo_tRNA-like 
 #=GF DE Tymovirus/Pomovirus/Furovirus tRNA-like 3' UTR element 
-#=GF CC Review new structure 4P5J_A
-#=GF CC Review new structure 6MJ0_A
-#=GF CC Review new structure 6MJ0_B
+#=GF CC New structure 4P5J_A
+#=GF CC New structure 6MJ0_A
+#=GF CC New structure 6MJ0_B
 
 M58314.1/2-79                              GAA.......................-.C--UACAGU..UC-CGCUCCUCUAGCACACAGAGGUC.AAU.UG.GGUGCGAC-CCCC-C.CCUCUCCCGUG.GGUCAACGGGAACC
 U88847.1/591-676                           UUA.......................G.CUCGCCAGUuaGCGAGGUCUGUCCCCACACGACAGAU.AAU.CG.GGUGCAACUCCCGCC.CCUUUUCCGAG.GGUCAUCGGAACCA

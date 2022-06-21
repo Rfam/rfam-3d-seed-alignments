@@ -1,10 +1,10 @@
 # STOCKHOLM 1.0
 #=GF ID Gammaretro_CES 
 #=GF DE Gammaretrovirus core encapsidation signal 
-#=GF CC Review new structure 1S9S_A
-#=GF CC Review new structure 1U6P_B
-#=GF CC Review new structure 2L1F_A
-#=GF CC Review new structure 2L1F_B
+#=GF CC New structure 1S9S_A
+#=GF CC New structure 1U6P_B
+#=GF CC New structure 2L1F_A
+#=GF CC New structure 2L1F_B
 
 X14576.1/670-769                           GUCUGUACUAGUUAGCUAACUAGAUCUGUAUCUGGCGGUUCCGUGGAAGAACUGACGAGUUCGG-AUUCCCGACCGCAGCC.CUGAGAGACGUCUCAG.GGGC
 K02712.2/736-835                           AUCUGUACUAGUUAGCUAACUAGAUCUGUAUCUGGCGGUUCCGUGAAAGAACUGACGAGUUCG-UAUUCCCGGCCGCAGCC.CUGGGAGACGUCUCAGaGG-C

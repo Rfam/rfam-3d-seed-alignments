@@ -1,23 +1,23 @@
 # STOCKHOLM 1.0
 #=GF ID c-di-GMP-I 
 #=GF DE Cyclic di-GMP-I riboswitch 
-#=GF CC Review new structure 3IRW_R
-#=GF CC Review new structure 3IWN_A
-#=GF CC Review new structure 3IWN_B
-#=GF CC Review new structure 3MUM_R
-#=GF CC Review new structure 3MUR_R
-#=GF CC Review new structure 3MUT_R
-#=GF CC Review new structure 3MUV_R
-#=GF CC Review new structure 3MXH_R
-#=GF CC Review new structure 3UCU_R
-#=GF CC Review new structure 3UCZ_R
-#=GF CC Review new structure 3UD3_R
-#=GF CC Review new structure 3UD4_R
-#=GF CC Review new structure 4YAZ_A
-#=GF CC Review new structure 4YAZ_R
-#=GF CC Review new structure 4YB0_A
-#=GF CC Review new structure 4YB0_R
-#=GF CC Review new structure 4YB1_R
+#=GF CC New structure 3IRW_R
+#=GF CC New structure 3IWN_A
+#=GF CC New structure 3IWN_B
+#=GF CC New structure 3MUM_R
+#=GF CC New structure 3MUR_R
+#=GF CC New structure 3MUT_R
+#=GF CC New structure 3MUV_R
+#=GF CC New structure 3MXH_R
+#=GF CC New structure 3UCU_R
+#=GF CC New structure 3UCZ_R
+#=GF CC New structure 3UD3_R
+#=GF CC New structure 3UD4_R
+#=GF CC New structure 4YAZ_A
+#=GF CC New structure 4YAZ_R
+#=GF CC New structure 4YB0_A
+#=GF CC New structure 4YB0_R
+#=GF CC New structure 4YB1_R
 
 CP000644.1/4016040-4015954                ...UAGAGUAAAGGGCAAACCGA.U.C.GAA...A.GGUCGGGACGCAAAGCCA..C.CGGUCUA.AGGGUG...UAGA.................................UA.CCUAAGACAGCGG.AGCUGCCAAC..
 CP000141.1/90445-90359                    ...UGUCGAUAAAGGCAAAACCG.G.C.GAA...A.GCCGGUGACGCAAAGCUA..CaGGGGCUA.AAGCGA...AUUU.................................UC.GCCAUGCCAGCC-.AGCUGCCGAA..

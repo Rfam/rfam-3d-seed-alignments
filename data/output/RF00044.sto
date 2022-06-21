@@ -1,21 +1,21 @@
 # STOCKHOLM 1.0
 #=GF ID Phage_pRNA 
 #=GF DE Bacteriophage pRNA 
-#=GF CC Review new structure 1FOQ_A
-#=GF CC Review new structure 1FOQ_B
-#=GF CC Review new structure 1FOQ_C
-#=GF CC Review new structure 1FOQ_D
-#=GF CC Review new structure 1FOQ_E
-#=GF CC Review new structure 6QYZ_A
-#=GF CC Review new structure 6QYZ_B
-#=GF CC Review new structure 6QYZ_C
-#=GF CC Review new structure 6QYZ_D
-#=GF CC Review new structure 6QYZ_E
-#=GF CC Review new structure 7JQQ_K
-#=GF CC Review new structure 7JQQ_L
-#=GF CC Review new structure 7JQQ_M
-#=GF CC Review new structure 7JQQ_N
-#=GF CC Review new structure 7JQQ_O
+#=GF CC New structure 1FOQ_A
+#=GF CC New structure 1FOQ_B
+#=GF CC New structure 1FOQ_C
+#=GF CC New structure 1FOQ_D
+#=GF CC New structure 1FOQ_E
+#=GF CC New structure 6QYZ_A
+#=GF CC New structure 6QYZ_B
+#=GF CC New structure 6QYZ_C
+#=GF CC New structure 6QYZ_D
+#=GF CC New structure 6QYZ_E
+#=GF CC New structure 7JQQ_K
+#=GF CC New structure 7JQQ_L
+#=GF CC New structure 7JQQ_M
+#=GF CC New structure 7JQQ_N
+#=GF CC New structure 7JQQ_O
 
 V01121.1/318-75                            ..AAUGGUACGGUACUUCCAUUGUCAUGUGUAUGUUGGGGAUUAAACCCUGAUUGAGUUCAGCCCACAUACUUUGUUGAUUGGUUGUCAAUCAUGGCAAAAGUGCACGCUACUUUGAUAACCUUUUACAUGCGACACAGACGAAGCGCUAAAACGUGGGAUUCUGUGUCGUUUUAUGUUGUUCAUUGACAAACCUAUCUAGUAGGUCUAUAGAUUGAUAUAUUAAGUAGUAGUUUCCCUCCCUGAU
 V01155.1/318-75                            ..AAUGGUACGGUACUUCCAUUGUCAUGUGUAUGUUGGGGAUUAAACCCUGAUUGAGUUCAGCCCACAUACUUUGUUGAUUGGUUGUCAAUCAUGGCAAAAGUGCACGCUACUUUGAUAACCUUUUACAUGCGACACAGACGAAGCGCUAAAACGUGGGAUUCUGUGUCGUUUUAUGUUGUUCAUUGACAAACCUAUCUAGUAGGUCUAUAGAUUGAUAUAUUAAGUAGUAGUUUCCCUCCCUGAU
@@ -31,16 +31,12 @@ URS000080E166_10756/1-120                  UCAAUGGUACGGUACUUCCAUUGUCAUGUGUAUGUUG
 #=GR URS000080E166_10756/1-120 6QYZ_C_SS   ..........................((..(..(.(((..........((.(......).)).))))..).......(((.....)))...)).........................................................................................................................................................
 #=GR URS000080E166_10756/1-120 6QYZ_D_SS   ..........................((..(..(.(((..........((.(......).)).))))..).......(((.....)))...)).........................................................................................................................................................
 #=GR URS000080E166_10756/1-120 6QYZ_E_SS   ..........................((..(..(.(((..........((.(......).)).))))..).......(((.....)))...)).........................................................................................................................................................
-7JQQ_K                                     GGAAUGGUACGGUACUUCCAUUGUCAUGUGUAUGUUGGGGAUUAAACCCUGAUUGAGUUCAGCCCACAUACUUUGUUGAUUGGUUGUCAAUCAUGGCAAAAGUGCACGCUACUUUCC---------------------------------------------------------------------------------------------------------------------------------
-#=GR 7JQQ_K 7JQQ_K_SS                      ((((.(.((((((((((....(((((((...(.(..(((.........((.((....)).))))).).)........((.......))...))))))).)))))).)).)).))))).................................................................................................................................
-7JQQ_L                                     GGAAUGGUACGGUACUUCCAUUGUCAUGUGUAUGUUGGGGAUUAAACCCUGAUUGAGUUCAGCCCACAUACUUUGUUGAUUGGUUGUCAAUCAUGGCAAAAGUGCACGCUACUUUCC---------------------------------------------------------------------------------------------------------------------------------
-#=GR 7JQQ_L 7JQQ_L_SS                      (.....(...(.(((.(...(((.(.((..((.(.((.(.........(((((....)))))).))).).)......((.......))...).)).))).))))..)....)....).................................................................................................................................
-7JQQ_M                                     GGAAUGGUACGGUACUUCCAUUGUCAUGUGUAUGUUGGGGAUUAAACCCUGAUUGAGUUCAGCCCACAUACUUUGUUGAUUGGUUGUCAAUCAUGGCAAAAGUGCACGCUACUUUCC---------------------------------------------------------------------------------------------------------------------------------
-#=GR 7JQQ_M 7JQQ_M_SS                      ((((.(((((((.((((.....(((.((.....(.((((.........(((((....)))))))))).......(.((.........)).))).)))..)))).).)).)))))))).................................................................................................................................
-7JQQ_N                                     GGAAUGGUACGGUACUUCCAUUGUCAUGUGUAUGUUGGGGAUUAAACCCUGAUUGAGUUCAGCCCACAUACUUUGUUGAUUGGUUGUCAAUCAUGGCAAAAGUGCACGCUACUUUCC---------------------------------------------------------------------------------------------------------------------------------
-#=GR 7JQQ_N 7JQQ_N_SS                      ((((.((((((((((((.....((((((...(((.((((.........(((.(....).)))))))))).......((.........))..))))))..)))))).)).)))))))).................................................................................................................................
-7JQQ_O                                     GGAAUGGUACGGUACUUCCAUUGUCAUGUGUAUGUUGGGGAUUAAACCCUGAUUGAGUUCAGCCCACAUACUUUGUUGAUUGGUUGUCAAUCAUGGCAAAAGUGCACGCUACUUUCC---------------------------------------------------------------------------------------------------------------------------------
-#=GR 7JQQ_O 7JQQ_O_SS                      (((...(.((((.((((.....((((((.....(.((((.........(((........)))))))).......(.(.((.....)).).)))))))..)))).).)).))...))).................................................................................................................................
+URS00023119C3_10756/1-117                  GGAAUGGUACGGUACUUCCAUUGUCAUGUGUAUGUUGGGGAUUAAACCCUGAUUGAGUUCAGCCCACAUACUUUGUUGAUUGGUUGUCAAUCAUGGCAAAAGUGCACGCUACUUUCC---------------------------------------------------------------------------------------------------------------------------------
+#=GR URS00023119C3_10756/1-117 7JQQ_K_SS   ((((.(.((((((((((....(((((((...(.(..(((.........((.((....)).))))).).)........((.......))...))))))).)))))).)).)).))))).................................................................................................................................
+#=GR URS00023119C3_10756/1-117 7JQQ_L_SS   (.....(...(.(((.(...(((.(.((..((.(.((.(.........(((((....)))))).))).).)......((.......))...).)).))).))))..)....)....).................................................................................................................................
+#=GR URS00023119C3_10756/1-117 7JQQ_M_SS   ((((.(((((((.((((.....(((.((.....(.((((.........(((((....)))))))))).......(.((.........)).))).)))..)))).).)).)))))))).................................................................................................................................
+#=GR URS00023119C3_10756/1-117 7JQQ_N_SS   ((((.((((((((((((.....((((((...(((.((((.........(((.(....).)))))))))).......((.........))..))))))..)))))).)).)))))))).................................................................................................................................
+#=GR URS00023119C3_10756/1-117 7JQQ_O_SS   (((...(.((((.((((.....((((((.....(.((((.........(((........)))))))).......(.(.((.....)).).)))))))..)))).).)).))...))).................................................................................................................................
 #=GC SS_cons                               ..::<<<__________>>>,,,,,,,,,,<<<<<----<<<<<_____>>>>>----------->>>>>,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,((((((-((((,,,,,<<<_____________________>>><<<<<<<<____________>>>>>>>>,,,,,,,,,,,,<<<<<<___>>>>>>,,,,,,,,,,,,,))))))))))<<<_________>>>::
 #=GC RF                                    ..AAuGGUACGGUACUUCCaUUGUCAUGUGuauGuUGGGgauuaAACCCugauuGAGUUCAGCCCaCauaCUUUGUUGAUUGGUUGUCAAUCAUGGCAAAAGUGCACGCuaCuuUgauaACCUUuuacAUGCGACACAGACGAAGCGCuaaaaCgugggAUUCUGUGUCGUuuuauGuuGUUCAUUGACAAaCCuauCUAguaGGuCUAUAGAUUGAUAuauuaaGuaGuggUuUCCCUcCccgAU
 //

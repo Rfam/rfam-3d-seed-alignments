@@ -1,18 +1,18 @@
 # STOCKHOLM 1.0
 #=GF ID CRISPR-DR34 
 #=GF DE CRISPR RNA direct repeat element 
-#=GF CC Review new structure 6JDQ_B
-#=GF CC Review new structure 6JDV_B
-#=GF CC Review new structure 6JE3_B
-#=GF CC Review new structure 6JE4_B
-#=GF CC Review new structure 6JE4_F
-#=GF CC Review new structure 6JE4_L
-#=GF CC Review new structure 6JE4_P
-#=GF CC Review new structure 6JE9_B
-#=GF CC Review new structure 6JE9_D
-#=GF CC Review new structure 6JFU_B
-#=GF CC Review new structure 6KC7_B
-#=GF CC Review new structure 6KC8_B
+#=GF CC New structure 6JDQ_B
+#=GF CC New structure 6JDV_B
+#=GF CC New structure 6JE3_B
+#=GF CC New structure 6JE4_B
+#=GF CC New structure 6JE4_F
+#=GF CC New structure 6JE4_L
+#=GF CC New structure 6JE4_P
+#=GF CC New structure 6JE9_B
+#=GF CC New structure 6JE9_D
+#=GF CC New structure 6JFU_B
+#=GF CC New structure 6KC7_B
+#=GF CC New structure 6KC8_B
 
 AL157959.1/609469-609504                   GUUGUAGC......U.....................CCCUUUCUC......................................A...UUU...CGCAG...U........................................................................................GC.UACAAU
 CP000746.1/436837-436802                   GUUGUAGC......U.....................CCCUUUUUC......................................A...UUU...CGCAG...U........................................................................................GC.UAUAAU
