@@ -23,14 +23,26 @@ from colorama import Fore, Style, init
 from fr3d_2d import fr3d_2d
 
 
-SKIP_LARGE_ALIGNMENT = 30
+SKIP_LARGE_ALIGNMENT = 100
 
 PDB_BLACKLIST = [
     '7AS5',  # DNA
     '6LAB',  # DNA
+    '7MIB',  # DNA
+    '7MI9',  # DNA
+    '5TC1',  # RNA but need to double check
 ]
 
 FAMILY_BLACKLIST = [
+    'RF00005', #tRNA
+    'RF00001', #5S_rRNA
+    'RF02541', #LSU_rRNA_bacteria
+    'RF00177', #SSU_rRNA_bacteria
+    'RF01960', #SSU_rRNA_eukarya
+    'RF02543', #LSU_rRNA_eukarya
+    'RF00002', #5_8S_rRNA
+    'RF02540', #LSU_rRNA_archaea
+
     'RF00029', # group II intron, too large
     'RF00106', # RNAI matches a DNA molecule 7NPN
     'RF00843', # microRNA matching DNA in complex with histones
@@ -265,13 +277,15 @@ def add_structure_to_alignment(pdb_id, pdb_sto, structure):
     with open(pdb_sto, 'r', encoding='UTF-8') as f_sto:
         for line in f_sto.readlines():
             if line.startswith(pdb_id):
-                new_line, structure = generate_ss_line(structure, line)
+                new_line, _ = generate_ss_line(structure, line)
                 structure_lines.append(new_line.rstrip())
     return structure_lines
 
 
 def add_structure_to_alignment_and_rename(aligned_pdb_id, pdb_id, pdb_sto, structure):
     """
+    RF01734 - the problem happens because there are no new sequences - the sequence is already aligned
+    but the code cannot deal with RNAcentral ids and not PDB ids when adding secondary structure.
     """
     structure_lines = []
     with open(pdb_sto, 'r', encoding='UTF-8') as f_sto:
@@ -602,7 +616,7 @@ def add_secondary_structure(rfam_acc, pdb_ids, rnacentral_ids, aligned_pdbs_ids)
     """
     pdb_sto = get_temp_3d_seed_filename(rfam_acc)
     for pdb_id in pdb_ids:
-        print(f'Adding secondary structure GR lines for {pdb_id}')
+        print(f'Adding secondary structure GR line for {pdb_id}')
         pdb_fasta = get_pdb_fasta_file(pdb_id)
         if not pdb_fasta:
             print('PDB fasta file not found')
@@ -618,6 +632,8 @@ def add_secondary_structure(rfam_acc, pdb_ids, rnacentral_ids, aligned_pdbs_ids)
             structure_lines = add_structure_to_alignment(pdb_id, pdb_sto, structure)
         else:
             structure_lines = add_structure_to_alignment_and_rename(aligned_pdb_id, pdb_id, pdb_sto, structure)
+        # if pdb_id == '4EN5_A':
+        #     import pdb; pdb.set_trace()
         generate_new_seed(rfam_acc, structure_lines, pdb_id)
 
 
@@ -833,9 +849,9 @@ def main():
     init(autoreset=True)
 
     for rfam_acc in sorted(rfam_accs):
-        # if rfam_acc <= 'RF01734':
         print(f'{Fore.MAGENTA}{rfam_acc}')
-        #     continue
+        if rfam_acc in ['RF01734', 'RF00003', 'RF01763', 'RF00025', 'RF01415', 'RF01704']:
+            continue
         if skip_family(rfam_acc, nocache):
             continue
         if len(pdb_data[rfam_acc]) > SKIP_LARGE_ALIGNMENT:
