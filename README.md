@@ -27,13 +27,17 @@ Alternatively, follow instructions in the [Dockerfile](./Dockerfile) to install 
 - To update one or more Rfam families:
 
     ```
-    add-3d.py RF00162
-    add-3d.py RF00162 RF00507
+    add_3d.py RF00162
+    add_3d.py RF00162 RF00507
     ```
 
-    Use `--nocache` to force recomputing the output.
+    Use `--nocache` to force recomputing the output and download the latest PDB-Rfam and PDB-RNAcentral mapping files.
 
-    Alternatively, run `add-3d.py` to update all families.
+- To update all families:
+
+    ```
+    add_3d.py all --nocache
+    ```
 
 - To get FR3D secondary structure for a PDB id:
 
@@ -46,13 +50,9 @@ Alternatively, follow instructions in the [Dockerfile](./Dockerfile) to install 
 
 The updated seed alignments with the added 3D structures will be in the `output` folder (see [precomputed results](./data/output)).
 
-## Updating the data
+## Manually curated Rfam-PDB mapping file
 
-- Delete `pdb_full_region.txt` to download the latest Rfam-PDB mapping from the Rfam FTP archive.
-
-- Delete `pdb.tsv` to download the latest RNAcentral-PDB mapping from the RNAcentral FTP archive.
-
-- Manually add mapping between Rfam accessions and PDB ids to [pdb_full_region_curated.txt](./pdb_full_region_curated.txt). This step is needed in order to analyse PDB sequences that do not match Rfam covariance models automatically.
+It is possible to manually add mapping between Rfam accessions and PDB ids to [pdb_full_region_curated.txt](./pdb_full_region_curated.txt). This step is needed in order to analyse PDB sequences that do not match Rfam covariance models automatically. This can happen when a PDB sequence gets a bit score below the Rfam threshold because it is much shorter than the corresponding Rfam model.
 
 ## Feedback
 

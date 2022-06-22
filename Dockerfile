@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.10
 
 ENV RNA /usr/src/rfam
 ENV INFERNAL /usr/src/infernal
@@ -18,6 +18,10 @@ RUN \
     make install && \
     cd $INFERNAL && \
     rm infernal-1.1.2.tar.gz
+
+ADD requirements.txt .
+
+RUN pip install -r requirements.txt
 
 ENV PATH="$INFERNAL/infernal-1.1.2/bin:$RNA:$PATH"
 

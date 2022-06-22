@@ -1,13 +1,15 @@
 # STOCKHOLM 1.0
-#=GF AU Infernal 1.1.2
+#=GF ID CRISPR-DR31 
+#=GF DE CRISPR RNA direct repeat element 
+#=GF CC New structure 4C9D_C
+#=GF CC New structure 4C9D_D
 
-AP008227.1/239143-239107                GUUUCAAUCCUCUACGAGGCUAAC...........................................GAGGUUUGCAACC
-AP008227.1/228052-228088                GUUUCAAUCCUCUACGAGGCUGAC...........................................GGGGUUUGCAACG
-AE017222.1/204195-204159                GUAUCAAUCCUCUACGAGGCUAAA...........................................GAGGUUUGCAACC
-URS00021ED974_300852/1-29               -----------------GGU----.....................ugcaaaccucguuagccucguaGAGN---------
-#=GR URS00021ED974_300852     4C9D_C_SS .............................................................(((...)))..........
-URS00021ED974_300852/1-29               -----------------GGUU---gcaaaccucguuagccucgua......................GAGN---------
-#=GR URS00021ED974_300852     4C9D_D_SS .......................................((...........................))..........
-#=GC SS_cons                            <<<-<<<-<<<<____________~~~~~~~~~~~~~~~~~~~~~......................>>>>->>>->>>:
-#=GC RF                                 GUuUCAAUCCuCUACGAGGcUAAc~~~~~~~~~~~~~~~~~~~~~......................GaGGUUUGCaACc
+AP008227.1/239143-239107                   .GUUUCAAUCCUC..UACGAGGCUAAC.GAGGUUUGCAACC
+AP008227.1/228052-228088                   .GUUUCAAUCCUC..UACGAGGCUGAC.GGGGUUUGCAACG
+AE017222.1/204195-204159                   .GUAUCAAUCCUC..UACGAGGCUAAA.GAGGUUUGCAACC
+URS00021ED974_300852/1-29                  GGUUGCAAACCUCGU---UAGCCUCGUAGAGN---------
+#=GR URS00021ED974_300852/1-29 4C9D_C_SS   ......................(((...)))..........
+#=GR URS00021ED974_300852/1-29 4C9D_D_SS   ......................((.....))..........
+#=GC SS_cons                               .<<<-<<<-<<<<..____________.>>>>->>>->>>:
+#=GC RF                                    .GUuUCAAUCCuC..UACGAGGCUAAc.GaGGUUUGCaACc
 //
