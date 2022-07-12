@@ -9,7 +9,6 @@ python add_3d.py all --nocache
 python add_3d.py RF00008
 """
 
-
 import argparse
 import os
 import re
@@ -22,7 +21,6 @@ from colorama import Fore, Style, init
 
 from fr3d_2d import fr3d_2d
 
-
 SKIP_LARGE_ALIGNMENT = 100
 
 PDB_BLACKLIST = [
@@ -34,21 +32,21 @@ PDB_BLACKLIST = [
 ]
 
 FAMILY_BLACKLIST = [
-    'RF00005', #tRNA
-    'RF00001', #5S_rRNA
-    'RF02541', #LSU_rRNA_bacteria
-    'RF00177', #SSU_rRNA_bacteria
-    'RF01960', #SSU_rRNA_eukarya
-    'RF02543', #LSU_rRNA_eukarya
-    'RF00002', #5_8S_rRNA
-    'RF02540', #LSU_rRNA_archaea
+    'RF00005',  # tRNA
+    'RF00001',  # 5S_rRNA
+    'RF02541',  # LSU_rRNA_bacteria
+    'RF00177',  # SSU_rRNA_bacteria
+    'RF01960',  # SSU_rRNA_eukarya
+    'RF02543',  # LSU_rRNA_eukarya
+    'RF00002',  # 5_8S_rRNA
+    'RF02540',  # LSU_rRNA_archaea
 
-    'RF00029', # group II intron, too large
-    'RF00106', # RNAI matches a DNA molecule 7NPN
-    'RF00843', # microRNA matching DNA in complex with histones
-    'RF00957', # microRNA matching an rRNA
-    'RF02545', # Trypanosomatid SSU
-    'RF02546', # Trypanosomatid LSU
+    'RF00029',  # group II intron, too large
+    'RF00106',  # RNAI matches a DNA molecule 7NPN
+    'RF00843',  # microRNA matching DNA in complex with histones
+    'RF00957',  # microRNA matching an rRNA
+    'RF02545',  # Trypanosomatid SSU
+    'RF02546',  # Trypanosomatid LSU
 ]
 
 TEMPDIR = 'temp'
@@ -95,7 +93,7 @@ def get_rfam_cm(rfam_acc, nocache):
     cm_file = get_rfam_cm_filename(rfam_acc)
     if not os.path.exists(cm_file) or nocache:
         print('Building a new CM with the --hand option')
-        cmd = f'rm -f {cm_file}.i1*' # remove old cmpress files if found
+        cmd = f'rm -f {cm_file}.i1*'  # remove old cmpress files if found
         subprocess.check_output(cmd, shell=True)
         cmd = f'cmbuild --hand -F {cm_file} {seed_file}'
         subprocess.check_output(cmd, shell=True)
@@ -150,8 +148,8 @@ def get_rfam_3d_mapping():
     RF00015	2n7m	X	1	74	61.90	7.1e-14	1	139	c00f0f	1
     """
     filename = 'pdb_full_region.txt'
-    url = 'ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/database_files'
-    # url = 'ftp://ftp.ebi.ac.uk/pub/databases/Rfam/.preview'
+    # url = 'ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/database_files'
+    url = 'ftp://ftp.ebi.ac.uk/pub/databases/Rfam/.preview'
     if not os.path.exists(filename):
         cmd = f'wget {url}/{filename}.gz && gunzip {filename}.gz'
         subprocess.check_output(cmd, shell=True)
@@ -173,9 +171,9 @@ def get_rfam_3d_mapping():
 
 def get_curated_3d_mapping():
     """
-    Parse a mamually curated 3D mapping file which supplements the main Rfam
+    Parse a manually curated 3D mapping file which supplements the main Rfam
     PDB mapping. This step is needed because some PDBs are not found
-    automatically and they need to be recorded manually.
+    automatically, and they need to be recorded manually.
     """
     data = collections.defaultdict(list)
     with open('pdb_full_region_curated.txt', 'r', encoding='UTF-8') as f_pdb:
@@ -481,7 +479,7 @@ def map_pdb_id_to_rnacentral(pdb_id):
     with open('pdb.tsv', 'r', encoding='UTF-8') as f_pdb:
         for line in f_pdb.readlines():
             if pdb_id in line:
-                #URS000080E05C	PDB	3CW1_w	9606	snRNA
+                # URS000080E05C	PDB	3CW1_w	9606	snRNA
                 (urs, _, _, taxid, _) = line.strip().split('\t')
                 rnacentral_id = urs + '_' + taxid
                 break
@@ -742,7 +740,7 @@ def transfer_gc_annotations(rfam_acc):
     with open(pfam_format_seed, 'r', encoding='UTF-8') as f_seed:
         for line in f_seed:
             if line.startswith('#=GC') and not line.startswith('#=GC SS_cons') \
-               and not line.startswith('#=GC RF'):
+                    and not line.startswith('#=GC RF'):
                 match = re.match(r'^(#=GC\s+\S+)\s+(\S+)$', line)
                 label = match.group(1)
                 annotation = match.group(2)
