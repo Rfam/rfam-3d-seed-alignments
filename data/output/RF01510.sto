@@ -1,0 +1,27 @@
+# STOCKHOLM 1.0
+#=GF ID MFR 
+#=GF DE M. florum riboswitch 
+#=GF CC New structure 3SKI_A
+#=GF CC New structure 3SKI_B
+#=GF CC New structure 3SKZ_A
+#=GF CC New structure 3SKZ_B
+#=GF CC New structure 3SLM_A
+#=GF CC New structure 3SLM_B
+#=GF CC New structure 3SLQ_A
+#=GF CC New structure 3SLQ_B
+
+AE017263.1/29965-30028                   A..CUUAUACAGGGUAGCAUAAUGGGCUACUGAcCCCGCCAUGAAACCUAUUUCAUGACUAUAGG..U
+AE017263.1/668937-668875                 A..CUUAUACAGGGUAGCAUAAUGGGCUACUGA.ACCGCCCCGGGACCAAUCUCGGGACUAUAAG..U
+AE017263.1/31976-32038                   A..CUUAUACAUGAUAACAUAUCGGGUUGUCGA.CCUGCCUUAAGACCGAUCUUAAGACUAUAAG..A
+URS000080DE91_2151/1-68                  GGCCUUAUACAGGGUAGCAUAAUGGGCUACUGACCCCGCCUUCAAACCUAUUUGGAGACUAUAAGGUC
+#=GR URS000080DE91_2151/1-68 3SKI_A_SS   .(((((((({..((((((.....{{))))))(.....})(((((((}}..)))))))..)))))))).
+#=GR URS000080DE91_2151/1-68 3SKI_B_SS   .(((((((({..((((((.....{{))))))(.....})(((((((}}..)))))))..)))))))).
+#=GR URS000080DE91_2151/1-68 3SKZ_A_SS   .(((((((({..((((((.....{{))))))(.....})(((((((}}..)))))))..)))))))).
+#=GR URS000080DE91_2151/1-68 3SKZ_B_SS   .(((((((({..((((((.....{{))))))(.....})(((((((}}..)))))))..)))))))).
+#=GR URS000080DE91_2151/1-68 3SLM_A_SS   .(((((((({..((((((.....{{))))))(.....})(((((((}}..)))))))..)))))))).
+#=GR URS000080DE91_2151/1-68 3SLM_B_SS   .(((((((({..((((((.....{{))))))(.....})(((((((}}..)))))))..)))))))).
+#=GR URS000080DE91_2151/1-68 3SLQ_A_SS   .(((((((({..((((((.....{{))))))(.....})(((((((}}..)))))))..)))))))).
+#=GR URS000080DE91_2151/1-68 3SLQ_B_SS   .(((((((({..((((((.....{{))))))(.....})(((((((}}..)))))))..)))))))).
+#=GC SS_cons                             (..((((((,,,<<<<<<_______>>>>>>,,.,,,,,<<<<<<<____>>>>>>>,,))))))..)
+#=GC RF                                  a..CuUAUACAggGuAGCAUAauGGGCUaCcGA.cCcGCCcuGaGACCaAUCuCagGACUAUAaG..u
+//
