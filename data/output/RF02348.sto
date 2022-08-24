@@ -3,6 +3,8 @@
 #=GF DE Trans-activating crRNA 
 #=GF CC New structure 6MCB_B
 #=GF CC New structure 6MCC_B
+#=GF CC New structure 7V59_C
+#=GF CC New structure 7V59_G
 
 AP010655.1/737198-737108                    U.....................GUUGGAACUAUUC..........GAAACAACAC.AGC...A.AGUUAAAAUAAGG..U.UU.A.UCCGUAUUCAA.CUUG....A.AA.AAGUGCGCACCGA.UUCGG.UGCUUUUUUA
 AEUW02000001.1/849316-849406                U.....................GUUGGAAACAUUC..........GAAACAACAC.AGC...A.AGUUAAAAUAAGG..U.UU.A.UCCGUAUCCAA.CUUG....A.AA.AAGUGAGCACCGA.UUCGG.UGCUUUUAUU
@@ -42,6 +44,10 @@ AM263198.1/2589713-2589805                  U.....................UAAACUAUCAUUC.
 URS0000E60BB7_160490/1-116                  GGCGCAUAAAGAUGAGACGCGUUUUAGAGCUAUGCUGUUUUGAAAAAAACAGCAU-AGC---A-AGUUAAAAUAAGG--C-UA-G-UCCGUUAUCAA-CUUG----A-AA-AAGUG-GCACCGA-GUCGG-UGCUU-----
 #=GR URS0000E60BB7_160490/1-116 6MCB_B_SS   ....................((((((..((((((((..(.(.....).).))))).)))........))))))..((..(....)..)).......(..((..........)).)..((((((....))).))).......
 #=GR URS0000E60BB7_160490/1-116 6MCC_B_SS   ....................((((((..((((((((..(.........).))))).)))........))))))..((..(....)..)).......(..((..........)).)..((((((....))).))).......
+7V59_C                                      GCGCAUAAAGA-UGAGACGCGUUUUAGAGCUAUGCUGUUUUGAAAAAAACAGCAU-AGC---A-AGUUAAAAUAAGG--C-UA-G-UCCGUUAUCAA-CUUG----A-AA-AAGUG-GCACCGA-GUCGG-UGCUU-----
+#=GR 7V59_C 7V59_C_SS                       ....................((((((..(((((((.(...(.....)..).)))).)))........))))))..((..(....)..)).......(..((..........)).)...(.(((....)))..)........
+7V59_G                                      GCGCAUAAAGA-UGAGACGCGUUUUAGAGCUAUGCUGUUUUGAAAAAAACAGCAU-AGC---A-AGUUAAAAUAAGG--C-UA-G-UCCGUUAUCAA-CUUG----A-AA-AAGUG-GCACCGA-GUCGG-UGCUU-----
+#=GR 7V59_G 7V59_G_SS                       ....................((((((..(((((((.(...(.....)..).)))).)))........))))))..((..(....)..)).......(..((..........)).)...(.(((....)))..)........
 #=GC SS_cons                                :.....................:::::::::::::..........::::::::::.:::...:.:::::::::::::..:.::.:.:::::::::::.::::....:.::.:::::<<<<<<<_.__>>>.>>>>::::::
 #=GC RF                                     U.....................auUGgAAcuAUUC..........aAAACAACAu.AGC...A.AGUUAAAAUAAGG..U.UU.g.UCCGUaauCAA.CUUG....a.aA.AAGuGaGCgCcGa.UUCgG.cGCuUUUUUu
 //
