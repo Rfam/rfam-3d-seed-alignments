@@ -150,8 +150,8 @@ def get_rfam_3d_mapping():
     RF00015	2n7m	X	1	74	61.90	7.1e-14	1	139	c00f0f	1
     """
     filename = 'pdb_full_region.txt'
-    url = 'ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/database_files'
-    # url = 'ftp://ftp.ebi.ac.uk/pub/databases/Rfam/.preview'
+    # url = 'ftp://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/database_files'
+    url = 'ftp://ftp.ebi.ac.uk/pub/databases/Rfam/.preview'
     if not os.path.exists(filename):
         cmd = f'wget {url}/{filename}.gz && gunzip {filename}.gz'
         subprocess.check_output(cmd, shell=True)
