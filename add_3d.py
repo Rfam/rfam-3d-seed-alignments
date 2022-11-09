@@ -23,6 +23,8 @@ from colorama import Fore, Style, init
 from fr3d_2d import fr3d_2d
 
 
+SVN_URL = "https://svn.rfam.org/svn/data_repos/trunk/Families"
+
 SKIP_LARGE_ALIGNMENT = 100
 
 PDB_BLACKLIST = [
@@ -135,9 +137,8 @@ def download_rfam_seed(rfam_acc, nocache):
     filename = get_rfam_seed_filename(rfam_acc)
     if not os.path.exists(filename) or nocache:
         print(f'Downloading the latest {rfam_acc} SEED from SVN')
-        url = 'https://xfamsvn.ebi.ac.uk/svn/data_repos/trunk/Families'
         cmd = f'wget -q -a {TEMPDIR}/wget.log -O {filename} ' \
-              f'{url}/{rfam_acc}/SEED'
+              f'{SVN_URL}/{rfam_acc}/SEED'
         subprocess.check_output(cmd, shell=True)
         shutil.copyfile(filename, f'{TEMPDIR}/{rfam_acc}-original.seed')
 
@@ -369,9 +370,8 @@ def parse_desc(rfam_acc):
     DE   Hammerhead ribozyme (type III)
     """
     data = {}
-    svn_url = 'https://xfamsvn.ebi.ac.uk/svn/data_repos/trunk/Families'
     desc_file = os.path.join(TEMPDIR, f'{rfam_acc}.desc')
-    cmd = f'wget -q -O {desc_file} {svn_url}/{rfam_acc}/DESC'
+    cmd = f'wget -q -O {desc_file} {SVN_URL}/{rfam_acc}/DESC'
     subprocess.check_output(cmd, shell=True)
     with open(desc_file, 'r', encoding='latin-1') as f_desc:
         for line in f_desc:
