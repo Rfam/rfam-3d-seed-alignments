@@ -110,6 +110,13 @@ def cmalign_keep_annotations(cm_file, seed_file, fasta, output_file):
     # $3: fasta file of seqs to align
     # $4: name of alignment file to create
     """
+    # the seed alignment doesn’t follow the gap convention in SS_cons that esl-alimerge expects
+    # save a new seed file with the expected SS_cons conventions
+    cmd = f'esl-reformat pfam {seed_file} > {seed_file}.pfam'
+    subprocess.check_output(cmd, shell=True)
+    cmd = f'ali-pfam-lowercase-rf-gap-columns.pl -s {seed_file}.pfam | esl-reformat --informat pfam stockholm - > {seed_file}'
+    subprocess.check_output(cmd, shell=True)
+
     # cmd = f'esl-seqstat -a {fasta} | grep ^\\= | awk "{{ print $2 }}" > {output_file}.list'
     cmd = f"grep '>' {fasta} | sed 's/>//' > {output_file}.list"
     subprocess.check_output(cmd, shell=True)
@@ -119,7 +126,7 @@ def cmalign_keep_annotations(cm_file, seed_file, fasta, output_file):
           f'{cm_file} {fasta} > {output_file}.cmalign'
     subprocess.check_output(cmd, shell=True)
 
-    # remove orignal seed seqs (to keep SS_cons we need --mapstr --mapali above)
+    # remove original seed seqs (to keep SS_cons we need --mapstr --mapali above)
     cmd = f'esl-alimanip --seq-k {output_file}.list {output_file}.tmp > {output_file}.tmp2'
     subprocess.check_output(cmd, shell=True)
 
