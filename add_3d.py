@@ -122,7 +122,7 @@ def cmalign_keep_annotations(cm_file, seed_file, fasta, output_file):
     subprocess.check_output(cmd, shell=True)
 
     # align sequences using --mapstr --mapali to keep SS_cons from SEED
-    cmd = f'cmalign --sub --notrunc -g --mapstr --mapali {seed_file}.pfam -o {output_file}.tmp ' \
+    cmd = f'cmalign --sub --notrunc -g --mapstr --mapali {seed_file} -o {output_file}.tmp ' \
           f'{cm_file} {fasta} > {output_file}.cmalign'
     subprocess.check_output(cmd, shell=True)
 
