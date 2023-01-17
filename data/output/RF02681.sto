@@ -115,8 +115,8 @@ URS0000D67EE3_12908/1-85    ACAGCCCGCAAGGCCGACGC...............AUAAc............
 URS0000D6BF3E_12908/1-83    GUAUCGCGCUAGGUCCA---...............----.................-----..G.uCCCGUGUAAGCCGGGaCCAGUGGGagagAAUGAg...............................uucuCCCACUGcGACGCUCUA..AGGAUACUA
 URS0000D698FC_12908/1-80    AACUAGGGCAAGGUACA---...............----.................-----..A.uCCCGUGCAAGCCGGGaUCAGGGGUagg.UGCGA.................................ucuACCCCUGcUACGCUCAA..CCUACGUCU
 URS0000D6995E_12908/1-79    AACUAGGGCAAGGUACA---...............----.................-----..A.uCCCGUGCAAGCCGGGaUCAGGGGUag..UGCGAu.................................cuACCCCUGcUACGCUCAA..CCUACGUCU
-5T5A_A                      --GCAGGGCAAGGCCCA------------------------------.---------------G-UCCCGUGCAAGCCGGGACCGCCCC--------------------------....-----------------GGGGCGCGGCGCUCAU-UCCUGC----
-#=GR 5T5A_A 5T5A_A_SS       ..(((((.(.((((({...............................................(.(((((.....}.))))))((.(.(...............................................).).)).))).)).)...)))))....
+5T5A_A                      --GCAGGGCAAGGCCCA------------------------------.---------------G-UCCCGUGCAAGCCGGGACCGCCCC--------------------------....-----------------GGGGCGCGGCGCUCAU-UCCUG-C---
+#=GR 5T5A_A 5T5A_A_SS       ..(((((.(.((((({...............................................(.(((((.....}.))))))((.(.(...............................................).).)).))).)).)...)))).)...
 #=GC SS_cons                :::((((-----(((,,<<<...............____.................>>>,,..<..<<<_________>>>.><<<<<<<...._____....................................>>>>>>>.)))------..)))):::::
 #=GC RF                     auAaggcgCAAGGCCcAcgc...............aucu.................gcgua..G..CCcGUGcAAGCCgGG.CcgcCccc....gaaau....................................gggGgcg.GGCGCUcAu..gccuaaaaa
 //
