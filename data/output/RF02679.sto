@@ -9,7 +9,6 @@
 #=GF CC New structure 6UFJ_C
 #=GF CC New structure 6UFK_A
 #=GF CC New structure 6UFK_C
-#=GF AU Infernal 1.1.2
 
 AGGO01000583.1/22-99                      AGUCGUUGUGGCGACUAUAACCAagCUCUU.UAAGCCACA.AGCGUUGCUGAUGagg...uuuc----a..uaACAUCAGCAGGUAGAG
 AFHW01000093.1/13318-13252                ACUGGUUCGAGCCAGUAAAAAAA..GGCCGaUAAGCUCGA.AGCGUUCCACUCU.........u----.....-AGAGUGGAGGAGGCA
@@ -56,7 +55,7 @@ FP929053.1/1669026-1668956                AGUGGUCACAGCCACUAUAAACA.gGGCUU.UAAGCUG
 AFOX01000025.1/1981-1912                  ACUCGUCUGAGCGAGUAUAAACA.gGUCAU.UAAGCUCAG.AGCGUUCACCGGG..........AUCA.....-UUCGGUGAGGUUGGC
 HE577054.1/3246821-3246752                ACUCGUCUGAGCGAGUAUAAACA.gGUCAU.UAAGCUCAG.AGCGUUCACCGGG..........AUCA.....-UGCGGUGAGGUUGGC
 CP000154.1/3364237-3364168                GUUCGUCUGAGCGAACGCAAACA.gGCCAU.UAAGCUCAG.AGCGUUCACUGGA..........UUCG.....-UCCAGUGAGAUUGGC
-URS0001A16A60_562/1-50                    ACUCGUUUGAGCGAGUAUAAACA-GUUGGU-UAGGCUCAA-AGCGGAGAGCAG------------------------------------
+URS0001A16A60_562/1-50                    ACUCGUUUGAGCGAGUAUAAACA.gUUGGU.UAGGCUCAA.AGCGGAGAGCAG-..........----.....----------------
 #=GR URS0001A16A60_562/1-50 6UEY_A_SS     .(((({{{{{{))))...................(}}}}}.}.).............................................
 #=GR URS0001A16A60_562/1-50 6UEY_C_SS     ((((({{{{{{)))))..................(}}}}}.}.).............................................
 #=GR URS0001A16A60_562/1-50 6UF1_A_SS     .(((({..{{{))))...................(}}}...}.).............................................
