@@ -356,13 +356,16 @@ def get_structured_pdb_ids(pdb_ids):
     structured = set()
     for pdb_id in pdb_ids:
         filename = get_pdb_fasta_file(pdb_id)
-        with open(filename, 'r', encoding='UTF-8') as f_fasta:
-            lines = f_fasta.readlines()
-            structure_line = lines[2]
-            if '(' in structure_line and ')' in structure_line:
-                structured.add(pdb_id)
-            else:
-                print(f'No basepairs found for {pdb_id} in {filename}')
+        if filename:
+            with open(filename, 'r', encoding='UTF-8') as f_fasta:
+                lines = f_fasta.readlines()
+                structure_line = lines[2]
+                if '(' in structure_line and ')' in structure_line:
+                    structured.add(pdb_id)
+                else:
+                    print(f'No basepairs found for {pdb_id} in {filename}')
+        else:
+            print(f'No file found for {pdb_id}')
     return structured
 
 
@@ -803,11 +806,12 @@ def transfer_gc_annotations(rfam_acc):
                 # compare with ref_seq
                 index = 0
                 for symbol in sequence:
-                    if symbol == ref_seq[index]:
-                        new_gc_annotation.append(annotation[index])
-                        index += 1
-                    else:
-                        new_gc_annotation.append('*')
+                    if index < len(ref_seq):
+                        if symbol == ref_seq[index]:
+                            new_gc_annotation.append(annotation[index])
+                            index += 1
+                        else:
+                            new_gc_annotation.append('*')
                 new_gc_lines.append((label, ''.join(new_gc_annotation)))
 
     # rewrite the seed with the new GC line
@@ -825,8 +829,15 @@ def delete_cached_files():
     """
     Trigger download of fresh Rfam-PDB and RNAcentral-PDB mappings files.
     """
-    os.remove('pdb_full_region.txt')
-    os.remove('pdb.tsv')
+
+    def _remove_file(filename):
+        try:
+            os.remove(filename)
+        except OSError:
+            pass
+
+    _remove_file('pdb_full_region.txt')
+    _remove_file('pdb.tsv')
 
 
 def main():
