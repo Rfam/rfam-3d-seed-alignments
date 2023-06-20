@@ -9,7 +9,6 @@ python add_3d.py all --nocache
 python add_3d.py RF00008
 """
 
-
 import argparse
 import os
 import re
@@ -21,7 +20,6 @@ import collections
 from colorama import Fore, Style, init
 
 from fr3d_2d import fr3d_2d
-
 
 SVN_URL = "https://svn.rfam.org/svn/data_repos/trunk/Families"
 
@@ -36,21 +34,21 @@ PDB_BLACKLIST = [
 ]
 
 FAMILY_BLACKLIST = [
-    'RF00005', #tRNA
-    'RF00001', #5S_rRNA
-    'RF02541', #LSU_rRNA_bacteria
-    'RF00177', #SSU_rRNA_bacteria
-    'RF01960', #SSU_rRNA_eukarya
-    'RF02543', #LSU_rRNA_eukarya
-    'RF00002', #5_8S_rRNA
-    'RF02540', #LSU_rRNA_archaea
+    'RF00005',  # tRNA
+    'RF00001',  # 5S_rRNA
+    'RF02541',  # LSU_rRNA_bacteria
+    'RF00177',  # SSU_rRNA_bacteria
+    'RF01960',  # SSU_rRNA_eukarya
+    'RF02543',  # LSU_rRNA_eukarya
+    'RF00002',  # 5_8S_rRNA
+    'RF02540',  # LSU_rRNA_archaea
 
-    'RF00029', # group II intron, too large
-    'RF00106', # RNAI matches a DNA molecule 7NPN
-    'RF00843', # microRNA matching DNA in complex with histones
-    'RF00957', # microRNA matching an rRNA
-    'RF02545', # Trypanosomatid SSU
-    'RF02546', # Trypanosomatid LSU
+    'RF00029',  # group II intron, too large
+    'RF00106',  # RNAI matches a DNA molecule 7NPN
+    'RF00843',  # microRNA matching DNA in complex with histones
+    'RF00957',  # microRNA matching an rRNA
+    'RF02545',  # Trypanosomatid SSU
+    'RF02546',  # Trypanosomatid LSU
 ]
 
 TEMPDIR = 'temp'
@@ -97,7 +95,7 @@ def get_rfam_cm(rfam_acc, nocache):
     cm_file = get_rfam_cm_filename(rfam_acc)
     if not os.path.exists(cm_file) or nocache:
         print('Building a new CM with the --hand option')
-        cmd = f'rm -f {cm_file}.i1*' # remove old cmpress files if found
+        cmd = f'rm -f {cm_file}.i1*'  # remove old cmpress files if found
         subprocess.check_output(cmd, shell=True)
         cmd = f'cmbuild --hand -F {cm_file} {seed_file}'
         subprocess.check_output(cmd, shell=True)
@@ -181,10 +179,10 @@ def get_rfam_3d_mapping():
 
 def get_curated_3d_mapping():
     """
-    Parse a mamually curated 3D mapping file which supplements the main Rfam
-    PDB mapping. This step is needed because some PDBs are not found
-    automatically and they need to be recorded manually.
+    Parse a manually curated 3D mapping file which supplements the main Rfam PDB mapping.
+    This step is needed because some PDBs are not found automatically, and they need to be recorded manually.
     """
+
     data = collections.defaultdict(list)
     with open('pdb_full_region_curated.txt', 'r', encoding='UTF-8') as f_pdb:
         for line in f_pdb:
@@ -201,6 +199,7 @@ def merge_3d_mappings(pdb_data, pdb_curated_data):
     If a pdb_id is found in the curated list, but not found in the automatic
     mapping, it is added to a merged list.
     """
+
     for rfam_acc in pdb_curated_data.keys():
         curated_data = pdb_curated_data[rfam_acc]
         if rfam_acc in pdb_data:
@@ -356,13 +355,16 @@ def get_structured_pdb_ids(pdb_ids):
     structured = set()
     for pdb_id in pdb_ids:
         filename = get_pdb_fasta_file(pdb_id)
-        with open(filename, 'r', encoding='UTF-8') as f_fasta:
-            lines = f_fasta.readlines()
-            structure_line = lines[2]
-            if '(' in structure_line and ')' in structure_line:
-                structured.add(pdb_id)
-            else:
-                print(f'No basepairs found for {pdb_id} in {filename}')
+        if filename:
+            with open(filename, 'r', encoding='UTF-8') as f_fasta:
+                lines = f_fasta.readlines()
+                structure_line = lines[2]
+                if '(' in structure_line and ')' in structure_line:
+                    structured.add(pdb_id)
+                else:
+                    print(f'No basepairs found for {pdb_id} in {filename}')
+        else:
+            print(f'No file found for {pdb_id}')
     return structured
 
 
@@ -488,7 +490,7 @@ def map_pdb_id_to_rnacentral(pdb_id):
     with open('pdb.tsv', 'r', encoding='UTF-8') as f_pdb:
         for line in f_pdb.readlines():
             if pdb_id in line:
-                #URS000080E05C	PDB	3CW1_w	9606	snRNA
+                # URS000080E05C	PDB	3CW1_w	9606	snRNA
                 (urs, _, _, taxid, _) = line.strip().split('\t')
                 rnacentral_id = urs + '_' + taxid
                 break
@@ -749,7 +751,7 @@ def transfer_gc_annotations(rfam_acc):
     with open(pfam_format_seed, 'r', encoding='UTF-8') as f_seed:
         for line in f_seed:
             if line.startswith('#=GC') and not line.startswith('#=GC SS_cons') \
-               and not line.startswith('#=GC RF'):
+                    and not line.startswith('#=GC RF'):
                 match = re.match(r'^(#=GC\s+\S+)\s+(\S+)$', line)
                 label = match.group(1)
                 annotation = match.group(2)
@@ -803,11 +805,12 @@ def transfer_gc_annotations(rfam_acc):
                 # compare with ref_seq
                 index = 0
                 for symbol in sequence:
-                    if symbol == ref_seq[index]:
-                        new_gc_annotation.append(annotation[index])
-                        index += 1
-                    else:
-                        new_gc_annotation.append('*')
+                    if index < len(ref_seq):
+                        if symbol == ref_seq[index]:
+                            new_gc_annotation.append(annotation[index])
+                            index += 1
+                        else:
+                            new_gc_annotation.append('*')
                 new_gc_lines.append((label, ''.join(new_gc_annotation)))
 
     # rewrite the seed with the new GC line
@@ -825,8 +828,15 @@ def delete_cached_files():
     """
     Trigger download of fresh Rfam-PDB and RNAcentral-PDB mappings files.
     """
-    os.remove('pdb_full_region.txt')
-    os.remove('pdb.tsv')
+
+    def _remove_file(filename):
+        try:
+            os.remove(filename)
+        except OSError:
+            pass
+
+    _remove_file('pdb_full_region.txt')
+    _remove_file('pdb.tsv')
 
 
 def main():

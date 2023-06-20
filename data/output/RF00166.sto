@@ -3,6 +3,8 @@
 #=GF DE PrrB/RsmZ RNA family 
 #=GF CC New structure 2MF0_G
 #=GF CC New structure 2MF1_G
+#=GF CC New structure 7YR6_A
+#=GF CC New structure 7YR7_A
 
 AB054812.1/583-450                      UGUGCACAGGGACAU..GCACAGGCUUUC-AGG.AUGAAGGCCAG....GGACAUCGC.AAGA.A.GCGAUuUCAUC.AGGAUGAUGUUU.G-GGAcAAGCAGGGACUAcGGAAAAAAAUGUGGGCGGGUCAA...ACCGCCCCUUUUUUU.
 AACY021828384.1/217-351                 UGUGUCCACGGAUUG..GCAC-AGCCAUCAAGGaACGAUGGUUUGa.agGACCGUCGC.AGGA.U.GCGAU.UCAUC.AGGAUGAUGA-A.AAGGA.AUACAGGGACUA.GGGAAAAAAUGUGGGCGGGUCAU...ACCGCCCCUUUUUUU.
@@ -41,9 +43,13 @@ EF424631.1/123-1                        -------AUAGACAC..-----ACCCGUCAAGG.AUGAUG
 EF424640.1/124-1                        -------AUAGACAC..-----ACCCGUCACGG.ACGAUGGGAAAggaaGGACAUCGC.AGGA.C.GCGAU.UCAUC.AGGACGAUGA-A.AAGGA.UUAAAGGGAUUA.GGGAAAAAAUGUGGGCGGGUCAA...ACCGCCCCUUUUUUU.
 EF424632.1/124-1                        -------AUAGACAC..-----ACCCGUCAAGG.ACGAUGGGAAUggaaGGACAUCGC.AGGA.C.GCGAU.UCAUC.AGGACGAUGA-A.AAGGA.UUAAAGGGAUUA.GGGAAAAAAUGUGGGCGGGUCAA...ACCGCCCCUUUUUUU.
 CP000094.2/1309713-1309843              UGUGUCGACGGAUAG..ACAC-GCCCUUCAAGG.AAGAGGGGAAU....GGACAUCGC.AGGA.A.GCGAU.UCAUC.AGGACGAUGA-A.AAGGA.ACACAGGGAAUA.GGGAAAAAAUGUGGGCGGGUCAA...ACCGCCCCUUUUUUU.
-URS000080DEDE_294/1-72                  --UGUCGACGGAUAG--ACAC-AGCCAUCAAGG-ACGAUGGUCA-----GGACAUCGC-AGGA-A-GCGAU-UCAUC-AGGACGAUGA----------------------------------------------------------------
+URS000080DEDE_294/1-72                  --UGUCGACGGAUAG..ACAC-AGCCAUCAAGG.ACGAUGGUCA-....GGACAUCGC.AGGA.A.GCGAU.UCAUC.AGGACGAUGA--.-----.------------.-----------------------...---------------.
 #=GR URS000080DEDE_294/1-72 2MF0_G_SS   ..((((........)..)))...((((((.......))))))............((((........))))...((((......)))).................................................................
 #=GR URS000080DEDE_294/1-72 2MF1_G_SS   ..((((........)..)))...((((((.......))))))............((((........))))..(((((......)))))................................................................
+7YR6_A                                  -GCGUACAGGGA-AC..ACGCAACCCCG-AAGG.AU-CGGGGAAG....GGACGUCGCcAGGG.AgGCGAUuCCAUC.AGGAUGAUGA--.--CG-.----AGGGACU-.---GAAGAGUG-GGCGGGGUAAU..aCCCCGCCCCUUUUU-.
+#=GR 7YR6_A 7YR6_A_SS                   .((((............))))..(((((.........))))).............((((......))))...(.(((......))))......(...................)(((((.(.(((((((.......)))))))))))))...
+7YR7_A                                  -GCGUACAGGGA-AC--ACGCAACCCCG-AAGG-AU-CGGGGAAG----GGACGUCGCCAGGG-AGGCGAUUCCAUC-AGGAUGAUGA-----CG------AGGGACU-----GAAGAGUG-GGCGGGGUAAU--ACCCCGCCCCUUUUU--
+#=GR 7YR7_A 7YR7_A_SS                   .((((............))))..(((((.........)))))............(((..........)))..(.(((......))))......(...................)(((((.(.(((((((.......)))))))))))))...
 #=GC SS_cons                            <<<<<__________..>>>>>,<<<<<<____.__>>>>>>,,,....,,,,<<<<<.____._.>>>>>.<<<<<._____>>>>>,,.,,,,,.,,,,,,,,,,,,.,,,<<<<<<---<<<<<<<____...>>>>>>>->>>>>>:.
 #=GC RF                                 uGuGcacAcGGAuau..gCaCaggCccucAaGG.AugaggGcaAg....GgacaucGC.AGGA.a.GCgau.uCAUC.AGGAuGAUGauu.aagGA.auAaAGGGAcUA.gGaaaaaAgUGUGGgcGGgucAa...cCCgcCCccUuuuuU.
 //
