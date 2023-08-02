@@ -365,6 +365,7 @@ def get_structured_pdb_ids(pdb_ids):
                     print(f'No basepairs found for {pdb_id} in {filename}')
         else:
             print(f'No file found for {pdb_id}')
+
     return structured
 
 
