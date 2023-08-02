@@ -51,9 +51,12 @@
 #=GF CC New structure 7B9V_5
 #=GF CC New structure 7DCO_B
 #=GF CC New structure 7DVQ_B
+#=GF CC New structure 7QTT_e
 #=GF CC New structure 7W59_B
 #=GF CC New structure 7W5A_B
 #=GF CC New structure 7W5B_B
+#=GF CC New structure 8C6J_5
+#=GF CC New structure 8CH6_e
 
 AAFC03028536.1/14883-14999                  A.......UACUCUGGUU.U.CU.CUUCA.........................................................GAUC.GUAUAAAUCUUUCGCCUUUUACUAAAGA.UUUCCG....UGG.A..GA.GGAACA.AUUCU..........GAGUCUUUACCC..............AAUUUUUUGA..........GGCCUCGUUUUu...........AACGAGGC..U.
 AANU01096983.1/4726-4842                    A.......UACUCUGGUU.U.CU.CUUCA.........................................................GAUC.GCAUAAAUCUUUCGCCUUUUACUAAAGA.UUUCCG....UGG.A..GA.GGAACA.ACUCU..........GAGUCUUAACCC..............AAUUUUUUGA..........GGCCUUGUAUUu...........UGCAAGGC..U.
@@ -294,8 +297,14 @@ URS000075BAAE_9606/1-117                    A.......UACUCUGGUU.U.CU.CUUCA.......
 #=GR URS000075BAAE_9606/1-117 7W59_B_SS     ..............((((...((.(((((..............................................................(...((((((((.(.......).))))).))).).....))).)..)).).)))).................................................................................................
 #=GR URS000075BAAE_9606/1-117 7W5A_B_SS     ..............((((...((.(((((..............................................................(...((((((((.(.......).))))).))).).....))).)..)).).)))).................................................................................................
 #=GR URS000075BAAE_9606/1-117 7W5B_B_SS     ..............((((...((.(((((..............................................................(...((((((((.(.......).))))).))).).....))).)..)).).)))).................................................................................................
-URS0000514318_559292/1-179                  ---------AAGCAGCUUUA-CA-GAUCAAUGGCGGAGGGAGGUCAACAUCAAGAACUGUGGGCCUUUUAUUGCCUAUAGAACUUAUAAC-GAACAUGGUUCUUGCCUUUUACCAGAAC-CAUCCG----GGU-G--UU-GUCUCC-AUAGAAA------CAGGUAAAGCUGUCC------------GUUACUGUGGG----------CUUGCCAUAUU-----------UUUUGGAAC--U-
+URS0000514318_559292/1-179                  -.......-AAGCAGCUUuA.CA.GAUCAauggcggagggaggucaacaucaagaacugugggccuuuuauugccuauagaacuuaUAAC.GAACAUGGUUCUUGCCUUUUACCAGAAC.CAUCCG....GGU.G..UU.GUCUCC.AUAGAaa......caGGUAAAGCUGUCc............gUUACUGUGGG..........CUUGCCAUAUU...........uUUUGGAAC..U.
 #=GR URS0000514318_559292/1-179 6EXN_5_SS   ...........(((((((.(.((.(.......((((..(((((.(((((((.....((((((((........)))))))).........(.(...((((((((((.......))))))).))).))....))).)..)).)))))).......(......(((......))))))............))..)))))))..........).)))..............................
+7QTT_e                                      A.......UACUCUGGUU.U.CU.CUUCA.........................................................GAUC.GCAUAAAUCUUUCGCCUUUUACUAAAGA.UUUCCG....UGG.A..GA.GGAACA.ACUCU..........GAGUCUUAACCC..............AAUUUUUUGA..........GGCCUUGCUUU............GGCAAGGC..Ua
+#=GR 7QTT_e 7QTT_e_SS                       ...............(((.(.((.((((.............................................................(.(...((((((((((.......))))))).))).)).....)).)..)).)))))................................................................(.(((((................)))).))....
+8C6J_5                                      A.......UACUCUGGUU.U.CU.CUUCA.........................................................GAUC.GCAUAAAUCUUUCGCCUUUUACUAAAGA.UUUCCG....UGG.A..GA.GGAACA.ACUCU..........GAGUCUUAACCC..............AAUUUUUUG-..........AGCCUUGCCUU............GGCAAGGC.uA.
+#=GR 8C6J_5 8C6J_5_SS                       .........((((.((((.(.((.(((((............................................................(.(...((((((((((.......))))))).))).))....))).)..)).))))).....)...........))))..........................................((((((((................))))))).)..
+8CH6_e                                      A-------UACUCUGGUU-U-CU-CUUCA---------------------------------------------------------GAUC-GCAUAAAUCUUUCGCCUUUUACUAAAGA-UUUCCG----UGG-A--GA-GGAACA-ACUCU----------GAGUCUUAACCC--------------AAUUUUUUGA----------GGCCUUGCUUU------------GGCAAGGC--UA
+#=GR 8CH6_e 8CH6_e_SS                       ...............(((.(.((.((((.............................................................(.(...((((((((...........))))).))).)).....)).)..)).)))))...............................................................((.(........................).)..).
 #=GC SS_cons                                :.......:<<<<--<<<.<.<<.<<<<<.........................................................----.----<<<<<<<<___________>>>>>.>>>---....>>>.>..>>.>>>>>-.-----..........>>>>--------..............---------<..........-<<<<<<____............__>>>>>>..>.
 #=GC RF                                     a.......uccccuGggg.c.ca.cuaca.........................................................uauC.GAAcaagucUcUcGCCUUUUACuAgAga.cuuCCG....ugu.a..gu.ggccca.auuaa..........gggguuuaaacu..............AAUUUUUGga..........agcccuuuuuu............uuaagggc..u.
 //

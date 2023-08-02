@@ -356,13 +356,16 @@ def get_structured_pdb_ids(pdb_ids):
     structured = set()
     for pdb_id in pdb_ids:
         filename = get_pdb_fasta_file(pdb_id)
-        with open(filename, 'r', encoding='UTF-8') as f_fasta:
-            lines = f_fasta.readlines()
-            structure_line = lines[2]
-            if '(' in structure_line and ')' in structure_line:
-                structured.add(pdb_id)
-            else:
-                print(f'No basepairs found for {pdb_id} in {filename}')
+        if filename:
+            with open(filename, 'r', encoding='UTF-8') as f_fasta:
+                lines = f_fasta.readlines()
+                structure_line = lines[2]
+                if '(' in structure_line and ')' in structure_line:
+                    structured.add(pdb_id)
+                else:
+                    print(f'No basepairs found for {pdb_id} in {filename}')
+        else: 
+            print ("no filename")
     return structured
 
 
@@ -802,14 +805,16 @@ def transfer_gc_annotations(rfam_acc):
                 new_gc_annotation = []
                 # compare with ref_seq
                 index = 0
-                for symbol in sequence:
-                    if symbol == ref_seq[index]:
-                        new_gc_annotation.append(annotation[index])
-                        index += 1
-                    else:
-                        new_gc_annotation.append('*')
-                new_gc_lines.append((label, ''.join(new_gc_annotation)))
-
+                try:
+                    for symbol in sequence:
+                        if symbol == ref_seq[index]:
+                            new_gc_annotation.append(annotation[index])
+                            index += 1
+                        else:
+                            new_gc_annotation.append('*')
+                    new_gc_lines.append((label, ''.join(new_gc_annotation)))
+                except IndexError as e:
+                     print("index error - moving on")
     # rewrite the seed with the new GC line
     with open(new_seed, 'w', encoding='UTF-8') as f_new_seed:
         for line in lines:
