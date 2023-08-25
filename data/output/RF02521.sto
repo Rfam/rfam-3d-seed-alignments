@@ -1,0 +1,12 @@
+# STOCKHOLM 1.0
+#=GF ID Virus_CITE_7 
+#=GF DE Pea enation mosaic virus-2 cap-independent translation element 
+#=GF CC New structure 8SH5_R
+
+AY714213.1/3822-3906    ..UAGAACACGUGGGAUAGGGGAUGACCUUGUCGACCGGUUAUCGGUCCCCUGCUCCUUCGAGCUGGCAAGGCGCCCAAAGGUUCUA.
+JF713436.1/3827-3911    ..UAGAACUUGUGGGAUAGGGGAUGAUCUUGUCGACCGUUUCUCGGUCCCCUGCUCCGUUGAGCUGGCAAGGCGCCUAUAGGUUCUA.
+8SH5_R                  GGUAGAACACGUGGGAUAGGGGAUGACCUUGUCGACCGAAACACGGUCCCCUGCUCCUUCGAGCUGGCAAGGCGCUCACAGGUUCUAC
+#=GR 8SH5_R 8SH5_R_SS   .((((((((.((((((..{{..(.{({{{{{{{(((((.....)))))}}.)((((....)))))}}}}}}}})))))).))))))))
+#=GC SS_cons            ..((((((--(((((-----------(((((((<<<<<_____>>>>>,,,,<<<<____>>>>,)))))))--)))))--)))))).
+#=GC RF                 ..uaGaaCaugugGGAUAGGGGAUGAcCuuGuCGaCCGuUUaUCGGuCCCCUGCuCCuUuGaGCUGgCaaGgCGCCcacAGGuuCua.
+//
