@@ -1,8 +1,0 @@
-version: '2'
-services:
-  rfam:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    volumes:
-      - .:/usr/src/rfam

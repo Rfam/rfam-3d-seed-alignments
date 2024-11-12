@@ -1,3 +1,27 @@
-*.pyc
 temp/*
 .idea*
+# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
+
+# python
+*.pyc
+.venv
+__pycache__/
+
+.DS_Store
+
+# Nextflow things
+local.config
+.nextflow*
+work/
+results/
+
+# Caching
+/cache

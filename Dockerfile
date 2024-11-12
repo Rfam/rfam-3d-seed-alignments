@@ -1,35 +1,34 @@
-FROM python:3.10
+FROM python:3.11
 
-ENV RNA /usr/src/rfam
-ENV INFERNAL /usr/src/infernal
-ENV SCRIPTS /usr/src/scripts
-RUN mkdir $INFERNAL
-RUN mkdir $SCRIPTS
-WORKDIR $RNA
+# Install all required packages
+RUN apt install -y \
+    ca-certificates \
+    curl \
+    python3
 
-# Install Infernal
+ENV RFAM_3D=/usr/src/rfam_3d
+
+WORKDIR $RFAM_3D
+
 RUN \
     cd $INFERNAL && \
-    curl -OL http://eddylab.org/infernal/infernal-1.1.4.tar.gz && \
-    tar -xvzf infernal-1.1.4.tar.gz && \
-    cd infernal-1.1.4 && \
-    ./configure --prefix=$INFERNAL/infernal-1.1.4 && \
+    curl -OL http://eddylab.org/infernal/infernal-1.1.5.tar.gz && \
+    tar -xvzf infernal-1.1.5.tar.gz && \
+    cd infernal-1.1.5 && \
+    ./configure && \
     make && \
     make install && \
     cd easel && \
     make install && \
     cd $INFERNAL && \
-    rm infernal-1.1.4.tar.gz
+    rm -r infernal-1.1.5*
 
-# Install reformatting scripts
-RUN cd $SCRIPTS && git clone https://github.com/nawrockie/jiffy-infernal-hmmer-scripts.git && \
-    chmod +x jiffy-infernal-hmmer-scripts/ali-pfam-lowercase-rf-gap-columns.pl
+RUN curl -sSL https://install.python-poetry.org | python3 -
 
-ADD requirements.txt .
+COPY poetry.lock poetry.lock
+COPY pyproject.toml pyproject.toml
 
-RUN pip install -r requirements.txt
-
-ENV PATH="$INFERNAL/infernal-1.1.4/bin:$RNA:$PATH"
-ENV PATH="$SCRIPTS/jiffy-infernal-hmmer-scripts:$RNA:$PATH"
+RUN PATH="$PATH:/root/.local/bin" poetry config virtualenvs.create false
+RUN PATH="$PATH:/root/.local/bin" poetry install
 
 ENTRYPOINT ["/bin/bash"]

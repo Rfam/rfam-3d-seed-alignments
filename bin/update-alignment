@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+# This first aligns sequences with cmalign. It uses --mapstr --mapali to keep SS_cons from SEED
+# intact.
+#
+# It then removes all SEED sequences from the aligned file to produce a pdb
+# sequence only file.
+#
+# This new sequence only file is merged back into the seed.
+#
+# This likely seems silly, but this is the only way to ensure the existing GR
+# lines are kept.
+
+seed="$1"
+cm="$2"
+pdb_sequences="$3"
+output="$4"
+
+if [[ ! -s "$pdb_sequences" ]]; then
+  echo "No sequences to align, just reusing current"
+  cp "$seed" "$output"
+  exit 0
+fi
+
+# Align the pdb sequences
+cmalign --sub --notrunc -g --mapstr --mapali "$seed" -o full_alignment.sto "$cm" "$pdb_sequences"
+
+# Get the list of accessions that are in the PDB fasta file that was aligned
+esl-seqstat -a "$pdb_sequences" | grep '=' | awk '{ print $2 }' > pdb_ids
+
+# Extract only pdb sequences from the alignment
+esl-alimanip --seq-k pdb_ids full_alignment.sto | awk '{ if ($1 != "#=GR" && $3 != "PP") print }'  > pdb_only.sto
+
+# Merge the existing seed with the PDB only alignment
+esl-alimerge "$seed" pdb_only.sto > "$output"

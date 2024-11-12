@@ -1,0 +1,6 @@
+// vim: ft=groovy
+
+params {
+  // This is where you can override the location of the results folder and where
+  // to fetch the families from.
+}

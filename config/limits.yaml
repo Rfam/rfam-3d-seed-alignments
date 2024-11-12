@@ -1,0 +1,37 @@
+# This is the minimum resolution a structure must have to be consider to intergrate
+# into a family.
+min_resolution: 4.0
+
+# This is the maximum number of structures which are allowed to match an
+# alignment before we ignore the alignment.
+max_structures: 100
+
+# Some structures are DNA which happens to match an RNA and we do not want to
+# include them in our alignments.
+skip_pdbs:
+  - "5TC1" # RNA but need to double check
+  - "6LAB" # DNA
+  - "7AS5" # DNA
+  - "7MI9" # DNA
+  - "7MIB" # DNA
+  - "7NPN" # DNA
+
+# These are families which are too large/diffcult to update, so we skip them.
+# Generally these are rRNA and tRNA.
+skip_families:
+  - "RF00001" # 5S_rRNA
+  - "RF00002" # 5_8S_rRNA
+  - "RF00005" # tRNA
+  - "RF00029" # group II intron, too large
+  - "RF00106" # RNAI matches a DNA molecule 7NPN
+  - "RF00177" # SSU_rRNA_bacteria
+  - "RF00843" # microRNA matching DNA in complex with histones
+  - "RF00957" # microRNA matching an rRNA
+  - "RF01959" # SSU_rRNA_archaea
+  - "RF01960" # SSU_rRNA_eukarya
+  - "RF02540" # LSU_rRNA_archaea
+  - "RF02541" # LSU_rRNA_bacteria
+  - "RF02542" # SSU_rRNA_microsporidia
+  - "RF02543" # LSU_rRNA_eukarya
+  - "RF02545" # Trypanosomatid SSU
+  - "RF02546" # Trypanosomatid LSU
