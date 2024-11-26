@@ -100,7 +100,7 @@ class Planner:
                     candidate.chain_id,
                     accession,
                 )
-                update.existing_match(accession, match)
+                update.existing_match(accession, candidate)
                 continue
 
             if reason := self.disallowed.skipped_candidate(candidate):

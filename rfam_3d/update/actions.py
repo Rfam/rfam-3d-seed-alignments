@@ -195,10 +195,12 @@ class FamilyUpdate:
         """Mark a match as skipped for the given reason."""
         self.actions.append(SkippedCandidate(candidate=candidate, reason=reason))
 
-    def existing_match(self, accession: SequenceAccession, match: Match):
+    def existing_match(self, accession: SequenceAccession, candidate: Candidate):
         """Mark a match as already annotated in the alignment."""
         # assert self.family.has_accession(accession)
-        self.actions.append(AlreadyPresentCandidate(match=match, accession=accession))
+        self.actions.append(
+            AlreadyPresentCandidate(candidate=candidate, accession=accession)
+        )
 
     def no_structure_info(self, match: Match):
         """Mark a match as having failed to get structure information."""
