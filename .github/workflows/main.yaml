@@ -53,7 +53,7 @@ jobs:
   singularity-conversion:
     needs:
       - create-docker-image
-    uses: rfam/rfam-3d-seed-alignments/.github/workflows/singularity.yaml@dev
+    uses: rfam/rfam-3d-seed-alignments/.github/workflows/singularity.yaml@rework-design
     secrets: inherit
 
   finished-singularity:
