@@ -48,9 +48,6 @@ class Planner:
     ) -> Planner:
         return cls(structure_fetcher=structure_fetcher, disallowed=disallowed)
 
-    def build_candidates(self, family: Family) -> list[Candidate]:
-        pass
-
     def actions(self, family: Family) -> Action:
         """This determines which actions to take given what is already mapped to a
         family and what the family matches. If None is returned then there are no
