@@ -10,6 +10,7 @@ ENV RFAM_3D=/usr/src/rfam_3d
 
 WORKDIR $RFAM_3D
 
+# Install infernal and easel
 RUN \
     cd $INFERNAL && \
     curl -OL http://eddylab.org/infernal/infernal-1.1.5.tar.gz && \
