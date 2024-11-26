@@ -25,6 +25,10 @@ from cattrs import Converter
 from cattrs.gen import make_dict_structure_fn, make_dict_unstructure_fn, override
 from loguru import logger
 
+from rfam_3d.rfam.accessions import SeqeunceAccession
+from rfam_3d.rfam.matches import Match
+from rfam_3d.structures.info import ChainInfo
+from rfam_3d.structures.structure_id import PdbChainId
 from rfam_3d.update.actions import (
     Action,
     AddCandidateStructure,
@@ -48,10 +52,30 @@ class SequenceStatus(enum.Enum):
 
 
 @enum.unique
+class BasepairingStatus(enum.Enum):
+    NEW_STRUCTURE = "new_pairing"
+    KNOWN_STRUCTURE = "known_pairing"
+
+
+@enum.unique
+class MatchStatus(enum.Enum):
+    AUTOMATED_MATCH = "automated_match"
+    MANUALLY_FORCED = "manually_forced"
+
+
+@enum.unique
+class PkStatus(enum.Enum):
+    NEW_PK = "new_pk"
+    EXISTING_PK = "existing_pk"
+    NO_PK = "no_pk"
+
+
+@enum.unique
 class ChainStatus(enum.Enum):
     ERROR = "error"
     SKIPPED = "skipped"
     ALREADY_PRESENT = "already_present"
+    NEW_CHAIN = "new_chain"
 
     @classmethod
     def status_for(cls, action: CandidateAction) -> None | ChainStatus:
@@ -99,26 +123,146 @@ class FamilyStatus(enum.Enum):
 class ChainReport:
     chain_id: str
     status: ChainStatus
+    basepairing_status: BasepairingStatus
+    dot_bracket: str
     has_base_pairs: bool
     has_pseudoknots: bool
-    new_basepair_count: int
-    removed_basepair_count: int
+    new_basepair_count: None | int
+    removed_basepair_count: None | int
+
+    @classmethod
+    def from_info(
+        cls, info: ChainInfo, status: ChainStatus, basepairing_status: BasepairingStatus
+    ) -> ChainReport:
+        return cls(
+            chain_id=str(info.chain_id),
+            status=status,
+            basepairing_status=basepairing_status,
+            dot_bracket=info.basepairing.complete,
+            has_base_pairs=info.basepairing.has_basepairs,
+            has_pseudoknots=info.basepairing.has_pk,
+            new_basepair_count=None,
+            removed_basepair_count=None,
+        )
 
 
 @frozen
-class StructureReport:
-    pdb_id: str
-    resolution: None | float
-    method: str
-    chains: list[ChainReport]
+class MatchReport:
+    sequence_start_position: int
+    sequence_stop_position: int
+    bit_score: float
+    e_value: float
+    cm_start_position: int
+    cm_end_position: int
+    hex_color: str
+    is_significant: bool
+    match_status: MatchStatus
+
+    @classmethod
+    def from_match(cls, match: Match) -> MatchReport:
+        return cls(
+            sequence_start_position=match.sequence_start_position,
+            sequence_stop_position=match.sequence_stop_position,
+            bit_score=match.bit_score,
+            e_value=match.e_value,
+            cm_start_position=match.cm_start_position,
+            cm_end_position=match.cm_end_position,
+            hex_color=match.hex_color,
+            is_significant=match.is_significant,
+            match_status=MatchStatus.AUTOMATED_MATCH,
+        )
 
 
 @frozen
 class SequenceReport:
     sequence_id: str
     sequence_length: int
+    sequence_md5: str
     status: SequenceStatus
-    structures: list[StructureReport]
+
+    @classmethod
+    def from_info(
+        cls, accession: SequenceAccession, info: ChainInfo, status: SequenceStatus
+    ) -> SequenceReport:
+        return cls(
+            sequence_id=str(accession),
+            sequence_length=info.sequence_length,
+            sequence_md5=info.sequence_md5_hash,
+            status=status,
+        )
+
+
+@frozen
+class CandidateReport:
+    chain_id: PdbChainId
+    match_report: MatchReport
+    chain: None | ChainReport
+    sequence: None | SequenceReport
+
+    @classmethod
+    def from_action(
+        cls, action: CandidateAction, basepairing_status: BasepairingStatus
+    ) -> CandidateReport:
+        match action:
+            case StructurelessCandidate(match=match):
+                return CandidateReport(
+                    chain_id=match.chain_id,
+                    match_report=MatchReport.from_match(match),
+                    chain=None,
+                    sequence=None,
+                )
+            case SkippedCandidate(candidate=candidate):
+                return CandidateReport(
+                    chain_id=candidate.match.chain_id,
+                    match_report=MatchReport.from_match(candidate.match),
+                    chain=ChainReport.from_info(
+                        candidate.chain_info,
+                        ChainStatus.SKIPPED,
+                        basepairing_status,
+                    ),
+                    sequence=SequenceReport.from_info(candidate.chain_info),
+                )
+            case AlreadyPresentCandidate(candidate=candidate):
+                return CandidateReport(
+                    chain_id=candidate.match.chain_id,
+                    match_report=MatchReport.from_match(candidate.match),
+                    chain=ChainReport.from_info(
+                        candidate.chain_info,
+                        ChainStatus.ALREADY_PRESENT,
+                        basepairing_status,
+                    ),
+                    sequence=SequenceReport.from_info(candidate.chain_info),
+                )
+            case AlignCandidateSequence(candidate=candidate):
+                return CandidateReport(
+                    chain_id=candidate.match.chain_id,
+                    match_report=MatchReport.from_match(candidate.match),
+                    chain=ChainReport.from_info(
+                        candidate.chain_info,
+                        ChainStatus.NEW_CHAIN,
+                        basepairing_status,
+                    ),
+                    sequence=SequenceReport.from_info(candidate.chain_info),
+                )
+            case AddCandidateStructure(candidate=candidate):
+                return CandidateReport(
+                    chain_id=candidate.match.chain_id,
+                    match_report=MatchReport.from_match(candidate.match),
+                    chain=ChainReport.from_info(
+                        candidate.chain_info,
+                        ChainStatus.NEW_CHAIN,
+                        basepairing_status,
+                    ),
+                    sequence=SequenceReport.from_info(candidate.chain_info),
+                )
+            case _:
+                assert_never(action)
+
+
+@frozen
+class AlignmentReport:
+    num_columns_before: int
+    num_columns_after: int
 
 
 @frozen
@@ -126,98 +270,44 @@ class FamilyReport:
     family_id: str
     family_name: str
     rna_type: str
-    # num_columns: int
     status: FamilyStatus
-    sequences: list[SequenceReport]
+    alignment_info: None | AlignmentReport
+    candidates: list[CandidateReport]
 
     @classmethod
     def from_action(cls, family_action: Action) -> FamilyReport:
-        sequence_reports = []
-        key = lambda a: getattr(a, "accession", "Error")
-        pdb_key = op.attrgetter("pdb_id")
-        chain_key = op.attrgetter("chain_id")
-
-        def grouped(iterable: ty.Iterable, key) -> ty.Iterable:
-            ordered = sorted(iterable, key=key)
-            return it.groupby(ordered, key)
-
-        for accession, per_sequence in grouped(family_action.actions, key):
-            structure_reports = []
-            per_sequence = list(per_sequence)
-            for pdb_id, per_structure in grouped(per_sequence, pdb_key):
-                chain_reports = []
-                per_structure = list(per_structure)
-                for chain_id, per_chain in grouped(per_structure, chain_key):
-                    per_chain = list(per_chain)
-                    pass
-
-            # for _, candidates in it.groupby(structures, chain_key):
-            #     candidates = list(candidates)
-            #     candidate = None
-            #     if len(candidates) == 1:
-            #         candidate = candidates[0]
-            #     elif len(candidates) == 2:
-            #         assert any(
-            #             isinstance(c, AlignCandidateSequence) for c in candidates
-            #         ) and any(isinstance(c, AddCandidateStructure) for c in candidates)
-            #         candidate = next(
-            #             c for c in candidates if isinstance(c, AlignCandidateSequence)
-            #         )
-            #     else:
-            #         logger.error("Saw too many candidates {}", len(candidates))
-            #         raise ValueError(
-            #             "Should never have more than 2 candidates for a chain"
-            #         )
-            #
-            #     has_bp = False
-            #     has_pk = False
-            #     sequence_id = None
-            #     sequence_length = None
-            #     if not isinstance(
-            #         candidate,
-            #         (AlreadyPresentCandidate, StructurelessCandidate, SkippedCandidate),
-            #     ):
-            #         has_bp = candidate.candidate.chain_info.has_basepairs
-            #         has_pk = candidate.candidate.chain_info.has_pk
-            #         sequence_id = candidate.accession.raw
-            #         sequence_length = candidate.candidate.chain_info.sequence_length
-            #
-            #     if isinstance(candidate, AlreadyPresentCandidate):
-            #         sequence_id = candidate.accession.raw
-            #
-            #     structure_reports.append(
-            #         ChainReport(
-            #             chain_id=candidate.chain_id.chain_id,
-            #             status=ChainStatus.status_for(candidate),
-            #             has_base_pairs=has_bp,
-            #             has_pseudoknots=has_pk,
-            #             is_unique_sequence=False,
-            #             sequence_id=sequence_id,
-            #             sequence_length=sequence_length,
-            #         )
-            #     )
-
-            method = "Failed to find method"
-            resolution = None
-            if not isinstance(structures[0], StructurelessCandidate):
-                resolution = structures[0].candidate.chain_info.info.resolution
-                method = structures[0].candidate.chain_info.info.method
-
-            structure_reports.append(
-                StructureReport(
-                    pdb_id=pdb_id.pdb_id,
-                    method=method,
-                    resolution=resolution,
-                    chains=structure_reports,
-                )
-            )
+        candidate_reports = []
+        match family_action:
+            case SkippedFamily(actions=candidate_actions):
+                for candidate_action in candidate_actions:
+                    candidate_reports.append(
+                        CandidateReport.from_action(candidate_action)
+                    )
+            case CompleteFamily(actions=candidate_actions):
+                for candidate_action in candidate_actions:
+                    candidate_reports.append(
+                        CandidateReport.from_action(candidate_action)
+                    )
+            case NoAcceptedMatches(actions=candidate_actions):
+                for candidate_action in candidate_actions:
+                    candidate_reports.append(
+                        CandidateReport.from_action(candidate_action)
+                    )
+            case FamilyUpdate(actions=candidate_actions):
+                for candidate_action in candidate_actions:
+                    candidate_reports.append(
+                        CandidateReport.from_action(candidate_action)
+                    )
+            case _:
+                assert_never(family_action)
 
         return FamilyReport(
             family_id=family_action.family.rfam_accession,
             family_name=family_action.family.info.description,
-            status=FamilyStatus.status_for(family_action),
             rna_type=family_action.family.info.rna_type,
-            sequences=sequence_reports,
+            status=FamilyStatus.status_for(family_action),
+            alignment_info=None,
+            candidates=candidate_reports,
         )
 
 
