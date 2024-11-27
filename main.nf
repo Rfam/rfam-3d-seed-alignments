@@ -38,7 +38,7 @@ process merge_info {
 process find_actions {
   // If starting without anything cached this can be very slow to fetch all
   // data.
-  time '12h'
+  time '24h'
 
   input:
   tuple path(matches_file), path(disallow), path(info)
