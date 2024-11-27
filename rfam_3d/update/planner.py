@@ -94,8 +94,8 @@ class Planner:
             ):
                 logger.info(
                     "Structure {} is already annotated on {}",
-                    candidate.chain_id,
-                    accession,
+                    str(candidate.chain_id),
+                    str(accession),
                 )
                 update.existing_match(accession, candidate)
                 continue
@@ -110,8 +110,8 @@ class Planner:
             if accession := family.alignment.known_sequence(candidate.chain_info.seq()):
                 logger.info(
                     "PDB {} has sequence {}, which is already aligned",
-                    candidate.chain_id,
-                    accession,
+                    str(candidate.chain_id),
+                    str(accession),
                 )
                 update.annotate_structure(accession, candidate)
                 continue
@@ -119,8 +119,8 @@ class Planner:
             if accession := update.planned_accession(candidate):
                 logger.info(
                     "PDB {} has sequence {}, which will be aligned",
-                    pdb_info.chain_id,
-                    accession,
+                    str(pdb_info.chain_id),
+                    str(accession),
                 )
                 update.annotate_structure(accession, candidate)
                 continue
@@ -128,8 +128,8 @@ class Planner:
             accession = pdb_info.unique_accession()
             logger.info(
                 "PDB {} has sequence {}, which is not aligned",
-                pdb_info.chain_id,
-                accession,
+                str(pdb_info.chain_id),
+                str(accession),
             )
             update.align_and_annotate(candidate)
 
