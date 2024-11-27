@@ -22,4 +22,4 @@ IFS=$'\n\t'
 export NXF_OPTS='-Dnxf.pool.type=sync -Dnxf.pool.maxThreads=10000'
 
 module load nextflow
-nextflow run main.nf -profile slurm
+nextflow run main.nf -ansi-log false -profile slurm
