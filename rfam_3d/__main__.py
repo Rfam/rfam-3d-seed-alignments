@@ -62,18 +62,22 @@ def main(ctx, cache_path="./cache", log_level="INFO"):
 @main.command("compute-actions")
 @click.option("--disallow-file", type=click.Path())
 @click.argument("matches-file", type=click.File("r"))
-@click.argument("alignments-file", type=click.File("r"))
+@click.argument("alignment-file", type=click.File("r"))
 @click.argument("report-file", type=click.File("w"))
-@click.argument("sequences", type=click.Path())
+@click.argument("full-sequences", type=click.Path())
 @click.argument("info", type=click.Path())
+@click.argument("truncated-sequences", type=click.Path())
+@click.argument("truncated-info", type=click.Path())
 @click.pass_context
 def compute_actions_cmd(
     ctx,
     matches_file: ty.TextIO,
     alignments_file: ty.TextIO,
-    sequences: str | Path,
     report_file: ty.TextIO,
+    full_sequences: str | Path,
     info: str | Path,
+    truncated_sequences: str | Path,
+    truncated_info: str | Path,
     disallow_file: None | str,
 ):
     """This computes the actions needed to take to update the given family.
@@ -101,8 +105,14 @@ def compute_actions_cmd(
     info = Path(info)
     info.mkdir(parents=True, exist_ok=True)
 
-    sequences = Path(sequences)
-    sequences.mkdir(parents=True, exist_ok=True)
+    full_sequences = Path(full_sequences)
+    full_sequences.mkdir(parents=True, exist_ok=True)
+
+    truncated_info = Path(truncated_info)
+    truncated_info.mkdir(parents=True, exist_ok=True)
+
+    truncated_sequences = Path(truncated_sequences)
+    truncated_sequences.mkdir(parents=True, exist_ok=True)
 
     disallowed = disallow.Disallowed.empty()
     if disallow_file:
@@ -134,15 +144,25 @@ def compute_actions_cmd(
                     logger.info("No accepted matches for {}", family.rfam_accession)
                 case FamilyUpdate():
                     logger.info("Will update {}", family.rfam_accession)
-                    seq_out = sequences / f"{todo.family.rfam_accession}.fa"
+                    full_seq_out = full_sequences / f"{todo.family.rfam_accession}.fa"
+                    trunc_seq_out = (
+                        truncated_sequences / f"{todo.family.rfam_accession}.fa"
+                    )
                     if not todo.has_sequences():
                         logger.info(
                             "No sequences to align for {}", todo.family.rfam_accession
                         )
-                        seq_out.touch()
+                        full_seq_out.touch()
+                        trunc_seq_out.touch()
                     info_out = info / f"{todo.family.rfam_accession}.json"
-                    with seq_out.open("w") as seq, info_out.open("w") as out:
-                        todo.write_data(seq, out)
+                    trunc_info = truncated_info / f"{todo.family.rfam_accession}.json"
+                    with (
+                        full_seq_out.open("w") as seq,
+                        info_out.open("w") as out,
+                        trunc_seq_out.open("w") as trunc,
+                        trunc_info.open("w") as trunc_info,
+                    ):
+                        todo.write_data(seq, out, trunc, trunc_info)
                 case _:
                     assert_never(todo)
     report.write(report_file)

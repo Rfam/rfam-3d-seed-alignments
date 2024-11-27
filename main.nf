@@ -45,11 +45,13 @@ process find_actions {
 
   output:
   path "missing-sequences/*.fa", emit: sequences
+  path "truncated-sequences/*.fa", emit: trunc_seq
+  path "truncated-pdb/*.json", emit: trunc_pdb
   path "pdb-info/*.json", emit: pdb_info
   path "report.txt", emit: report
 
   """
-  rfam_3d compute-actions --disallow-file ${disallow} ${matches_file} ${info} report.txt missing-sequences/ pdb-info/
+  rfam_3d compute-actions --disallow-file ${disallow} ${matches_file} ${info} report.txt missing-sequences/ pdb-info/ truncated-sequences/ truncated-pdb/
   """
 }
 

@@ -253,10 +253,18 @@ class FamilyUpdate:
                 return False
         return True
 
-    def write_data(self, seq_out: ty.TextIO, struct_out: ty.TextIO):
+    def write_data(
+        self,
+        full_seq_out: ty.TextIO,
+        struct_out: ty.TextIO,
+        trunc_seq_out: ty.TextIO,
+        trunc_info_out: ty.TextIO,
+    ):
         seen_ids = set()
-        sequences: list[SeqRecord] = []
+        full_seqs: list[SeqRecord] = []
+        trunc_seqs: list[SeqRecord] = []
         structures = StructureActions.empty()
+        trunc_structures = StructureActions.empty()
         for action in self.actions:
             match action:
                 case AlreadyPresentCandidate():
