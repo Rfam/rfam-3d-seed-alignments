@@ -14,9 +14,9 @@
 """A module with some utilties for working with sequences.
 
 >>> normalize_sequence(Seq("ac-cg."))
-Seq("ACCG")
+Seq('ACCG')
 >>> normalized_hash(Seq("ac-cg."))
-"c3e65f1cfdc67810a569e30559d77178"
+'50effd9175908e89c4759afd90205fbc'
 """
 
 import hashlib
@@ -30,7 +30,7 @@ def normalize_sequence(sequence: Seq) -> Seq:
     upper case before comparing.
 
     >>> normalize_sequence(Seq("ac-cg."))
-    Seq("ACCG")
+    Seq('ACCG')
     """
     return sequence.upper().replace(".", "").replace("-", "")
 
@@ -39,6 +39,6 @@ def normalized_hash(sequence: Seq) -> str:
     """Normalize the sequence, compute its MD5 hash and return the hexdigest.
 
     >>> normalized_hash(Seq("ac-cg."))
-    "c3e65f1cfdc67810a569e30559d77178"
+    '50effd9175908e89c4759afd90205fbc'
     """
     return hashlib.md5(bytes(normalize_sequence(sequence))).hexdigest()

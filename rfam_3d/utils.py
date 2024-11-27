@@ -21,9 +21,9 @@ def asupper(s: str) -> str:
     """Upper a string.
 
     >>> asupper("bob")
-    "BOB"
+    'BOB'
     >>> asupper("BOB")
-    "BOB"
+    'BOB'
     """
     return s.upper()
 
@@ -32,11 +32,11 @@ def aslower(s: str) -> str:
     """Lowercase a string.
 
     >>> aslower("BOB")
-    "bob"
+    'bob'
     >>> aslower("bob")
-    "bob"
+    'bob'
     >>> aslower("Bob")
-    "bob"
+    'bob'
     """
     return s.lower()
 
@@ -45,9 +45,9 @@ def to_camel_case(snake_str: str) -> str:
     """Covert a snake case string to camel case.
 
     >>> to_camel_case("a_string")
-    "aString"
+    'aString'
     >>> to_camel_case("astring")
-    "astring"
+    'astring'
     """
     components = snake_str.split("_")
     return components[0] + "".join(x.title() for x in components[1:])

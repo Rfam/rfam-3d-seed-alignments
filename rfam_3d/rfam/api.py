@@ -24,13 +24,16 @@ from requests_ratelimiter import LimiterAdapter
 
 @frozen
 class FamilyInfo:
+    """This represents some the information about a family that can be feteched
+    from the Rfam API.
+    """
+
     id: str
     accession: str
     rna_type: str
     num_seed: int
     num_full: int
     description: str
-    num_columns: int
 
 
 @frozen
@@ -58,8 +61,8 @@ class RfamApi:
     def info(self, accession: str) -> FamilyInfo:
         """Fetches the information about a given family from the Rfam API.
 
-        >>> RfamApi.build().fetch_info("RF00008")
-        FamilyInfo(description="Hammerhead ribozyme (type III)")
+        >>> RfamApi.build().info("RF00008")
+        FamilyInfo(id='Hammerhead_3', accession='RF00008', rna_type='Gene; ribozyme;', num_seed=85, num_full=750, description='Hammerhead ribozyme (type III)')
         """
 
         logger.debug("Fetching family info for {}", accession)
@@ -76,5 +79,4 @@ class RfamApi:
             num_seed=int(data["rfam"]["curation"]["num_seed"]),
             num_full=int(data["rfam"]["curation"]["num_full"]),
             description=data["rfam"]["description"],
-            num_columns=-1,
         )

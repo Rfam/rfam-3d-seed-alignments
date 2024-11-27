@@ -155,6 +155,11 @@ def parse_file(accession: str, alignment: ty.TextIO, format="stockholm") -> Alig
 
 
 def load_jsonl(handle: ty.TextIO) -> list[Alignment]:
+    """Load the parsed alignment information from the given handle. This
+    assumes the file is a JSONL file, where each line is a single JSON object
+    which represents an Alignment. This also assumes the file is unique and
+    there are no dupcliates.
+    """
     logger.trace("Loading alignment info from {}", handle.name)
     alignments = []
     for line in handle:

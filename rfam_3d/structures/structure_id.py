@@ -24,6 +24,12 @@ from rfam_3d.utils import aslower
 
 @frozen(order=True)
 class PdbId:
+    """This models a PDB id. These are case-insensitive identifiers, generally
+    4 characters starting with '1'.
+
+    :pdb_id: The PDB id which will always be forced to lower case.
+    """
+
     pdb_id: str = field(converter=aslower)
 
     def __str__(self):
@@ -32,12 +38,28 @@ class PdbId:
 
 @frozen(order=True)
 class PdbChainId:
+    """This models a combination of a PDB id and chain ids. PDB ids are treated
+    as PdbId to handle case-insensitivity, while a chain_id is case sensitive.
+
+    :pdb_id: A PdbId
+    :chain_id: A chain id in a structure, case sensitive.
+    """
+
     pdb_id: PdbId = field(validator=instance_of(PdbId))
     chain_id: str
 
     def secondary_structure_id(self) -> str:
+        """Create an the id that is used in a GR line of a stockholm file to
+        indicate this is a secondary structure annotation. While pdb ids are
+        stored in lowercase, they must be written upper case here.
+
+        >>> PdbChainId(PdbId('1S72'), 'A').secondary_structure_id()
+        '1S72_A_SS'
+        >>> PdbChainId(PdbId('1s72'), 'A').secondary_structure_id()
+        '1S72_A_SS'
+        """
         pid = str(self.pdb_id).upper()
         return f"{pid}_{self.chain_id}_SS"
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.pdb_id}_{self.chain_id}"
