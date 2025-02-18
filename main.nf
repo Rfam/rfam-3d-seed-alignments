@@ -87,6 +87,20 @@ process add_structure_info {
   """
 }
 
+process publish_results {
+  queue 'datamover'
+
+  input:
+  path(report)
+  path(alignments)
+
+  """
+  [ -d ${params.ftp}/.preview/3d/alignments ] || mkdir -p ${params.ftp}/.preview/3d/alignments
+  cp $report ${params.ftp}/.preview/3d
+  cp $alignments ${params.ftp}/.preview/3d/alignments
+  """
+}
+
 workflow add_3d {
   take:
     matches
@@ -128,7 +142,9 @@ workflow add_3d {
 
 workflow {
   main:
-    add_3d(Channel.fromPath("mapping.tsv"))
+    Channel.fromPath("mapping.tsv") | add_3d
+    add_3d.out.alignments | collect | set { alignments }
+    publish_results(add_3d.out.report, alignments)
   publish:
     add_3d.out.report >> 'report'
     add_3d.out.alignments >> 'alignments'
