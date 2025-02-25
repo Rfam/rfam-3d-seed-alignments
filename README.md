@@ -1,6 +1,6 @@
 # Rfam 3D Seed Alignments
 
-The goal of this project is to automate the incorporation of the 3D structural information into the [Rfam](https://rfam.org) seed alignments using the following workflow:
+The goal of this project is to automate the incorporation of the 3D structural information into the [Rfam](https://rfam.org) SEED alignments using the following workflow:
 
 - The Rfam-PDB [mapping file](./pdb_full_region.txt) is used to find out which PDB files need to be added to which seed alignments.
 
@@ -10,58 +10,26 @@ The goal of this project is to automate the incorporation of the 3D structural i
 
 - The PDB accessions are replaced with [RNAcentral](https://rnacentral.org) identifiers in the final alignments, if needed.
 
-## Usage
+## Details
 
-- To update one or more Rfam families:
-
-  ```
-  add_3d.py RF00162
-  add_3d.py RF00162 RF00507
-  ```
-
-  Use `--nocache` to force recomputing the output and download the latest PDB-Rfam and PDB-RNAcentral mapping files.
-
-- To update all families:
-
-  ```
-  add_3d.py all --nocache
-  ```
-
-- To get FR3D secondary structure for a PDB id:
-
-  ```
-  fr3d_2d.py 2QUS_B
-  >2QUS_B
-  GGGAGCCCUGUCACCGGAUGUGCUUUCCGGUCUGAUGAGUCCGUGAGGACAAAACAGGGCUCCCGAAUU
-  .((((((((((.((((((.....{.))))))(....).((((...}))))...))))))))))......
-  ```
-
-The updated seed alignments with the added 3D structures will be in the `output` folder (see [precomputed results](./data/output)).
-
-## Manually curated Rfam-PDB mapping file
-
-It is possible to manually add mapping between Rfam accessions and PDB ids to [pdb_full_region_curated.txt](./pdb_full_region_curated.txt). This step is needed in order to analyse PDB sequences that do not match Rfam covariance models automatically. This can happen when a PDB sequence gets a bit score below the Rfam threshold because it is much shorter than the corresponding Rfam model.
-
-## Workflow
-
-Some things to clarify:
-
-- This is meant to update a SEED alignment of a given family. This does not
-  edit the CMs, just suggested a new SEED.
-
-- A PDB structure is made of 1 or more chains. The chains in the structure may
-  be of the same or different molecules. The 3D structure of a molecule does not
-  have to be consitent between different experiments.
+A PDB structure is made of 1 or more chains. The chains in the structure may be
+of the same or different molecules, e.g. an rRNA structure may have a Small
+Subunit and a Large Subunit.
 
 The chain observed in a structure, here called the 'chain' or the 'observed
 sequence', may be incomplete relative to the sequence that was used in the
-experiment, here called the 'experimental sequence'. This is because
-experiments may not have enough electron density to see all nucleotides.
+experiment, here called the 'experimental sequence'.
 
-An experimental sequence may match one or more Rfam families. In this case
-matching means the sequence has a hit above a families bit score threshold.
+The 3D structure of a chain does not have to be consistent between different
+experiments, that is the same sequence observed in more than one structure may
+have different pairing.
 
-Each match within an experimental may be complete relative to the model or not.
+An experimental sequence may match one or more Rfam families. Matching means
+the sequence has a hit above a families bit score threshold. Hits below the
+threshold are not considered automatically.
+
+Each match within an experimental may be complete relative to the model or not and
+may cover the entire sequence or not.
 
 Basepairs from 3D structures are annotated with FR3D. We do not run FR3D
 ourselves, but instead fetch the pairing information from RNA BGSU.
@@ -103,10 +71,27 @@ Each SEED alignment is parsed to find which, if any, structures and associated s
 
 The mapping file is then read to determine which new pdbs
 
+## Configuration
+
+See the comments in `nextflow.config` for what each option means.
+When running locally, it might be useful to edit the `params.ftp` value, as that is the final publishing location that may not matter.
+
+## Usage
+
+This requires nextflow version `24.04.0` or newer. Tested with `24.04.3`.
+
+On the EBI SLURM cluster run:
+
+```sh
+sbatch run.sh
+```
+
+When developing locally, you may want to use
+
 ## Feedback
 
 Please feel free to [raise an issue](https://github.com/Rfam/rfam-3d-seed-alignments/issues) to report any problems with the code or the data.
 
-## Acknowledgements
+## Acknowledgments
 
 We would like to thank [Sri Devan Appasamy](http://sridevan.me) and [Craig Zirbel](https://www.bgsu.edu/arts-and-sciences/mathematics-and-statistics/faculty-and-staff/craig-zirbel.html) for developing an RNA 3D Hub API to provide FR3D annotations for RNA 3D structures.

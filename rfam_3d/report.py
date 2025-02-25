@@ -14,9 +14,7 @@
 from __future__ import annotations
 
 import enum
-import itertools as it
 import json
-import operator as op
 import typing as ty
 
 from attr import frozen
@@ -25,7 +23,7 @@ from cattrs import Converter
 from cattrs.gen import make_dict_structure_fn, make_dict_unstructure_fn, override
 from loguru import logger
 
-from rfam_3d.rfam.accessions import SeqeunceAccession
+from rfam_3d.rfam.accessions import SequenceAccession
 from rfam_3d.rfam.matches import Match
 from rfam_3d.structures.info import ChainInfo
 from rfam_3d.structures.structure_id import PdbChainId
@@ -59,23 +57,46 @@ class BasepairingStatus(enum.Enum):
 
 @enum.unique
 class MatchStatus(enum.Enum):
+    """This indicates why a chain matches a family. Most families are
+    automatically assigned, but it is possible for them to be manually
+    assigned.
+
+    AUTOMATED_MATCH - The chain matches the family above the threshold.
+    MANUALLY_FORCED - A curator assigned this match manually.
+    """
+
     AUTOMATED_MATCH = "automated_match"
     MANUALLY_FORCED = "manually_forced"
 
 
 @enum.unique
 class PkStatus(enum.Enum):
-    NEW_PK = "new_pk"
+    """The PkStatus indiciates if the chain has at least one pseudoknot which is new.
+
+    EXISTING_PK - All pseudoknots already exist in the family
+    NEW_PK - If there is at least one pk which is new.
+    NO_PK - The chain has now pseudoknotss.
+    """
+
     EXISTING_PK = "existing_pk"
+    NEW_PK = "new_pk"
     NO_PK = "no_pk"
 
 
 @enum.unique
 class ChainStatus(enum.Enum):
-    ERROR = "error"
-    SKIPPED = "skipped"
+    """A ChainStatus represents if the chain is new for the family.
+
+    ALREADY_PRESENT - The chain is already a member of the family.
+    ERROR - There was an error fetching information about the chain.
+    NEW_CHAIN - The chain is not already present in the alignment.
+    SKIPPED - The chain was skipped by the disallow list.
+    """
+
     ALREADY_PRESENT = "already_present"
+    ERROR = "error"
     NEW_CHAIN = "new_chain"
+    SKIPPED = "skipped"
 
     @classmethod
     def status_for(cls, action: CandidateAction) -> None | ChainStatus:
@@ -96,14 +117,25 @@ class ChainStatus(enum.Enum):
 
 @enum.unique
 class FamilyStatus(enum.Enum):
-    SKIPPED = "skipped"
+    """A FamilyStatus models if a family is ready for curation or if it is in
+    some other state.
+
+    COMPLETE - All structures have been added to the family
+    CURATE - This family has no structures added, but it could
+    INCOMPLETE - The family has at least one structure already added
+    NO_VALID - All matching structures were rejected from the family
+    SKIPPED - The family was skipped by the disallow list
+    """
+
     COMPLETE = "complete"
     CURATE = "curate"
     INCOMPLETE = "incomplete"
     NO_VALID = "no_matches"
+    SKIPPED = "skipped"
 
     @classmethod
     def status_for(cls, action: Action) -> FamilyStatus:
+        """Generate a FamilyStatus for a given Action."""
         match action:
             case SkippedFamily():
                 return cls.SKIPPED
@@ -123,7 +155,7 @@ class FamilyStatus(enum.Enum):
 class ChainReport:
     chain_id: str
     status: ChainStatus
-    basepairing_status: BasepairingStatus
+    basepairing_status: None | BasepairingStatus
     dot_bracket: str
     has_base_pairs: bool
     has_pseudoknots: bool
@@ -132,13 +164,16 @@ class ChainReport:
 
     @classmethod
     def from_info(
-        cls, info: ChainInfo, status: ChainStatus, basepairing_status: BasepairingStatus
+        cls,
+        info: ChainInfo,
+        status: ChainStatus,
+        basepairing_status: None | BasepairingStatus,
     ) -> ChainReport:
         return cls(
             chain_id=str(info.chain_id),
             status=status,
             basepairing_status=basepairing_status,
-            dot_bracket=info.basepairing.complete,
+            dot_bracket=info.basepairing.psuedoknotted(),
             has_base_pairs=info.basepairing.has_basepairs,
             has_pseudoknots=info.basepairing.has_pk,
             new_basepair_count=None,
@@ -175,17 +210,23 @@ class MatchReport:
 
 @frozen
 class SequenceReport:
-    sequence_id: str
+    sequence_id: None | str
     sequence_length: int
     sequence_md5: str
     status: SequenceStatus
 
     @classmethod
     def from_info(
-        cls, accession: SequenceAccession, info: ChainInfo, status: SequenceStatus
+        cls,
+        accession: None | SequenceAccession,
+        info: ChainInfo,
+        status: SequenceStatus,
     ) -> SequenceReport:
+        acc = None
+        if accession:
+            acc = str(accession)
         return cls(
-            sequence_id=str(accession),
+            sequence_id=acc,
             sequence_length=info.sequence_length,
             sequence_md5=info.sequence_md5_hash,
             status=status,
@@ -201,7 +242,7 @@ class CandidateReport:
 
     @classmethod
     def from_action(
-        cls, action: CandidateAction, basepairing_status: BasepairingStatus
+        cls, action: CandidateAction, basepairing_status: None | BasepairingStatus
     ) -> CandidateReport:
         match action:
             case StructurelessCandidate(match=match):
@@ -220,9 +261,9 @@ class CandidateReport:
                         ChainStatus.SKIPPED,
                         basepairing_status,
                     ),
-                    sequence=SequenceReport.from_info(candidate.chain_info),
+                    sequence=None,
                 )
-            case AlreadyPresentCandidate(candidate=candidate):
+            case AlreadyPresentCandidate(accession=accession, candidate=candidate):
                 return CandidateReport(
                     chain_id=candidate.match.chain_id,
                     match_report=MatchReport.from_match(candidate.match),
@@ -231,9 +272,11 @@ class CandidateReport:
                         ChainStatus.ALREADY_PRESENT,
                         basepairing_status,
                     ),
-                    sequence=SequenceReport.from_info(candidate.chain_info),
+                    sequence=SequenceReport.from_info(
+                        accession, candidate.chain_info, SequenceStatus.KNOWN_SEQUENCE
+                    ),
                 )
-            case AlignCandidateSequence(candidate=candidate):
+            case AlignCandidateSequence(candidate=candidate, accession=accession):
                 return CandidateReport(
                     chain_id=candidate.match.chain_id,
                     match_report=MatchReport.from_match(candidate.match),
@@ -242,9 +285,11 @@ class CandidateReport:
                         ChainStatus.NEW_CHAIN,
                         basepairing_status,
                     ),
-                    sequence=SequenceReport.from_info(candidate.chain_info),
+                    sequence=SequenceReport.from_info(
+                        accession, candidate.chain_info, SequenceStatus.NEW_SEQUENCE
+                    ),
                 )
-            case AddCandidateStructure(candidate=candidate):
+            case AddCandidateStructure(candidate=candidate, accession=accession):
                 return CandidateReport(
                     chain_id=candidate.match.chain_id,
                     match_report=MatchReport.from_match(candidate.match),
@@ -253,7 +298,9 @@ class CandidateReport:
                         ChainStatus.NEW_CHAIN,
                         basepairing_status,
                     ),
-                    sequence=SequenceReport.from_info(candidate.chain_info),
+                    sequence=SequenceReport.from_info(
+                        accession, candidate.chain_info, SequenceStatus.KNOWN_SEQUENCE
+                    ),
                 )
             case _:
                 assert_never(action)
@@ -277,29 +324,17 @@ class FamilyReport:
     @classmethod
     def from_action(cls, family_action: Action) -> FamilyReport:
         candidate_reports = []
-        match family_action:
-            case SkippedFamily(actions=candidate_actions):
-                for candidate_action in candidate_actions:
-                    candidate_reports.append(
-                        CandidateReport.from_action(candidate_action)
-                    )
-            case CompleteFamily(actions=candidate_actions):
-                for candidate_action in candidate_actions:
-                    candidate_reports.append(
-                        CandidateReport.from_action(candidate_action)
-                    )
-            case NoAcceptedMatches(actions=candidate_actions):
-                for candidate_action in candidate_actions:
-                    candidate_reports.append(
-                        CandidateReport.from_action(candidate_action)
-                    )
-            case FamilyUpdate(actions=candidate_actions):
-                for candidate_action in candidate_actions:
-                    candidate_reports.append(
-                        CandidateReport.from_action(candidate_action)
-                    )
-            case _:
-                assert_never(family_action)
+        family = family_action.family
+        candidate_actions = family_action.actions
+        for candidate_action in candidate_actions:
+            bp_status = None
+            if basepairing := candidate_action.basepairing:
+                bp_status = BasepairingStatus.NEW_STRUCTURE
+                if family.known_basepairing(basepairing):
+                    bp_status = BasepairingStatus.KNOWN_STRUCTURE
+            candidate_reports.append(
+                CandidateReport.from_action(candidate_action, bp_status)
+            )
 
         return FamilyReport(
             family_id=family_action.family.rfam_accession,

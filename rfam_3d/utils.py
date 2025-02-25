@@ -14,6 +14,7 @@
 """A series of utilities that are used in the package.
 """
 
+from functools import wraps
 from typing import NoReturn
 
 

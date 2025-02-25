@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright [2009-2024] EMBL-European Bioinformatics Institute
+# Copyright [2009-2025] EMBL-European Bioinformatics Institute
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -52,6 +52,7 @@ class BasepairAnnotations:
     def dot_bracket(self) -> str:
         structure = list("." * len(self.sequence))
         for annotation in self.annotations:
+            # TODO: Check chains are the same for nt1 and nt2
             if annotation.bp == "cWW":
                 structure[annotation.seq_id1 - 1] = "("
                 structure[annotation.seq_id2 - 1] = ")"
@@ -62,23 +63,23 @@ class BasepairAnnotations:
 class Basepairing:
     chain_id: PdbChainId
     sequence: str
-    nested: str
-    complete: str
+    _nested: str
+    _complete: str
 
     def psuedoknotted(self) -> str:
         final = []
-        assert len(self.nested) == len(
-            self.complete
+        assert len(self._nested) == len(
+            self._complete
         ), "Basepairs have incorrect lengths"
-        for i, character in enumerate(self.complete):
-            if character in ["(", ")"] and self.nested[i] == ".":
+        for i, character in enumerate(self._complete):
+            if character in ["(", ")"] and self._nested[i] == ".":
                 if character == "(":
                     final.append("{")
                 elif character == ")":
                     final.append("}")
             else:
                 final.append(character)
-        assert len(final) == len(self.complete)
+        assert len(final) == len(self._complete)
         return "".join(final)
 
     @property
@@ -113,6 +114,9 @@ class Rna3dHubApi:
         """Query the getSequenceBasePairs API endpoint for the basepair
         annotations.
         """
+
+        if chain_id.pdb_id.pdb_id.lower() == "6t7t":
+            return None
 
         key = f"rna3dhub/{chain_id.pdb_id}_{chain_id.chain_id}_{nested}"
         if value := self.cache.get(key):

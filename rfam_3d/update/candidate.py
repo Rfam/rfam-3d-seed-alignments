@@ -39,6 +39,16 @@ class Candidate:
     def pdb_id(self) -> PdbId:
         return self.chain_info.chain_id.pdb_id
 
+    # FIXME: Rework this so it strips out the extra gaps in the alignment. This
+    #        will have to parse the aligned sequence and remove all columns in
+    #        the basepairing are gaps in the sequence. This should produce the
+    #        shortened pairing
+    # TODO: Consider adding a parameter to extract the sequence pairing only.
+    # FIXME: This should use 'pseudoknotted not complete"
+    @property
+    def complete_basepairing(self) -> str:
+        return self.chain_info.basepairing.psuedoknotted()
+
     def same_sequence(self, candidate: Candidate) -> bool:
         """Check if this candidate and another have the same sequence by
         checking their MD5 hashes.

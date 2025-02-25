@@ -1,5 +1,18 @@
 nextflow.preview.output = true
 
+process fetch_rnacentral_mapping {
+  input:
+  val(url)
+
+  output:
+  path("mapping.jsonl")
+
+  """
+  curl '$url' > mapping.tsv
+  rfam_3d parse-rnacentral-mapping mapping.tsv mapping.jsonl
+  """
+}
+
 process fetch_svn_files {
   tag { "$accession" }
   // Try not to overwhelm the SVN server, but retry when it gets overwhelmed
@@ -16,10 +29,10 @@ process fetch_svn_files {
 
   // TODO Reformat alignment so all sequences are on one line?
   """
-  curl ${url}/${accession}/SEED > ${accession}.seed
-  curl ${url}/${accession}/CM > ${accession}.cm
-  cmbuild --hand -F ${accession}.cm ${accession}.seed
-  rfam_3d parse-alignment ${accession} ${accession}.seed ${accession}-info.jsonl
+  curl '${url}/${accession}/SEED' > '${accession}.seed'
+  curl '${url}/${accession}/CM' > '${accession}.cm'
+  cmbuild --hand -F '${accession}.cm' '${accession}.seed'
+  rfam_3d parse-alignment '${accession}' '${accession}.seed' '${accession}-info.jsonl'
   """
 }
 
@@ -41,7 +54,7 @@ process find_actions {
   time '24h'
 
   input:
-  tuple path(matches_file), path(disallow), path(info)
+  tuple path(matches_file), path(rnacentral_mapping), path(disallow), path(info)
 
   output:
   path "missing-sequences/*.fa", emit: sequences
@@ -51,7 +64,7 @@ process find_actions {
   path "report.txt", emit: report
 
   """
-  rfam_3d compute-actions --disallow-file ${disallow} ${matches_file} ${info} report.txt missing-sequences/ pdb-info/ truncated-sequences/ truncated-pdb/
+  rfam_3d compute-actions --disallow-file ${disallow} ${matches_file} ${rnacentral_mapping} ${info} report.txt missing-sequences/ pdb-info/ truncated-sequences/ truncated-pdb/
   """
 }
 
@@ -107,6 +120,8 @@ workflow add_3d {
   main:
     Channel.fromPath('config/limits.yaml') | set { disallow }
 
+    fetch_rnacentral_mapping(params.rnacentral_mapping) | set { rnacentral_mapping }
+
     matches \
     | map { it.text } \
     | splitCsv(sep: '\t')
@@ -116,12 +131,14 @@ workflow add_3d {
     | map { [params.svn, it] } \
     | fetch_svn_files
 
+
     fetch_svn_files.out.alignment_info \
     | collect \
     | merge_info \
     | set { info }
 
     matches \
+    | combine(rnacentral_mapping) \
     | combine(disallow) \
     | combine(info) \
     | find_actions

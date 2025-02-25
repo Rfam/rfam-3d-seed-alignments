@@ -45,6 +45,10 @@ class StructurelessCandidate:
     def chain_id(self) -> PdbChainId:
         return self.match.chain_id
 
+    @property
+    def basepairing(self) -> None:
+        return None
+
 
 @frozen
 class SkippedCandidate:
@@ -65,6 +69,10 @@ class SkippedCandidate:
     def match(self) -> Match:
         return self.candidate.match
 
+    @property
+    def basepairing(self) -> str:
+        return self.candidate.complete_basepairing
+
 
 @frozen
 class AlreadyPresentCandidate:
@@ -84,6 +92,10 @@ class AlreadyPresentCandidate:
     @property
     def match(self) -> Match:
         return self.candidate.match
+
+    @property
+    def basepairing(self) -> str:
+        return self.candidate.complete_basepairing
 
 
 @frozen
@@ -106,6 +118,10 @@ class AlignCandidateSequence:
     def match(self) -> Match:
         return self.candidate.match
 
+    @property
+    def basepairing(self) -> str:
+        return self.candidate.complete_basepairing
+
 
 @frozen
 class AddCandidateStructure:
@@ -126,6 +142,10 @@ class AddCandidateStructure:
     @property
     def match(self) -> Match:
         return self.candidate.match
+
+    @property
+    def basepairing(self) -> str:
+        return self.candidate.complete_basepairing
 
 
 CandidateAction = (
@@ -290,23 +310,31 @@ class FamilyUpdate:
                         logger.trace("Skipping already written id {}", accession)
                         continue
                     candidate = action.candidate
-                    sequences.append(SeqRecord(candidate.full_sequence(), id=accession))
+                    full_seqs.append(
+                        SeqRecord(
+                            candidate.full_sequence(), id=accession, description=""
+                        )
+                    )
                     structures.annotate_structure(accession, candidate.chain_info)
                 case _:
                     assert_never(action)
 
         logger.info(
-            "{} sequences to align for {}", len(sequences), self.family.rfam_accession
+            "{} sequences to align for {}", len(full_seqs), self.family.rfam_accession
         )
-        SeqIO.write(sequences, seq_out, "fasta")
+        SeqIO.write(full_seqs, full_seq_out, "fasta")
+        SeqIO.write(trunc_seqs, trunc_seq_out, "fasta")
 
         logger.info(
             "{} structures to annotate for {}",
             len(structures),
             self.family.rfam_accession,
         )
-        raw = cattrs.unstructure(structures)
-        json.dump(raw, struct_out)
+        pdb_info = cattrs.unstructure(structures)
+        json.dump(pdb_info, struct_out)
+
+        trunc_pdb_info = cattrs.unstructure(trunc_structures)
+        json.dump(trunc_pdb_info, trunc_info_out)
 
     def has_aligned(self) -> bool:
         """Check if there is already a structure aligned to this family."""

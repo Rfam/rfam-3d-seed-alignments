@@ -16,16 +16,20 @@
 
 from __future__ import annotations
 
+import typing as ty
+
 from attrs import field, frozen
 from diskcache import Cache
 from loguru import logger
 from requests import Session
 from requests_ratelimiter import LimiterAdapter
 
-from rfam_3d.structures.structure_id import PdbId
+from rfam_3d.structures.structure_id import PdbChainId, PdbId
 from rfam_3d.utils import asupper
 
-PDBE_URL = "https://www.ebi.ac.uk/pdbe/api/pdb/entry/experiment/"
+PDB_URL = "https://www.ebi.ac.uk/pdbe/api/pdb/entry/{name}/{pdb_id}"
+# EXPERIMENT_URL = "https://www.ebi.ac.uk/pdbe/api/pdb/entry/experiment/"
+# MOLECULE_URL = "https://www.ebi.ac.uk/pdbe/api/pdb/entry/molecules/"
 
 
 @frozen
@@ -35,6 +39,14 @@ class ExperimentalInfo:
     pdb_id: PdbId
     resolution: None | float
     method: str = field(converter=asupper)
+
+
+@frozen
+class MoleculeInfo:
+    """A summary of the molecules found in a structure."""
+
+    chain_id: PdbChainId
+    taxid: None | int
 
 
 @frozen
@@ -61,26 +73,55 @@ class PdbeApi:
         """
         return PdbeApi.with_session(Session(), cache, per_second)
 
-    def experiment_info(self, pdb_id: PdbId) -> ExperimentalInfo:
+    def __fetch__(self, name: str, pdb_id: str) -> ty.Any:
+        url = PDB_URL.format(name=name, pdb_id=pdb_id)
+        logger.trace("Requesting {} info for {}", name, pdb_id)
+        response = self.session.get(url)
+        response.raise_for_status()
+        data = response.json()
+        if pdb_id not in data:
+            raise ValueError(f"Request for {pdb_id} failed")
+        return data[pdb_id]
+
+    def molecules(self, chain_id: PdbChainId) -> MoleculeInfo:
+        pid = chain_id.pdb_id.pdb_id
+        logger.debug("Fetching experimental info for {}", pid)
+        key = f"pdbe/molecule-{chain_id}"
+        if value := self.cache.get(key):
+            logger.trace("Using existing value for {}", pid)
+            assert isinstance(value, MoleculeInfo)
+            return value
+
+        logger.debug("Fetching molecule info for {}", pid)
+        raw = self.__fetch__("molecules", pid)
+        chain_info = [c for c in raw if chain_id.chain_id in c["in_chains"]]
+        if len(chain_info) == 0:
+            raise ValueError(f"Failed to find information about {chain_id}")
+        if len(chain_info) > 1:
+            raise ValueError(f"Found duplicate information about {chain_id}")
+
+        chain_info = chain_info[0]
+        value = MoleculeInfo(
+            chain_id=chain_id,
+            taxid=chain_info["source"]["tax_id"],
+        )
+        self.cache.set(key, value)
+        return value
+
+    def experiment(self, pdb_id: PdbId) -> ExperimentalInfo:
         """Query the PDBe API for the experiment information about the given
         structure.
         """
 
         pid = pdb_id.pdb_id
-        logger.debug("Fetching structure info for {}", pid)
-        key = f"pdbe/info-{pid}"
+        logger.debug("Fetching experimental info for {}", pid)
+        key = f"pdbe/experiment-{pid}"
         if value := self.cache.get(key):
-            logger.trace("Using existing value")
+            logger.trace("Using existing value for {}", pid)
             assert isinstance(value, ExperimentalInfo)
             return value
 
-        response = self.session.get(PDBE_URL + pid)
-        response.raise_for_status()
-        data = response.json()
-        if pid not in data:
-            raise ValueError(f"No structure info found for {pid}")
-
-        raw = data[pid][0]
+        raw = self.__fetch__("experiment", pid)[0]
         value = ExperimentalInfo(
             pdb_id=pdb_id,
             resolution=raw.get("resolution", None),

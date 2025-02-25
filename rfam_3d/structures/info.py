@@ -24,7 +24,7 @@ from loguru import logger
 
 from rfam_3d.rfam import alignments
 from rfam_3d.rfam.accessions import AccessionKind, SequenceAccession
-from rfam_3d.rnacentral import RnacentralApi
+from rfam_3d.rnacentral import RnacentralApi, RnacentralMapping
 from rfam_3d.structures.pdbe import ExperimentalInfo, PdbeApi
 from rfam_3d.structures.rna3dhub import Basepairing, Rna3dHubApi
 from rfam_3d.structures.structure_id import PdbChainId
@@ -71,11 +71,13 @@ class StructureLookup:
     pdbe: PdbeApi
     rna3dhub: Rna3dHubApi
     rnacentral: RnacentralApi
+    mapping: RnacentralMapping
 
     @classmethod
     def build(
         cls,
         cache: Cache,
+        mapping: RnacentralMapping,
         pdbe_per_second=10,
         rna3dhub_per_second=10,
         rnacentral_per_second=10,
@@ -83,7 +85,9 @@ class StructureLookup:
         pdbe = PdbeApi.build(cache, per_second=pdbe_per_second)
         rna3dhub = Rna3dHubApi.build(cache, per_second=rna3dhub_per_second)
         rnacentral = RnacentralApi.build(cache, per_second=rnacentral_per_second)
-        return StructureLookup(pdbe=pdbe, rna3dhub=rna3dhub, rnacentral=rnacentral)
+        return StructureLookup(
+            pdbe=pdbe, rna3dhub=rna3dhub, rnacentral=rnacentral, mapping=mapping
+        )
 
     def fetch_structure_info(self, chain_id: PdbChainId) -> None | ChainInfo:
         logger.info("Fetching structure info for {}", chain_id)
@@ -93,10 +97,11 @@ class StructureLookup:
             return None
 
         seq = Seq(basepairing.sequence)
+        info = self.pdbe.experiment(chain_id.pdb_id)
         return ChainInfo(
             chain_id=chain_id,
-            rnacentral_id=self.rnacentral.rnacentral_id(seq),
-            info=self.pdbe.experiment_info(chain_id.pdb_id),
+            rnacentral_id=self.mapping.urs_taxid(chain_id),
+            info=info,
             sequence=basepairing.sequence,
             sequence_md5_hash=alignments.normalized_hash(seq),
             basepairing=basepairing,

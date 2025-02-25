@@ -28,6 +28,7 @@ from rfam_3d import disallow
 from rfam_3d.report import Report
 from rfam_3d.rfam import alignments, matches
 from rfam_3d.rfam.family import build_families
+from rfam_3d.rnacentral import RnacentralMapping
 from rfam_3d.structures.info import StructureLookup
 from rfam_3d.update.actions import CompleteFamily, NoAcceptedMatches
 from rfam_3d.update.planner import FamilyUpdate, Planner, SkippedFamily
@@ -59,10 +60,19 @@ def main(ctx, cache_path="./cache", log_level="INFO"):
     ctx.obj["cache_path"] = path
 
 
+@main.command("parse-rnacentral-mapping")
+@click.argument("mapping", default="-", type=click.File("r"))
+@click.argument("output", default="-", type=click.File("w"))
+def parse_rnac_mapping_cmd(mapping, output):
+    mapping = RnacentralMapping.parse_tsv(mapping)
+    mapping.to_handle(output)
+
+
 @main.command("compute-actions")
 @click.option("--disallow-file", type=click.Path())
 @click.argument("matches-file", type=click.File("r"))
-@click.argument("alignment-file", type=click.File("r"))
+@click.argument("mapping-file", type=click.File("r"))
+@click.argument("alignments-file", type=click.File("r"))
 @click.argument("report-file", type=click.File("w"))
 @click.argument("full-sequences", type=click.Path())
 @click.argument("info", type=click.Path())
@@ -72,6 +82,7 @@ def main(ctx, cache_path="./cache", log_level="INFO"):
 def compute_actions_cmd(
     ctx,
     matches_file: ty.TextIO,
+    mapping_file: ty.TextIO,
     alignments_file: ty.TextIO,
     report_file: ty.TextIO,
     full_sequences: str | Path,
@@ -122,13 +133,14 @@ def compute_actions_cmd(
                 yaml.load(raw, yaml.Loader), disallow.Disallowed
             )
 
+    rnac_mapping = RnacentralMapping.from_handle(mapping_file)
     all_alignments = alignments.load_jsonl(alignments_file)
     all_matches = matches.load_all(matches_file)
     families = build_families(all_alignments, all_matches)
     report = Report.empty()
     cache_dir: Path = ctx.obj["cache_path"]
     with Cache(str(cache_dir)) as cache:
-        fetcher = StructureLookup.build(cache)
+        fetcher = StructureLookup.build(cache, rnac_mapping)
         planner = Planner.build(fetcher, disallowed)
 
         for family in families:
@@ -178,13 +190,20 @@ def extract_mapped_cmd(accession: str, alignment: ty.TextIO, output: ty.TextIO):
 
     This assumes that the given file is a single alignment.
 
-    Arguments\b
-    ---------\b
-    accession:\b
-      The Rfam accession for the given alignment.\b
-    desc:\b
-      The DESC file for the family.\b
-    alignment:\b
+    Arguments
+
+    ---------
+
+    accession:
+
+      The Rfam accession for the given alignment.
+
+    desc:
+
+      The DESC file for the family.
+
+    alignment:
+
       A Rfam SEED alignment in stockholm format.
     """
 

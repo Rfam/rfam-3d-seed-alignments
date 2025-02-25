@@ -53,10 +53,35 @@ class AlignmentSequence:
     accession: SequenceAccession
     sequence: str
     sequence_md5_hash: str
-    annotated_structures: ty.List[PdbChainId]
+    annotated_structures: list[ty.Tuple[PdbChainId, str]]
 
     def has_annotation_for(self, chain: PdbChainId) -> bool:
-        return any(c == chain for c in self.annotated_structures)
+        """Check if this sequence has any annotations for the given PdbChainId."""
+
+        return any(c == chain for (c, _) in self.annotated_structures)
+
+    def original_pairings(self) -> list[str]:
+        """Parse the aligned sequence and strip out all columns of the pairing
+        which are a gap in the sequence. This is the original basepairs
+        provided by the 3D structure.
+        """
+        pairings = []
+        for _, pairing in self.annotated_structures:
+            assert len(pairing) == len(
+                self.sequence
+            ), f"Invalid pairing in {self.accession}"
+            pairing = []
+            for seq, ss_char in zip(self.sequence, pairing):
+                if seq in {".", "-"}:
+                    continue
+                pairing.append(ss_char)
+            pairings.append("".join(pairing))
+        return pairings
+
+    def has_basepairing(self, basepairing: str) -> bool:
+        """Check if this sequence has any annotation with the given
+        basepairing."""
+        return any(b == basepairing for b in self.original_pairings())
 
 
 @frozen
@@ -85,6 +110,11 @@ class Alignment:
             if sequence.sequence_md5_hash == hash:
                 return sequence.accession
         return None
+
+    def known_basepairing(self, basepairs: str) -> bool:
+        """Check if the given basepairs are already present in the
+        alignment."""
+        return any(s.has_basepairing(basepairs) for s in self.sequences)
 
     def has_structure(self) -> bool:
         """Check if there is any aligned structure in this alignment."""
@@ -115,10 +145,10 @@ def parse_file(accession: str, alignment: ty.TextIO, format="stockholm") -> Alig
     for sequence in align:
         assert isinstance(sequence, SeqRecord)
         logger.debug("Checking {} for mapped PDBs", sequence.id)
-        structures_mapped: list[PdbChainId] = []
-        for name, _ in sequence.letter_annotations.items():
+        structures_mapped: list[ty.Tuple[PdbChainId, str]] = []
+        for name, pairing in sequence.letter_annotations.items():
             if not name.startswith("GR:"):
-                logger.debug("Annotation {} is not a GR line", name)
+                logger.trace("Annotation {} is not a GR line", name)
                 continue
 
             name = name[3:]
@@ -129,13 +159,15 @@ def parse_file(accession: str, alignment: ty.TextIO, format="stockholm") -> Alig
                 logger.debug(
                     "Accession {} has an associated PDB {}", sequence.id, chain
                 )
-                structures_mapped.append(chain)
+                if not isinstance(pairing, str):
+                    raise ValueError(f"Cannot parse alignment: {accession}")
+                structures_mapped.append((chain, pairing))
             else:
                 logger.debug("Annotation {} is not a PDB", name)
 
         # Try to find the most specific accession kind we can.
         kind = None
-        if len(structures_mapped) == 1 and sequence.id == str(structures_mapped[0]):
+        if len(structures_mapped) == 1 and sequence.id == str(structures_mapped[0][0]):
             kind = AccessionKind.PDB_CHAIN
 
         assert sequence.id, "Sequence must have an id"
@@ -165,5 +197,7 @@ def load_jsonl(handle: ty.TextIO) -> list[Alignment]:
     for line in handle:
         alignment = cattrs.structure(json.loads(line), Alignment)
         alignments.append(alignment)
+    if not alignments:
+        raise ValueError("File contained no alignments")
     logger.trace("Found {} alignments", len(alignments))
     return alignments

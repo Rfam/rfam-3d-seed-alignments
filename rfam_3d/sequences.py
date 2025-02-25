@@ -11,7 +11,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""A module with some utilties for working with sequences.
+"""A module with some utilities for working with sequences.
 
 >>> normalize_sequence(Seq("ac-cg."))
 Seq('ACCG')
@@ -25,11 +25,13 @@ from Bio.Seq import Seq
 
 
 def normalize_sequence(sequence: Seq) -> Seq:
-    """Clean up and normalize the sequences so they can be compared reilable.
+    """Clean up and normalize the sequences so they can be compared reliable.
     This strips all gap characters ('.', '-') and converts the sequence to
     upper case before comparing.
 
     >>> normalize_sequence(Seq("ac-cg."))
+    Seq('ACCG')
+    >>> normalize_sequence(Seq("AC-CG."))
     Seq('ACCG')
     """
     return sequence.upper().replace(".", "").replace("-", "")
@@ -39,6 +41,10 @@ def normalized_hash(sequence: Seq) -> str:
     """Normalize the sequence, compute its MD5 hash and return the hexdigest.
 
     >>> normalized_hash(Seq("ac-cg."))
+    '50effd9175908e89c4759afd90205fbc'
+    >>> normalized_hash(Seq("ACCG"))
+    '50effd9175908e89c4759afd90205fbc'
+    >>> normalized_hash(Seq("AC-C.G"))
     '50effd9175908e89c4759afd90205fbc'
     """
     return hashlib.md5(bytes(normalize_sequence(sequence))).hexdigest()

@@ -44,6 +44,13 @@ class Family:
     matches: FamilyMatch
     alignment: Alignment
 
+    def known_basepairing(self, basepairs: str) -> bool:
+        """Check if the given basepairing string is known. This will use the original
+        pairings in the alignment, not the basepairing with the gaps as
+        forced by the alignment.
+        """
+        return self.alignment.known_basepairing(basepairs)
+
 
 def build_families(
     alignments: list[Alignment],
