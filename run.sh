@@ -6,7 +6,7 @@
 #SBATCH --nodes=1                        # number of nodes
 #SBATCH -p standard                      # partition(s)
 #SBATCH --mem=10G                        # memory per node
-#SBATCH -J "Rfam 3D Alignments"          # job name
+#SBATCH -J "rfam_3d"                     # job name
 #SBATCH -o "rfam_3d.out"                 # job output file
 #SBATCH -e "rfam_3d.err"                 # job error file
 #SBATCH --mail-user=bsweeney@ebi.ac.uk   # email address to message
