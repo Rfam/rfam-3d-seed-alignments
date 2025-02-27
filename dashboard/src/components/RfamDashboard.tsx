@@ -7,7 +7,7 @@ import type {
   RfamSummary,
   RfamSequence,
 } from "../types";
-import CompactFamilyCard from "./compactFamilyCard";
+import CompactFamilyCard from "./CompactFamilyCard";
 
 const fetchRfamData = async (): Promise<RfamFamily[]> => {
   const rfamService = RfamService.getInstance();
