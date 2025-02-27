@@ -37,8 +37,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "pnpm"
-          cache-dependency-path: "./dashboard/pnpm-lock.yaml"
       - name: Build
         run: "cd ./dashboard && pnpm run build"
       - name: Setup Pages
