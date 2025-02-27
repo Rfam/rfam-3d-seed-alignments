@@ -37,6 +37,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: Install dependencies
+        run: "cd ./dashboard && pnpm install"
       - name: Build
         run: "cd ./dashboard && pnpm run build"
       - name: Setup Pages
