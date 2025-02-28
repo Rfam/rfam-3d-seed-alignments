@@ -14,7 +14,8 @@ import {
 } from "../types";
 
 // Mock data for development environment
-import mockData from "../data/rfam-data-complete.json";
+import mockData from "../data/rfam-data.json";
+// import mockData from "../data/rfam-data-complete.json";
 
 export class RfamService {
   private static instance: RfamService;
