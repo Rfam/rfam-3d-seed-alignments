@@ -1,17 +1,21 @@
+// RfamDashboard.tsx - Updated without summary information
 import React, { useState, useMemo, useEffect } from "react";
 import { Search } from "lucide-react";
 import { RfamService } from "../services/dataService";
-import type {
-  RfamFamily,
-  RfamFilters,
-  RfamSummary,
-  RfamSequence,
-} from "../types";
+import { RfamFamily, RfamFilters, RfamSequence } from "../types";
 import CompactFamilyCard from "./CompactFamilyCard";
 
 const fetchRfamData = async (): Promise<RfamFamily[]> => {
+  console.log("[Dashboard] Starting to fetch Rfam data");
   const rfamService = RfamService.getInstance();
-  return rfamService.getData();
+  try {
+    const data = await rfamService.getData();
+    console.log("[Dashboard] Successfully fetched data, items:", data.length);
+    return data;
+  } catch (error) {
+    console.error("[Dashboard] Error fetching Rfam data:", error);
+    throw error;
+  }
 };
 
 const RfamDashboard: React.FC = () => {
@@ -19,121 +23,54 @@ const RfamDashboard: React.FC = () => {
   const [data, setData] = useState<RfamFamily[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [filters, setFilters] = useState<RfamFilters>({
-    hasBasePairs: false,
-    hasPseudoknots: false,
-    familyStatus: "all",
-    sequenceStatus: "all",
-    chainStatus: "all",
-  });
+  // No filters except search
 
   useEffect(() => {
     const loadData = async () => {
+      console.log("[Dashboard] Starting to load data");
+      setLoading(true);
       try {
+        console.log("[Dashboard] Calling fetchRfamData()");
         const result = await fetchRfamData();
+        console.log("[Dashboard] Setting data state with result");
         setData(result);
       } catch (err) {
+        console.error("[Dashboard] Error in loadData:", err);
         setError(err instanceof Error ? err.message : "Failed to load data");
       } finally {
+        console.log("[Dashboard] Finished loading data, setting loading=false");
         setLoading(false);
       }
     };
     loadData();
   }, []);
 
-  const hasActiveStructuralFilters = (): boolean => {
-    return filters.hasBasePairs || filters.hasPseudoknots;
-  };
+  // Helper function to check if a family matches the search term
+  const familyMatchesSearch = (family: RfamFamily): boolean => {
+    // Return all data if no search term
+    if (!searchTerm) return true;
 
-  // Helper function to check if a sequence matches the filters
-  const sequenceMatchesFilters = (sequence: RfamSequence): boolean => {
-    const matchesStatus =
-      filters.sequenceStatus === "all" ||
-      sequence.status === filters.sequenceStatus;
-    const matchesBasePairs =
-      !filters.hasBasePairs || sequence.metadata.hasBasePairs;
-    const matchesPseudoknots =
-      !filters.hasPseudoknots || sequence.metadata.hasPseudoknots;
+    const lowercasedSearch = searchTerm.toLowerCase();
 
-    return matchesStatus && matchesBasePairs && matchesPseudoknots;
-  };
-
-  // Helper function to check if a family matches current filters
-  const familyMatchesFilters = (family: RfamFamily): boolean => {
-    // Family status filter
-    const matchesFamilyStatus =
-      filters.familyStatus === "all" || family.status === filters.familyStatus;
-
-    // Search term filter
-    const matchesSearch =
-      !searchTerm ||
-      family.familyId.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      family.familyName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      family.sequences.some((sequence) =>
-        sequence.structures.some((structure) =>
-          structure.pdbId.toLowerCase().includes(searchTerm.toLowerCase()),
-        ),
-      );
-
-    // For structural filters, we need sequence matching
-    if (hasActiveStructuralFilters()) {
-      const hasMatchingSequence = family.sequences.some(sequenceMatchesFilters);
-      return matchesFamilyStatus && matchesSearch && hasMatchingSequence;
+    // Check if family ID or name matches
+    if (
+      family.familyId.toLowerCase().includes(lowercasedSearch) ||
+      family.familyName.toLowerCase().includes(lowercasedSearch)
+    ) {
+      return true;
     }
 
-    // If no structural filters are active, just check family status and search
-    return matchesFamilyStatus && matchesSearch;
+    // Check if any structure PDB ID matches
+    return family.sequences.some((sequence) =>
+      sequence.structures.some((structure) =>
+        structure.pdbId.toLowerCase().includes(lowercasedSearch),
+      ),
+    );
   };
 
   const filteredData = useMemo<RfamFamily[]>(() => {
-    return data.filter(familyMatchesFilters);
-  }, [data, searchTerm, filters]);
-
-  const summary = useMemo<RfamSummary>(() => {
-    const stats: RfamSummary = {
-      totalFamilies: filteredData.length,
-      totalSequences: 0,
-      totalStructures: 0,
-      familiesWithNewStructures: 0,
-      familiesWithNewSequences: 0,
-      familiesWithHighResolution: 0,
-      statusBreakdown: {
-        complete: 0,
-        curatable: 0,
-        skipped: 0,
-        no_matches: 0,
-      },
-      sequenceBreakdown: {
-        already_present: 0,
-        new_sequence: 0,
-        new_structure: 0,
-      },
-    };
-
-    filteredData.forEach((family) => {
-      stats.statusBreakdown[family.status]++;
-      stats.totalSequences += family.sequences.length;
-      stats.totalStructures += family.metadata.totalStructures;
-
-      const hasNewStructure = family.sequences.some(
-        (seq) => seq.status === "new_structure",
-      );
-      const hasNewSequence = family.sequences.some(
-        (seq) => seq.status === "new_sequence",
-      );
-      const hasHighResolution = family.metadata.bestResolution <= 4.0;
-
-      if (hasNewStructure) stats.familiesWithNewStructures++;
-      if (hasNewSequence) stats.familiesWithNewSequences++;
-      if (hasHighResolution) stats.familiesWithHighResolution++;
-
-      family.sequences.forEach((sequence) => {
-        stats.sequenceBreakdown[sequence.status]++;
-      });
-    });
-
-    return stats;
-  }, [filteredData]);
+    return data.filter(familyMatchesSearch);
+  }, [data, searchTerm]);
 
   if (loading) {
     return (
@@ -164,65 +101,8 @@ const RfamDashboard: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold mb-6">
-          Rfam Analysis Status Dashboard
-        </h1>
-
-        {/* Main Summary Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <div className="bg-blue-50 p-4 rounded-lg">
-            <div className="text-2xl font-bold">
-              {summary.familiesWithNewSequences}
-            </div>
-            <div className="text-sm text-gray-600">
-              Families with New Sequences
-            </div>
-          </div>
-          <div className="bg-purple-50 p-4 rounded-lg">
-            <div className="text-2xl font-bold">
-              {summary.familiesWithNewStructures}
-            </div>
-            <div className="text-sm text-gray-600">
-              Families with New Structures
-            </div>
-          </div>
-          <div className="bg-green-50 p-4 rounded-lg">
-            <div className="text-2xl font-bold">
-              {summary.familiesWithHighResolution}
-            </div>
-            <div className="text-sm text-gray-600">
-              Families with High Resolution (≤4.0Å)
-            </div>
-          </div>
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <div className="text-2xl font-bold">{summary.totalFamilies}</div>
-            <div className="text-sm text-gray-600">Total Families</div>
-          </div>
-        </div>
-
-        {/* Status Breakdown */}
-        <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
-          <h2 className="text-lg font-medium mb-4">Family Status Breakdown</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-green-100"></div>
-              <span>Complete: {summary.statusBreakdown.complete}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-blue-100"></div>
-              <span>Curatable: {summary.statusBreakdown.curatable}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-yellow-100"></div>
-              <span>Skipped: {summary.statusBreakdown.skipped}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-gray-100"></div>
-              <span>No Matches: {summary.statusBreakdown.no_matches}</span>
-            </div>
-          </div>
-        </div>
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold mb-6">Rfam Analysis Dashboard</h1>
 
         {/* Search and Filters Section */}
         <div className="space-y-4">
@@ -238,96 +118,27 @@ const RfamDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Filters section with active filter indicator */}
-        <div className="space-y-4">
-          <div className="flex flex-wrap gap-4">
-            <div className="w-full">
-              {hasActiveStructuralFilters() && (
-                <div className="mb-4 p-2 bg-yellow-50 border border-yellow-200 rounded-md text-yellow-800">
-                  Note: Complete and Skipped families are hidden when structural
-                  filters are active
-                </div>
-              )}
-            </div>
+        {/* All filters removed except search */}
 
-            {/* Base Pairs Filter */}
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={filters.hasBasePairs}
-                onChange={(e) =>
-                  setFilters((prev) => ({
-                    ...prev,
-                    hasBasePairs: e.target.checked,
-                  }))
-                }
-                className="rounded border-gray-300"
-              />
-              <span>Has Base Pairs</span>
-            </label>
-
-            {/* Pseudoknots Filter */}
-            <label className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={filters.hasPseudoknots}
-                onChange={(e) =>
-                  setFilters((prev) => ({
-                    ...prev,
-                    hasPseudoknots: e.target.checked,
-                  }))
-                }
-                className="rounded border-gray-300"
-              />
-              <span>Has Pseudoknots</span>
-            </label>
-          </div>
-
-          {/* Status Filters */}
-          <div className="flex gap-4 w-full">
-            <select
-              value={filters.familyStatus}
-              onChange={(e) =>
-                setFilters((prev) => ({
-                  ...prev,
-                  familyStatus: e.target.value as RfamFamily["status"] | "all",
-                }))
-              }
-              className="border rounded-md px-2 py-1"
-            >
-              <option value="all">All Family Statuses</option>
-              <option value="complete">Complete</option>
-              <option value="incomplete">Incomplete</option>
-              <option value="curate">Curate</option>
-              <option value="skipped">Skipped</option>
-              <option value="no_matches">No Matches</option>
-            </select>
-
-            <select
-              value={filters.sequenceStatus}
-              onChange={(e) =>
-                setFilters((prev) => ({
-                  ...prev,
-                  sequenceStatus: e.target.value as
-                    | RfamSequence["status"]
-                    | "all",
-                }))
-              }
-              className="border rounded-md px-2 py-1"
-            >
-              <option value="all">All Sequence Statuses</option>
-              <option value="already_present">Already Present</option>
-              <option value="new_sequence">New Sequence</option>
-              <option value="new_structure">New Structure</option>
-            </select>
-          </div>
+        {/* Results Count */}
+        <div className="mt-6 mb-2 text-sm text-gray-600">
+          Showing {filteredData.length}{" "}
+          {filteredData.length === 1 ? "family" : "families"}
         </div>
 
         {/* Family List */}
         <div className="space-y-2">
-          {filteredData.map((family) => (
-            <CompactFamilyCard key={family.familyId} family={family} />
-          ))}
+          {filteredData.length > 0 ? (
+            filteredData.map((family) => (
+              <CompactFamilyCard key={family.familyId} family={family} />
+            ))
+          ) : (
+            <div className="bg-gray-50 p-8 text-center rounded-lg">
+              <p className="text-gray-500">
+                No families match the current filters
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>

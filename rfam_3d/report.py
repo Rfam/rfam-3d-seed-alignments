@@ -45,14 +45,21 @@ from rfam_3d.utils import assert_never, to_camel_case
 
 @enum.unique
 class SequenceStatus(enum.Enum):
+    """A SequenceStatus represents that state of a sequence in the alignment.
+    A sequence can already exist or not and this tracks that.
+
+    NEW_SEQUENCE - The sequence is not committed
+    COMMITTED_SEQUENCE - The sequence is already committed in the family
+    """
+
     NEW_SEQUENCE = "new_sequence"
-    KNOWN_SEQUENCE = "known_sequence"
+    COMMITTED_SEQUENCE = "committed_sequence"
 
 
 @enum.unique
 class BasepairingStatus(enum.Enum):
     NEW_STRUCTURE = "new_pairing"
-    KNOWN_STRUCTURE = "known_pairing"
+    COMMITTED_STRUCTURE = "committed_pairing"
 
 
 @enum.unique
@@ -73,12 +80,12 @@ class MatchStatus(enum.Enum):
 class PkStatus(enum.Enum):
     """The PkStatus indiciates if the chain has at least one pseudoknot which is new.
 
-    EXISTING_PK - All pseudoknots already exist in the family
+    COMMITED_PK - All pseudoknots already exist in the family
     NEW_PK - If there is at least one pk which is new.
     NO_PK - The chain has now pseudoknotss.
     """
 
-    EXISTING_PK = "existing_pk"
+    COMMITTED_PK = "committed_pk"
     NEW_PK = "new_pk"
     NO_PK = "no_pk"
 
@@ -87,16 +94,16 @@ class PkStatus(enum.Enum):
 class ChainStatus(enum.Enum):
     """A ChainStatus represents if the chain is new for the family.
 
-    ALREADY_PRESENT - The chain is already a member of the family.
+    COMMITTED_CHAIN - The chain is already a member of the family.
     ERROR - There was an error fetching information about the chain.
     NEW_CHAIN - The chain is not already present in the alignment.
-    SKIPPED - The chain was skipped by the disallow list.
+    SKIPPED_CHAIN - The chain was skipped by the disallow list.
     """
 
-    ALREADY_PRESENT = "already_present"
+    COMMITTED_CHAIN = "committed_chain"
     ERROR = "error"
     NEW_CHAIN = "new_chain"
-    SKIPPED = "skipped"
+    SKIPPED_CHAIN = "skipped_chain"
 
     @classmethod
     def status_for(cls, action: CandidateAction) -> None | ChainStatus:
@@ -104,9 +111,9 @@ class ChainStatus(enum.Enum):
             case StructurelessCandidate():
                 return cls.ERROR
             case SkippedCandidate():
-                return cls.SKIPPED
+                return cls.SKIPPED_CHAIN
             case AlreadyPresentCandidate():
-                return cls.ALREADY_PRESENT
+                return cls.COMMITTED_CHAIN
             case AlignCandidateSequence():
                 return None
             case AddCandidateStructure():
@@ -120,9 +127,9 @@ class FamilyStatus(enum.Enum):
     """A FamilyStatus models if a family is ready for curation or if it is in
     some other state.
 
-    COMPLETE - All structures have been added to the family
-    CURATE - This family has no structures added, but it could
-    INCOMPLETE - The family has at least one structure already added
+    COMPLETE - All structures have been committed to the family
+    CURATE - This family has no structures committed, but it could
+    INCOMPLETE - The family has at least one structure already committed
     NO_VALID - All matching structures were rejected from the family
     SKIPPED - The family was skipped by the disallow list
     """
@@ -258,7 +265,7 @@ class CandidateReport:
                     match_report=MatchReport.from_match(candidate.match),
                     chain=ChainReport.from_info(
                         candidate.chain_info,
-                        ChainStatus.SKIPPED,
+                        ChainStatus.SKIPPED_CHAIN,
                         basepairing_status,
                     ),
                     sequence=None,
@@ -269,11 +276,13 @@ class CandidateReport:
                     match_report=MatchReport.from_match(candidate.match),
                     chain=ChainReport.from_info(
                         candidate.chain_info,
-                        ChainStatus.ALREADY_PRESENT,
+                        ChainStatus.COMMITTED_CHAIN,
                         basepairing_status,
                     ),
                     sequence=SequenceReport.from_info(
-                        accession, candidate.chain_info, SequenceStatus.KNOWN_SEQUENCE
+                        accession,
+                        candidate.chain_info,
+                        SequenceStatus.COMMITTED_SEQUENCE,
                     ),
                 )
             case AlignCandidateSequence(candidate=candidate, accession=accession):
@@ -299,7 +308,9 @@ class CandidateReport:
                         basepairing_status,
                     ),
                     sequence=SequenceReport.from_info(
-                        accession, candidate.chain_info, SequenceStatus.KNOWN_SEQUENCE
+                        accession,
+                        candidate.chain_info,
+                        SequenceStatus.COMMITTED_SEQUENCE,
                     ),
                 )
             case _:
@@ -331,7 +342,7 @@ class FamilyReport:
             if basepairing := candidate_action.basepairing:
                 bp_status = BasepairingStatus.NEW_STRUCTURE
                 if family.known_basepairing(basepairing):
-                    bp_status = BasepairingStatus.KNOWN_STRUCTURE
+                    bp_status = BasepairingStatus.COMMITTED_STRUCTURE
             candidate_reports.append(
                 CandidateReport.from_action(candidate_action, bp_status)
             )

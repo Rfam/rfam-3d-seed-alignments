@@ -1,13 +1,6 @@
 import React, { useState } from "react";
-import {
-  Info,
-  ChevronDown,
-  ChevronRight,
-  ExternalLink,
-  SplitSquareHorizontal,
-  ListTree,
-} from "lucide-react";
-import type { RfamFamily, Structure, Chain } from "../types";
+import { Info, ChevronDown, ChevronRight, ExternalLink } from "lucide-react";
+import { RfamFamily, RfamSequence, Structure, Chain } from "../types";
 
 interface CompactFamilyCardProps {
   family: RfamFamily;
@@ -15,57 +8,25 @@ interface CompactFamilyCardProps {
 
 const CompactFamilyCard: React.FC<CompactFamilyCardProps> = ({ family }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [viewMode, setViewMode] = useState<"sequence" | "basepair">("sequence");
 
-  // Calculate summary statistics
+  // Calculate summary statistics from sequences with safe guards for missing data
   const stats = {
-    totalStructures: family.metadata.totalStructures,
-    newStructures: family.sequences.filter(
-      (seq) => seq.status === "new_structure",
+    totalStructures: family.metadata?.totalStructures || 0,
+    newStructures: (family.sequences || []).filter(
+      (seq) => seq && seq.status === "new_structure",
     ).length,
-    newSequences: family.sequences.filter(
-      (seq) => seq.status === "new_structure" || seq.status === "new_sequence",
+    // Count both new_structure and new_sequence for newSequences
+    newSequences: (family.sequences || []).filter(
+      (seq) =>
+        seq &&
+        (seq.status === "new_structure" || seq.status === "new_sequence"),
     ).length,
-    structuresWithBasePairs: family.sequences.filter(
-      (seq) => seq.metadata.hasBasePairs,
+    structuresWithBasePairs: (family.sequences || []).filter(
+      (seq) => seq && seq.metadata && seq.metadata.hasBasePairs,
     ).length,
-    structuresWithPseudoknots: family.sequences.filter(
-      (seq) => seq.metadata.hasPseudoknots,
+    structuresWithPseudoknots: (family.sequences || []).filter(
+      (seq) => seq && seq.metadata && seq.metadata.hasPseudoknots,
     ).length,
-  };
-
-  // Group structures by base pairing pattern
-  const getBasePairPattern = (chain: Chain): string => {
-    return `${chain.hasBasePairs ? "1" : "0"}${chain.hasPseudoknots ? "1" : "0"}`;
-  };
-
-  const groupByBasePairs = () => {
-    const groups: Record<
-      string,
-      {
-        pattern: string;
-        structures: Array<{ structure: Structure; chain: Chain }>;
-      }
-    > = {};
-
-    family.sequences.forEach((sequence) => {
-      sequence.structures.forEach((structure) => {
-        structure.chains.forEach((chain) => {
-          const pattern = getBasePairPattern(chain);
-          if (!groups[pattern]) {
-            groups[pattern] = {
-              pattern,
-              structures: [],
-            };
-          }
-          groups[pattern].structures.push({ structure, chain });
-        });
-      });
-    });
-
-    return Object.values(groups).sort((a, b) =>
-      b.pattern.localeCompare(a.pattern),
-    );
   };
 
   const getStatusColor = (status: string): string => {
@@ -76,21 +37,15 @@ const CompactFamilyCard: React.FC<CompactFamilyCardProps> = ({ family }) => {
       no_matches: "bg-gray-100 text-gray-800",
       new_structure: "bg-purple-100 text-purple-800",
       new_sequence: "bg-blue-100 text-blue-800",
-      already_present: "bg-gray-100 text-gray-800",
+      committed: "bg-gray-100 text-gray-800",
       error: "bg-red-100 text-red-800",
+      unknown: "bg-gray-100 text-gray-800",
     };
     return colors[status] || "bg-gray-100 text-gray-800";
   };
 
-  const getBasePairPatternLabel = (pattern: string): string => {
-    const [hasBasePairs, hasPseudoknots] = pattern.split("");
-    const features = [];
-    if (hasBasePairs === "1") features.push("Base Pairs");
-    if (hasPseudoknots === "1") features.push("Pseudoknots");
-    return features.length ? features.join(" + ") : "No Base Pairs";
-  };
-
-  const shouldShowChainStatus = (status: Chain["status"]): boolean => {
+  const shouldShowChainStatus = (status: string | undefined): boolean => {
+    if (!status) return false;
     return !["new_structure", "new_sequence"].includes(status);
   };
 
@@ -130,37 +85,7 @@ const CompactFamilyCard: React.FC<CompactFamilyCardProps> = ({ family }) => {
           </p>
         </div>
 
-        {/* Middle column - Structure summary */}
-        <div className="flex-grow min-w-[200px]">
-          {stats.totalStructures > 0 ? (
-            <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
-              <div className="flex items-center gap-1">
-                <span className="text-gray-600">Structures:</span>
-                <span className="font-medium">{stats.totalStructures}</span>
-              </div>
-              <div className="flex items-center gap-1">
-                <span className="text-gray-600">New Struct:</span>
-                <span
-                  className={`font-medium ${stats.newStructures > 0 ? "text-purple-600" : ""}`}
-                >
-                  {stats.newStructures}
-                </span>
-              </div>
-              <div className="flex items-center gap-1">
-                <span className="text-gray-600">New Seq:</span>
-                <span
-                  className={`font-medium ${stats.newSequences > 0 ? "text-blue-600" : ""}`}
-                >
-                  {stats.newSequences}
-                </span>
-              </div>
-            </div>
-          ) : (
-            <span className="text-sm text-gray-500">
-              No structures available
-            </span>
-          )}
-        </div>
+        {/* Middle column removed */}
 
         {/* Right column - Feature indicators */}
         {stats.totalStructures > 0 && (
@@ -177,76 +102,64 @@ const CompactFamilyCard: React.FC<CompactFamilyCardProps> = ({ family }) => {
               />
               <span className="text-xs text-gray-600">Pseudoknots</span>
             </div>
-            {family.sequences[0]?.structures[0] && (
+            <a
+              href={`https://rfam.org/family/${family.familyId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 p-1 text-blue-600 hover:text-blue-800"
+              title="View family in Rfam database"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Info className="h-4 w-4" />
+            </a>
+            {family.status !== "skipped" && (
               <a
-                href={`https://www.rcsb.org/structure/${family.sequences[0].structures[0].pdbId}`}
+                href={`https://ftp.ebi.ac.uk/pub/databases/Rfam/.preview/3d/alignments/${family.familyId}.updated.sto`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-2 p-1 text-blue-600 hover:text-blue-800"
-                title="View latest structure in RCSB"
+                className="p-1 text-blue-600 hover:text-blue-800"
+                title="View family alignment"
                 onClick={(e) => e.stopPropagation()}
               >
-                <Info className="h-4 w-4" />
+                <svg
+                  className="h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <line x1="21" y1="10" x2="3" y2="10"></line>
+                  <line x1="21" y1="6" x2="3" y2="6"></line>
+                  <line x1="21" y1="14" x2="3" y2="14"></line>
+                  <line x1="21" y1="18" x2="3" y2="18"></line>
+                </svg>
               </a>
             )}
           </div>
         )}
       </div>
 
-      {/* Expanded View */}
+      {/* Expanded View - Sequences */}
       {isExpanded && hasExpandableContent && (
         <div className="mt-4 ml-6 space-y-4">
-          {/* View Mode Toggle */}
-          <div className="flex items-center gap-2 mb-4">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setViewMode("sequence");
-              }}
-              className={`flex items-center gap-1 px-3 py-1 rounded-md ${
-                viewMode === "sequence"
-                  ? "bg-blue-100 text-blue-800"
-                  : "bg-gray-100 text-gray-600"
-              }`}
-            >
-              <ListTree className="h-4 w-4" />
-              By Sequence
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setViewMode("basepair");
-              }}
-              className={`flex items-center gap-1 px-3 py-1 rounded-md ${
-                viewMode === "basepair"
-                  ? "bg-blue-100 text-blue-800"
-                  : "bg-gray-100 text-gray-600"
-              }`}
-            >
-              <SplitSquareHorizontal className="h-4 w-4" />
-              By Base Pairs
-            </button>
-          </div>
-
-          {viewMode === "sequence"
-            ? // Sequence-based view
-              family.sequences.map((sequence) => (
+          {family.sequences && family.sequences.length > 0 ? (
+            family.sequences.map((sequence, seqIndex) =>
+              sequence ? (
                 <div
-                  key={sequence.sequenceId}
+                  key={`${sequence.sequenceId || seqIndex}`}
                   className="border rounded-lg p-3"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <div className="font-medium text-sm text-gray-700">
-                      {sequence.sequenceId}
-                      <span className="text-gray-500 ml-2">
-                        ({sequence.structures.length} structure
-                        {sequence.structures.length !== 1 ? "s" : ""})
-                      </span>
+                      {sequence.sequenceId || "Unknown Sequence"}
                     </div>
                     <span
-                      className={`px-2 py-0.5 text-xs rounded-full ${getStatusColor(sequence.status)}`}
+                      className={`px-2 py-0.5 text-xs rounded-full ${getStatusColor(sequence.status || "unknown")}`}
                     >
-                      {sequence.status
+                      {(sequence.status || "unknown")
                         .split("_")
                         .map(
                           (word) =>
@@ -256,118 +169,101 @@ const CompactFamilyCard: React.FC<CompactFamilyCardProps> = ({ family }) => {
                     </span>
                   </div>
                   <div className="space-y-2">
-                    {sequence.structures.map((structure) =>
-                      structure.chains.map((chain) => (
-                        <div
-                          key={`${structure.pdbId}-${chain.chainId}`}
-                          className="flex items-center gap-4 text-sm pl-2"
-                        >
-                          {shouldShowChainStatus(chain.status) && (
-                            <span
-                              className={`px-2 py-0.5 rounded-full text-xs ${getStatusColor(chain.status)}`}
+                    {sequence.structures && sequence.structures.length > 0 ? (
+                      sequence.structures.map((structure) =>
+                        structure.chains && structure.chains.length > 0 ? (
+                          structure.chains.map((chain, chainIndex) => (
+                            <div
+                              key={`${structure.pdbId || "unknown"}-${chain.chainId || "unknown"}-${chainIndex}`}
+                              className="flex items-center gap-4 text-sm pl-2"
                             >
-                              {chain.status
-                                .split("_")
-                                .map(
-                                  (word) =>
-                                    word.charAt(0).toUpperCase() +
-                                    word.slice(1),
-                                )
-                                .join(" ")}
-                            </span>
-                          )}
-                          <a
-                            href={`https://www.rcsb.org/structure/${structure.pdbId}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
-                            onClick={(e) => e.stopPropagation()}
+                              {chain.status &&
+                                shouldShowChainStatus(chain.status) && (
+                                  <span
+                                    className={`px-2 py-0.5 rounded-full text-xs ${getStatusColor(chain.status)}`}
+                                  >
+                                    {chain.status
+                                      .split("_")
+                                      .map(
+                                        (word) =>
+                                          word.charAt(0).toUpperCase() +
+                                          word.slice(1),
+                                      )
+                                      .join(" ")}
+                                  </span>
+                                )}
+                              <a
+                                href={`https://www.rcsb.org/structure/${structure.pdbId || "unknown"}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
+                                onClick={(e) => e.stopPropagation()}
+                              >
+                                {structure.pdbId || "unknown"}_
+                                {chain.chainId || "unknown"}
+                                <ExternalLink className="h-3 w-3" />
+                              </a>
+                              <span className="text-gray-500">
+                                {structure.resolution &&
+                                structure.resolution > 0
+                                  ? `${structure.resolution.toFixed(1)}Å`
+                                  : "N/A"}
+                              </span>
+                              <div className="flex gap-3 ml-auto">
+                                <span
+                                  className={
+                                    chain.hasBasePairs
+                                      ? "text-green-600"
+                                      : "text-gray-400"
+                                  }
+                                >
+                                  {chain.hasBasePairs ? "✓" : "✗"} Base Pairs
+                                </span>
+                                <span
+                                  className={
+                                    chain.hasPseudoknots
+                                      ? "text-green-600"
+                                      : "text-gray-400"
+                                  }
+                                >
+                                  {chain.hasPseudoknots ? "✓" : "✗"} Pseudoknots
+                                </span>
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <div
+                            key={`no-chains-${structure.pdbId || "unknown"}`}
+                            className="text-gray-500 text-sm italic pl-2"
                           >
-                            {structure.pdbId}:{chain.chainId}
-                            <ExternalLink className="h-3 w-3" />
-                          </a>
-                          <span className="text-gray-500">
-                            {structure.resolution > 0
-                              ? `${structure.resolution.toFixed(1)}Å`
-                              : "N/A"}
-                          </span>
-                          <div className="flex gap-3 ml-auto">
-                            <span
-                              className={
-                                chain.hasBasePairs
-                                  ? "text-green-600"
-                                  : "text-gray-400"
-                              }
-                            >
-                              {chain.hasBasePairs ? "✓" : "✗"} Base Pairs
-                            </span>
-                            <span
-                              className={
-                                chain.hasPseudoknots
-                                  ? "text-green-600"
-                                  : "text-gray-400"
-                              }
-                            >
-                              {chain.hasPseudoknots ? "✓" : "✗"} Pseudoknots
-                            </span>
+                            No chains available for structure{" "}
+                            {structure.pdbId || "unknown"}
                           </div>
-                        </div>
-                      )),
+                        ),
+                      )
+                    ) : (
+                      <div className="text-gray-500 text-sm italic pl-2">
+                        No structures available
+                      </div>
                     )}
                   </div>
                 </div>
-              ))
-            : // Base pair pattern view
-              groupByBasePairs().map((group) => (
-                <div key={group.pattern} className="border rounded-lg p-3">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="font-medium text-sm text-gray-700">
-                      {getBasePairPatternLabel(group.pattern)}
-                      <span className="text-gray-500 ml-2">
-                        ({group.structures.length} structure
-                        {group.structures.length !== 1 ? "s" : ""})
-                      </span>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    {group.structures.map(({ structure, chain }) => (
-                      <div
-                        key={`${structure.pdbId}-${chain.chainId}`}
-                        className="flex items-center gap-4 text-sm pl-2"
-                      >
-                        {shouldShowChainStatus(chain.status) && (
-                          <span
-                            className={`px-2 py-0.5 rounded-full text-xs ${getStatusColor(chain.status)}`}
-                          >
-                            {chain.status
-                              .split("_")
-                              .map(
-                                (word) =>
-                                  word.charAt(0).toUpperCase() + word.slice(1),
-                              )
-                              .join(" ")}
-                          </span>
-                        )}
-                        <a
-                          href={`https://www.rcsb.org/structure/${structure.pdbId}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-1 text-blue-600 hover:text-blue-800"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          {structure.pdbId}:{chain.chainId}
-                          <ExternalLink className="h-3 w-3" />
-                        </a>
-                        <span className="text-gray-500">
-                          {structure.resolution > 0
-                            ? `${structure.resolution.toFixed(1)}Å`
-                            : "N/A"}
-                        </span>
-                      </div>
-                    ))}
+              ) : (
+                <div
+                  key={`missing-sequence-${seqIndex}`}
+                  className="border rounded-lg p-3"
+                >
+                  <div className="text-gray-500 italic">
+                    Missing sequence data
                   </div>
                 </div>
-              ))}
+              ),
+            )
+          ) : (
+            <div className="text-gray-500 italic p-3">
+              No sequence data available
+            </div>
+          )}
         </div>
       )}
     </div>

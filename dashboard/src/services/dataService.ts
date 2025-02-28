@@ -1,100 +1,28 @@
-import type { RfamFamily, RfamSequence, Structure, Chain } from "../types";
-import localData from "../data/rfam-data.json";
+// dataService.ts - Updated to correctly handle chainId format
 
-function isValidChain(chain: unknown): chain is Chain {
-  return (
-    typeof chain === "object" &&
-    chain !== null &&
-    "chainId" in chain &&
-    "status" in chain &&
-    "hasBasePairs" in chain &&
-    "hasPseudoknots" in chain &&
-    typeof (chain as Chain).chainId === "string" &&
-    typeof (chain as Chain).hasBasePairs === "boolean" &&
-    typeof (chain as Chain).hasPseudoknots === "boolean" &&
-    [
-      "already_present",
-      "new_sequence",
-      "new_structure",
-      "error",
-      "skipped",
-    ].includes((chain as Chain).status)
-  );
-}
+import {
+  FamilyReport,
+  CandidateReport,
+  ChainStatus,
+  FamilyStatus,
+  SequenceStatus,
+  RfamFamily,
+  RfamSequence,
+  Structure,
+  Chain,
+  PdbChainId,
+} from "../types";
 
-export function isValidStructure(structure: unknown): structure is Structure {
-  return (
-    typeof structure === "object" &&
-    structure !== null &&
-    "pdbId" in structure &&
-    "method" in structure &&
-    "resolution" in structure &&
-    "chains" in structure &&
-    typeof (structure as Structure).pdbId === "string" &&
-    ((structure as Structure).method === null ||
-      typeof (structure as Structure).method === "string") &&
-    ((structure as Structure).resolution === null ||
-      typeof (structure as Structure).resolution === "number") &&
-    Array.isArray((structure as Structure).chains) &&
-    (structure as Structure).chains.every(isValidChain)
-  );
-}
-
-function isValidSequence(sequence: unknown): sequence is RfamSequence {
-  return (
-    typeof sequence === "object" &&
-    sequence !== null &&
-    "sequenceId" in sequence &&
-    "structures" in sequence &&
-    "status" in sequence &&
-    "metadata" in sequence &&
-    Array.isArray((sequence as RfamSequence).structures) &&
-    (sequence as RfamSequence).structures.every(isValidStructure) &&
-    ["already_present", "new_sequence", "new_structure"].includes(
-      (sequence as RfamSequence).status,
-    )
-  );
-}
-
-export function isValidRfamFamily(family: unknown): family is RfamFamily {
-  return (
-    typeof family === "object" &&
-    family !== null &&
-    "familyId" in family &&
-    "familyName" in family &&
-    "status" in family &&
-    "sequences" in family &&
-    "metadata" in family &&
-    typeof (family as RfamFamily).familyId === "string" &&
-    typeof (family as RfamFamily).familyName === "string" &&
-    ["complete", "incomplete", "curate", "skipped", "no_matches"].includes(
-      (family as RfamFamily).status,
-    ) &&
-    Array.isArray((family as RfamFamily).sequences) &&
-    (family as RfamFamily).sequences.every(isValidSequence)
-  );
-}
-
-export class RfamServiceError extends Error {
-  constructor(
-    message: string,
-    public readonly statusCode?: number,
-    public readonly originalError?: unknown,
-  ) {
-    super(message);
-    this.name = "RfamServiceError";
-  }
-}
+// Mock data for development environment
+import mockData from "../data/rfam-data-complete.json";
 
 export class RfamService {
   private static instance: RfamService;
-  private readonly apiUrl: string;
-  private readonly dataSource: string;
+  private apiUrl =
+    "https://ftp.ebi.ac.uk/pub/databases/Rfam/.preview/3d/report.txt"; // Default production API endpoint
+  private isDev = process.env.NODE_ENV === "development";
 
-  private constructor() {
-    this.apiUrl = import.meta.env.VITE_API_URL;
-    this.dataSource = import.meta.env.VITE_DATA_SOURCE;
-  }
+  private constructor() {}
 
   public static getInstance(): RfamService {
     if (!RfamService.instance) {
@@ -103,193 +31,299 @@ export class RfamService {
     return RfamService.instance;
   }
 
-  private groupStructuresBySequence(family: any): RfamSequence[] {
-    // Create a map to group structures by sequenceId
-    const sequenceMap = new Map<
-      string,
-      {
-        structures: Structure[];
-        hasBasePairs: boolean;
-        hasPseudoknots: boolean;
-        allChainsNewStructure: boolean;
-        hasNewStructure: boolean;
-      }
-    >();
+  /**
+   * Fetches raw data from the API and transforms it into the dashboard format
+   */
+  public async getData(): Promise<RfamFamily[]> {
+    try {
+      const rawData = await this.fetchFromAPI();
+      const transformedData = this.transformData(rawData);
+      return transformedData;
+    } catch (error) {
+      console.error("[RfamService] Error in getData():", error);
+      throw error;
+    }
+  }
 
-    // First pass: collect all structures for each unique sequenceId
-    family.structures.forEach((structure: Structure) => {
-      structure.chains.forEach((chain) => {
-        if (chain.sequenceId) {
-          const existingSequence = sequenceMap.get(chain.sequenceId);
-          if (!existingSequence) {
-            sequenceMap.set(chain.sequenceId, {
-              structures: [structure],
-              hasBasePairs: chain.hasBasePairs,
-              hasPseudoknots: chain.hasPseudoknots,
-              allChainsNewStructure: chain.status === "new_structure",
-              hasNewStructure: chain.status === "new_structure",
-            });
-          } else {
-            if (
-              !existingSequence.structures.find(
-                (s) => s.pdbId === structure.pdbId,
-              )
-            ) {
-              existingSequence.structures.push(structure);
-            }
-            existingSequence.hasBasePairs =
-              existingSequence.hasBasePairs || chain.hasBasePairs;
-            existingSequence.hasPseudoknots =
-              existingSequence.hasPseudoknots || chain.hasPseudoknots;
-            existingSequence.allChainsNewStructure =
-              existingSequence.allChainsNewStructure &&
-              chain.status === "new_structure";
-            existingSequence.hasNewStructure =
-              existingSequence.hasNewStructure ||
-              chain.status === "new_structure";
-          }
+  /**
+   * Handles fetching from either local mock data (development) or API (production)
+   */
+  private async fetchFromAPI(): Promise<FamilyReport[]> {
+    // Use mock data in development mode
+    if (this.isDev) {
+      console.log("[RfamService] Using mock data in development mode");
+      try {
+        if (mockData) {
+          console.log(
+            "[RfamService] Mock data length:",
+            Array.isArray(mockData) ? mockData.length : "Not an array",
+          );
         }
-      });
-    });
-
-    // Convert map to array of RfamSequences
-    return Array.from(sequenceMap.entries()).map(([sequenceId, data]) => ({
-      sequenceId,
-      structures: data.structures,
-      // If any chain is new_structure, mark as new_structure
-      // Otherwise, it's a new_sequence (since it's in our data)
-      status: data.hasNewStructure ? "new_structure" : "new_sequence",
-      metadata: {
-        length: 0, // This would need to be populated with actual sequence length if available
-        hasBasePairs: data.hasBasePairs,
-        hasPseudoknots: data.hasPseudoknots,
-      },
-    }));
-  }
-
-  private calculateFamilyStats(family: any) {
-    const stats = {
-      totalStructures: family.structures.length,
-      totalNewStructures: 0,
-      totalNewSequenceStructures: 0,
-      hasNewStructures: false,
-      hasNewSequences: false,
-      hasBasePairs: false,
-      hasPseudoknots: false,
-    };
-
-    // Count structures based on their chain statuses
-    family.structures.forEach((structure: Structure) => {
-      const hasNewStructure = structure.chains.some(
-        (chain) => chain.status === "new_structure",
-      );
-      const hasNewSequence = structure.chains.some(
-        (chain) =>
-          chain.status === "new_structure" || chain.status === "new_sequence",
-      );
-
-      if (hasNewStructure) {
-        stats.totalNewStructures++;
-        stats.hasNewStructures = true;
-        stats.hasNewSequences = true; // new_structure implies new_sequence
-      } else if (hasNewSequence) {
-        stats.totalNewSequenceStructures++;
-        stats.hasNewSequences = true;
+        return Promise.resolve(mockData as FamilyReport[]);
+      } catch (error) {
+        console.error("[RfamService] Error loading mock data:", error);
+        throw new Error(`Failed to load mock data: ${error}`);
       }
+    }
 
-      // Check for structural features
-      structure.chains.forEach((chain) => {
-        if (chain.hasBasePairs) stats.hasBasePairs = true;
-        if (chain.hasPseudoknots) stats.hasPseudoknots = true;
-      });
-    });
-
-    return stats;
-  }
-
-  private transformLegacyData(families: any[]): RfamFamily[] {
-    return families.map((family) => {
-      const sequences = this.groupStructuresBySequence(family);
-      const stats = this.calculateFamilyStats(family);
-
-      return {
-        familyId: family.familyId,
-        familyName: family.familyName,
-        status: family.status,
-        sequences,
-        metadata: {
-          totalStructures: stats.totalStructures,
-          totalSequences: sequences.length,
-          totalNewStructures: stats.totalNewStructures,
-          totalNewSequenceStructures: stats.totalNewSequenceStructures,
-          hasNewStructures: stats.hasNewStructures,
-          hasNewSequences: stats.hasNewSequences,
-          hasBasePairs: stats.hasBasePairs,
-          hasPseudoknots: stats.hasPseudoknots,
-        },
-      };
-    });
-  }
-
-  private sortSequencesByStatus(families: RfamFamily[]): RfamFamily[] {
-    return families.map((family) => ({
-      ...family,
-      sequences: [...family.sequences].sort((a, b) => {
-        const statusPriority = {
-          new_structure: 0,
-          new_sequence: 1,
-          already_present: 2,
-        };
-        return statusPriority[a.status] - statusPriority[b.status];
-      }),
-    }));
-  }
-
-  private async fetchFromApi(): Promise<RfamFamily[]> {
+    // Fetch from API in production mode
     try {
       const response = await fetch(this.apiUrl);
+
       if (!response.ok) {
-        throw new RfamServiceError(
-          `HTTP error! status: ${response.status}`,
-          response.status,
-        );
+        throw new Error(`Failed to fetch data: ${response.statusText}`);
       }
+
       const data = await response.json();
-      if (!Array.isArray(data)) {
-        throw new RfamServiceError("Invalid data structure received from API");
-      }
-
-      const transformedData = this.transformLegacyData(data);
-
-      if (!transformedData.every(isValidRfamFamily)) {
-        throw new RfamServiceError(
-          "Invalid data structure after transformation",
-        );
-      }
-
-      return this.sortSequencesByStatus(transformedData);
+      return data;
     } catch (error) {
-      if (error instanceof RfamServiceError) {
-        throw error;
+      throw error;
+    }
+  }
+
+  /**
+   * Transforms the raw API data into the dashboard-friendly format
+   */
+  private transformData(rawData: FamilyReport[]): RfamFamily[] {
+    return rawData.map((family) => this.transformFamily(family));
+  }
+
+  /**
+   * Extracts a standardized chainId string from various possible formats
+   * @param candidateChainId The chainId from a candidate (can be string or object)
+   * @returns A chainId in the format "pdbId_chainId"
+   */
+  private extractChainId(candidateChainId: any): {
+    pdbId: string;
+    chainId: string;
+    fullChainId: string;
+  } {
+    let pdbId = "unknown";
+    let chainId = "unknown";
+    let fullChainId = "";
+
+    // If it's already a string in pdb_chain format
+    if (typeof candidateChainId === "string") {
+      if (candidateChainId.includes("_")) {
+        const parts = candidateChainId.split("_");
+        pdbId = parts[0];
+        chainId = parts.slice(1).join("_"); // In case chain id contains underscores
+        fullChainId = candidateChainId;
+      } else {
+        // If it doesn't have the expected format, use as is
+        pdbId = "unknown";
+        chainId = candidateChainId;
+        fullChainId = `${pdbId}_${chainId}`;
       }
-      throw new RfamServiceError("Failed to fetch Rfam data", undefined, error);
     }
+    // If it's a complex object with nested pdbId
+    else if (
+      typeof candidateChainId === "object" &&
+      candidateChainId !== null
+    ) {
+      if (candidateChainId.pdbId && candidateChainId.chainId) {
+        // Handle nested pdbId object
+        if (
+          typeof candidateChainId.pdbId === "object" &&
+          candidateChainId.pdbId.pdbId
+        ) {
+          pdbId = candidateChainId.pdbId.pdbId;
+        } else if (typeof candidateChainId.pdbId === "string") {
+          pdbId = candidateChainId.pdbId;
+        }
+
+        chainId = candidateChainId.chainId;
+        fullChainId = `${pdbId}_${chainId}`;
+      }
+    }
+
+    return { pdbId, chainId, fullChainId };
   }
 
-  private getLocalData(): RfamFamily[] {
-    const transformedData = this.transformLegacyData(localData);
+  /**
+   * Transforms a FamilyReport into an RfamFamily
+   */
+  private transformFamily(family: FamilyReport): RfamFamily {
+    // Group candidates by sequence ID
+    const sequenceGroups = new Map<string, CandidateReport[]>();
 
-    if (!transformedData.every(isValidRfamFamily)) {
-      throw new RfamServiceError("Invalid local data structure");
-    }
+    // First pass: group candidates by sequence ID
+    family.candidates.forEach((candidate) => {
+      if (candidate.sequence && candidate.chain) {
+        // Extract chainId information
+        const chainIdInfo = this.extractChainId(candidate.chainId);
 
-    return this.sortSequencesByStatus(transformedData);
+        const seqId =
+          candidate.sequence.sequenceId || `unknown-${chainIdInfo.fullChainId}`;
+        if (!sequenceGroups.has(seqId)) {
+          sequenceGroups.set(seqId, []);
+        }
+        sequenceGroups.get(seqId)!.push(candidate);
+      }
+    });
+
+    // Transform sequence groups into RfamSequence objects
+    const sequences: RfamSequence[] = [];
+
+    sequenceGroups.forEach((candidates, sequenceId) => {
+      // Group structures by PDB ID
+      const structureGroups = new Map<string, CandidateReport[]>();
+
+      candidates.forEach((candidate) => {
+        // Extract chainId information
+        const chainIdInfo = this.extractChainId(candidate.chainId);
+
+        if (!structureGroups.has(chainIdInfo.pdbId)) {
+          structureGroups.set(chainIdInfo.pdbId, []);
+        }
+        structureGroups.get(chainIdInfo.pdbId)!.push(candidate);
+      });
+
+      // Convert to Structure objects
+      const structures: Structure[] = Array.from(structureGroups.entries()).map(
+        ([pdbId, candidates]) => {
+          const chains: Chain[] = candidates.map((candidate) => {
+            // Extract chainId information
+            const chainIdInfo = this.extractChainId(candidate.chainId);
+
+            // Use the chain object to get properties (with appropriate fallbacks)
+            return {
+              chainId: chainIdInfo.chainId,
+              status: candidate.chain
+                ? this.mapChainStatus(candidate.chain.status)
+                : "error",
+              hasBasePairs: candidate.chain
+                ? !!candidate.chain.hasBasePairs
+                : false,
+              hasPseudoknots: candidate.chain
+                ? !!candidate.chain.hasPseudoknots
+                : false,
+              pdbId: chainIdInfo.pdbId,
+            };
+          });
+
+          return {
+            pdbId,
+            method: "", // This info might not be available in the new format
+            resolution: -1, // This info might not be available in the new format
+            chains,
+          };
+        },
+      );
+
+      // Determine sequence status based on chain statuses
+      const hasNewStructure = candidates.some(
+        (c) => c.chain!.status === ChainStatus.NEW_CHAIN,
+      );
+      const status = hasNewStructure
+        ? "new_structure"
+        : candidates[0].sequence!.status === SequenceStatus.NEW_SEQUENCE
+          ? "new_sequence"
+          : "committed";
+
+      // Create sequence object
+      const sequence: RfamSequence = {
+        sequenceId: sequenceId,
+        structures,
+        status,
+        metadata: {
+          length: candidates[0].sequence!.sequenceLength,
+          hasBasePairs: candidates.some((c) => c.chain!.hasBasePairs),
+          hasPseudoknots: candidates.some((c) => c.chain!.hasPseudoknots),
+        },
+      };
+
+      sequences.push(sequence);
+    });
+
+    // Additional logic to handle cases where there are candidates without sequences
+    // (e.g., errors, skipped)
+    family.candidates
+      .filter((c) => !c.sequence)
+      .forEach((candidate) => {
+        if (!candidate.chain) return; // Skip completely empty candidates
+
+        // Extract chainId information
+        const chainIdInfo = this.extractChainId(candidate.chainId);
+
+        const chain: Chain = {
+          chainId: chainIdInfo.chainId,
+          status: this.mapChainStatus(candidate.chain.status),
+          hasBasePairs: candidate.chain.hasBasePairs,
+          hasPseudoknots: candidate.chain.hasPseudoknots,
+          pdbId: chainIdInfo.pdbId,
+        };
+
+        // Create a "placeholder" sequence for error/skipped chains
+        const sequence: RfamSequence = {
+          sequenceId: `error-${chainIdInfo.fullChainId}`,
+          structures: [
+            {
+              pdbId: chainIdInfo.pdbId,
+              method: "",
+              resolution: -1,
+              chains: [chain],
+            },
+          ],
+          status: "error",
+          metadata: {
+            length: 0,
+            hasBasePairs: candidate.chain.hasBasePairs,
+            hasPseudoknots: candidate.chain.hasPseudoknots,
+          },
+        };
+
+        sequences.push(sequence);
+      });
+
+    // Determine best resolution across all structures if available
+    const bestResolution =
+      sequences
+        .flatMap((seq) => seq.structures)
+        .filter((s) => s.resolution > 0)
+        .reduce((best, s) => Math.min(best, s.resolution), Infinity) || -1;
+
+    // Create the family object
+    return {
+      familyId: family.familyId,
+      familyName: family.familyName,
+      status: this.mapFamilyStatus(family.status),
+      sequences,
+      metadata: {
+        totalStructures: sequences.reduce(
+          (sum, seq) => sum + seq.structures.length,
+          0,
+        ),
+        totalSequences: sequences.length,
+        bestResolution,
+      },
+    };
   }
 
-  public async getData(): Promise<RfamFamily[]> {
-    if (this.dataSource === "local") {
-      return this.getLocalData();
-    }
-    return this.fetchFromApi();
+  /**
+   * Maps ChainStatus enum to display-friendly string
+   */
+  private mapChainStatus(status: ChainStatus): string {
+    const statusMap: Record<ChainStatus, string> = {
+      [ChainStatus.COMMITTED_CHAIN]: "committed",
+      [ChainStatus.NEW_CHAIN]: "new_structure",
+      [ChainStatus.ERROR]: "error",
+      [ChainStatus.SKIPPED_CHAIN]: "skipped",
+    };
+    return statusMap[status];
+  }
+
+  /**
+   * Maps FamilyStatus enum to display-friendly string
+   */
+  private mapFamilyStatus(status: FamilyStatus): string {
+    const statusMap: Record<FamilyStatus, string> = {
+      [FamilyStatus.COMPLETE]: "complete",
+      [FamilyStatus.CURATE]: "curatable",
+      [FamilyStatus.INCOMPLETE]: "updated",
+      [FamilyStatus.NO_VALID]: "no_matches",
+      [FamilyStatus.SKIPPED]: "skipped",
+    };
+    return statusMap[status];
   }
 }

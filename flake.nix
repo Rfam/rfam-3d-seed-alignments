@@ -2,17 +2,31 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     devenv.url = "github:cachix/devenv";
-    personal = { url = "sourcehut:~showyourcode/flakes"; inputs.nixpkgs.follows = "nixpkgs"; };
+    personal = {
+      url = "sourcehut:~showyourcode/flakes";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ flake-parts, nixpkgs, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+  outputs = inputs @ {
+    flake-parts,
+    nixpkgs,
+    ...
+  }:
+    flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [
         inputs.devenv.flakeModule
       ];
       systems = nixpkgs.lib.systems.flakeExposed;
 
-      perSystem = { config, self', inputs', pkgs, system, ... }: {
+      perSystem = {
+        config,
+        self',
+        inputs',
+        pkgs,
+        system,
+        ...
+      }: {
         # Per-system attributes can be defined here. The self' and inputs'
         # module parameters provide easy access to attributes of the same
         # system.
@@ -29,6 +43,8 @@
             infernal
             nextflow
             graphviz
+            ruff
+            basedpyright
           ];
 
           languages = {
